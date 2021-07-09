@@ -1,6 +1,7 @@
 namespace ConcreteProducts.Web
 {
     using ConcreteProducts.Web.Data;
+    using ConcreteProducts.Web.Infrastructure;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -19,7 +20,7 @@ namespace ConcreteProducts.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddDbContext<ApplicationDbContext>(options => options
+                .AddDbContext<ConcreteProductsDbContext>(options => options
                     .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services
@@ -33,7 +34,7 @@ namespace ConcreteProducts.Web
                     options.Password.RequireUppercase = false;
                     options.Password.RequireLowercase = false;
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ConcreteProductsDbContext>();
 
             services
                 .AddControllersWithViews();
@@ -41,6 +42,8 @@ namespace ConcreteProducts.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.ApplyMigrations();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
