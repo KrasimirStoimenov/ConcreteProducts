@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using ConcreteProducts.Web.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-
-namespace ConcreteProducts.Web.Controllers
+﻿namespace ConcreteProducts.Web.Controllers
 {
+    using System.Diagnostics;
+    using ConcreteProducts.Web.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

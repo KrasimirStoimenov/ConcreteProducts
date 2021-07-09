@@ -1,5 +1,3 @@
-using System;
-
 namespace ConcreteProducts.Web.Models
 {
     public class ErrorViewModel
