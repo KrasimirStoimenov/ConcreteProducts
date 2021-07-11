@@ -13,11 +13,11 @@
         [MaxLength(ProductNameMaxLength)]
         public string Name { get; set; }
 
-        public double QuantityInPalletInUnitMeasurement { get; set; }
+        public double QuantityInPalletInUnitOfMeasurement { get; set; }
 
         public double QuantityInPalletInPieces { get; set; }
 
-        public double CountInUnitMessurement { get; set; }
+        public double CountInUnitOfMeasurement { get; set; }
 
         public double Weight { get; set; }
 

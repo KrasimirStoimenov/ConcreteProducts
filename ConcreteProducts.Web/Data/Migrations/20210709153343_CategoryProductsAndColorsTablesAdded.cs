@@ -39,9 +39,9 @@ namespace ConcreteProducts.Web.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    QuantityInPalletInUnitMeasurement = table.Column<double>(type: "float", nullable: false),
+                    QuantityInPalletInUnitOfMeasurement = table.Column<double>(type: "float", nullable: false),
                     QuantityInPalletInPieces = table.Column<double>(type: "float", nullable: false),
-                    CountInUnitMessurement = table.Column<double>(type: "float", nullable: false),
+                    CountInUnitOfMeasurement = table.Column<double>(type: "float", nullable: false),
                     Weight = table.Column<double>(type: "float", nullable: false),
                     UnitOfMeasurement = table.Column<int>(type: "int", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
