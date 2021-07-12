@@ -1,9 +1,9 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
     using System.Diagnostics;
-    using ConcreteProducts.Web.Models;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
+    using ConcreteProducts.Web.Models;
 
     public class HomeController : Controller
     {

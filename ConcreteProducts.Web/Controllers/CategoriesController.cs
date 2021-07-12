@@ -1,9 +1,9 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Models.Categories;
-    using Microsoft.AspNetCore.Mvc;
 
     public class CategoriesController : Controller
     {

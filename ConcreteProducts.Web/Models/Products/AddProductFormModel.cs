@@ -13,6 +13,7 @@
             ProductNameMaxLength,
             MinimumLength = ProductNameMinLength,
             ErrorMessage = DefaultNameErrorMessage)]
+        [Display(Name = "Product name")]
         public string Name { get; init; }
 
         [Range(

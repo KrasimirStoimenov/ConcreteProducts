@@ -1,11 +1,11 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
-    using System.Collections.Generic;
     using System.Linq;
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Mvc;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Models.Products;
-    using Microsoft.AspNetCore.Mvc;
 
     public class ProductsController : Controller
     {

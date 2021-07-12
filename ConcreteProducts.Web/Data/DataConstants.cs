@@ -4,6 +4,10 @@
     {
         public const string DefaultNameErrorMessage = "{0} should be between {2} and {1} characters long";
 
+        public const string QuantityErrorMessage = "The field must be between {1} and {2}";
+
+        public const string InvalidUnitOfMeasurementValue = "Invalid value";
+
         public const int ProductNameMaxLength = 200;
         public const int ProductNameMinLength = 5;
 
@@ -25,8 +29,6 @@
         public const int CountInUnitMeasurementMinValue = 1;
         public const int CountInUnitMeasurementMaxValue = 200;
 
-        public const string QuantityErrorMessage = "The field must be between {1} and {2}";
 
-        public const string InvalidUnitOfMeasurementValue = "Invalid value";
     }
 }
