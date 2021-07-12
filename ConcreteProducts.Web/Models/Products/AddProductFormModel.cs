@@ -12,7 +12,7 @@
         [StringLength(
             ProductNameMaxLength,
             MinimumLength = ProductNameMinLength,
-            ErrorMessage = ProductNameErrorMessage)]
+            ErrorMessage = DefaultNameErrorMessage)]
         public string Name { get; init; }
 
         [Range(

@@ -2,12 +2,15 @@
 {
     public class DataConstants
     {
+        public const string DefaultNameErrorMessage = "{0} should be between {2} and {1} characters long";
+
         public const int ProductNameMaxLength = 200;
         public const int ProductNameMinLength = 5;
-        public const string ProductNameErrorMessage = "Product name should be between {2} and {1} characters long";
 
+        public const int CategoryNameMinLength = 3;
         public const int CategoryNameMaxLength = 200;
 
+        public const int ColorNameMinLength = 3;
         public const int ColorNameMaxLength = 50;
 
         public const int WeightMinValue = 1;
