@@ -6,7 +6,7 @@
 
     using static Data.DataConstants;
 
-    public class CreateProductFormModel
+    public class AddProductFormModel
     {
         [Required]
         [StringLength(

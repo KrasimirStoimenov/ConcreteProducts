@@ -14,15 +14,15 @@
         public ProductsController(ConcreteProductsDbContext data)
             => this.data = data;
 
-        public IActionResult Create()
-            => View(new CreateProductFormModel
+        public IActionResult Add()
+            => View(new AddProductFormModel
             {
                 Categories = this.GetProductCategories(),
                 Colors = this.GetProductColors()
             });
 
         [HttpPost]
-        public IActionResult Create(CreateProductFormModel product)
+        public IActionResult Add(AddProductFormModel product)
         {
             if (!this.data.Categories.Any(c => c.Id == product.CategoryId))
             {
