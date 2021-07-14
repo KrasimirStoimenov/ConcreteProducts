@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Concrete Products</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -19,7 +20,15 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Add">Add Product</a>
+                            <div class="btn-group">
+                                <a class="nav-link text-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Products
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">All Products</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Add">Add Product</a>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />

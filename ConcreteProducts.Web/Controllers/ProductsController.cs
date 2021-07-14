@@ -14,6 +14,23 @@
         public ProductsController(ConcreteProductsDbContext data)
             => this.data = data;
 
+        public IActionResult All()
+        {
+            var products = this.data.Products
+                .Select(p => new ProductListingViewModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    ImageUrl = p.ImageUrl,
+                    QuantityInPalletInPieces = p.QuantityInPalletInPieces,
+                    QuantityInPalletInUnitOfMeasurement = p.QuantityInPalletInUnitOfMeasurement,
+                    UnitOfMeasurement = p.UnitOfMeasurement
+                })
+                .ToList();
+
+            return View(products);
+        }
+
         public IActionResult Add()
             => View(new AddProductFormModel
             {

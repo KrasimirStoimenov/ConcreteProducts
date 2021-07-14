@@ -57,27 +57,75 @@
                             }
                         </select>
                         <div class="input-group-append">
-                            <a class="btn btn-success" asp-area="" asp-controller="Categories" asp-action="Add">Add new</a>
+                            <a class="btn btn-success" title="Add new" asp-area="" asp-controller="Categories" asp-action="Add"><i class="fas fa-plus"></i></a>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteCategoryModal" title="Delete">
+                                <i class="fas fa-times"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="ColorId"></label>
                     <div class="input-group">
-                        <select asp-for="ColorId" class="form-control">
+                        <select asp-for="ColorId" class="form-control" id="slctProcedure">
                             @foreach (var color in Model.Colors)
                             {
                                 <option value="@color.Id">@color.Name</option>
                             }
                         </select>
                         <div class="input-group-append">
-                            <a class="btn btn-success" asp-area="" asp-controller="Colors" asp-action="Add">Add new</a>
+                            <a class="btn btn-success" title="Add new" asp-area="" asp-controller="Colors" asp-action="Add"><i class="fas fa-plus"></i></a>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteColorModal" title="Delete">
+                                <i class="fas fa-times"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-
                 <input class="btn btn-primary" type="submit" value="Save" />
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCategoryModal">Delete category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete selected category?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <a class="btn btn-primary" asp-area="" asp-controller="Categories" asp-action="Delete">Yes</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteColorModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteColorModal">Delete color</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete selected color?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <a class="btn btn-primary" asp-area="" asp-controller="Colors" asp-action="Delete">Yes</a>
+            </div>
         </div>
     </div>
 </div>
