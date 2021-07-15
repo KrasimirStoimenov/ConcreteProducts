@@ -4,18 +4,22 @@
     ViewData["Title"] = "All Products";
 }
 
+<h2 class="headingMargin text-center">@ViewData["Title"]</h2>
+
 <div class="row">
     @foreach (var product in Model)
     {
-        <div class="card mb-5 ml-3" style="width: 18rem;">
-            <img class="card-img-top mb-6" src="@product.ImageUrl" alt="@product.Name">
+        <div class="card mb-3 ml-2" style="width: 17rem;">
+            <img class="card-img-top" height="200" src="@product.ImageUrl" alt="@product.Name">
             <div class="card-body">
-                <h5 class="card-title">@product.Name</h5>
-                <h6>Specifiations:</h6>
-                <div class="text-center">Quantity In Pallet In Pieces @product.QuantityInPalletInPieces</div>
-                <div class="text-center">@product.QuantityInPalletInUnitOfMeasurement @product.UnitOfMeasurement.ToString()</div>
+                <br />
+                <h5 class="card-title"><br />@product.Name</h5>
+                <h6><br /><hr />Specifiations:</h6>
+                <div class="text-center"><br />Quantity In Pallet In Pieces @product.QuantityInPalletInPieces</div>
+                <div class="text-center"><br />@product.QuantityInPalletInUnitOfMeasurement @product.UnitOfMeasurement.ToString()</div><br />
                 <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a>
             </div>
         </div>
     }
 </div>
+
