@@ -15,7 +15,7 @@
                 <br />
                 <h5 class="card-title"><br />@product.Name</h5>
                 <h6><br /><hr />Specifiations:</h6>
-                <div class="text-center"><br />Quantity In Pallet In Pieces @product.QuantityInPalletInPieces</div>
+                <div class="text-center"><br />Quantity In Pallet In Pieces - @product.QuantityInPalletInPieces</div>
                 <div class="text-center"><br />@product.QuantityInPalletInUnitOfMeasurement @product.UnitOfMeasurement.ToString()</div><br />
                 <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a>
             </div>

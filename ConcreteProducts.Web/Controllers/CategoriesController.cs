@@ -47,7 +47,7 @@
             this.data.Categories.Add(currentCategory);
             this.data.SaveChanges();
 
-            return RedirectToAction("Add", "Products");
+            return RedirectToAction("All", "Categories");
         }
     }
 }

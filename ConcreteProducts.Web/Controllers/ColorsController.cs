@@ -4,6 +4,7 @@
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Models.Colors;
     using ConcreteProducts.Web.Data.Models;
+    using System.Linq;
 
     public class ColorsController : Controller
     {
@@ -11,6 +12,19 @@
 
         public ColorsController(ConcreteProductsDbContext data)
             => this.data = data;
+
+        public IActionResult All()
+        {
+            var colors = this.data.Colors
+                .Select(c => new ColorListingModel
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                })
+                .ToList();
+
+            return View(colors);
+        }
 
         public IActionResult Add()
             => View(new AddColorFormModel());
@@ -31,7 +45,7 @@
             this.data.Colors.Add(currentColor);
             this.data.SaveChanges();
 
-            return RedirectToAction("Add", "Products");
+            return RedirectToAction("All", "Colors");
         }
     }
 }

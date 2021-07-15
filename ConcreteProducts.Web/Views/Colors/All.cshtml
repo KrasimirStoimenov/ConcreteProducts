@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ColorListingModel>
+
+@{
+    ViewData["Title"] = "All Colors";
+}
+
+<div class="container">
+    <div class="row">
+        <h2 class="headingMargin text-center offset-md-3 col-md-6 col-sm-12">@ViewData["Title"]</h2>
+        <table class="table table-hover offset-md-1 col-md-10">
+            <thead>
+                <tr>
+                    <th class="col-1 text-center" scope="col">#</th>
+                    <th class="col-6 text-center" scope="col">Color name</th>
+                    <th class="col-3 text-center" scope="col"><i class="fas fa-edit"></i> Edit/ <i class="fas fa-times"></i> Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var color in Model)
+                {
+                    <tr>
+                        <th scope="row" class="text-center">@color.Id</th>
+                        <td class="text-center">@color.Name</td>
+                        <td class="text-center">
+                            <div class="input-group-append">
+                                <a class="btn btn-info offset-3 col-3 text-center" title="Edit" asp-area="" asp-controller="Categories" asp-action="Edit" asp-route-id="@color.Id"><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-danger offset-3 col-3 text-center" title="Delete" asp-area="" asp-controller="Categories" asp-action="Delete" asp-route-id="@color.Id"><i class="fas fa-times"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a class="btn btn-success text-center offset-md-3 col-md-6 col-sm-12" title="Add new" asp-area="" asp-controller="Colors" asp-action="Add"><i class="fas fa-plus"></i> Add new</a>
+    </div>
+</div>
+
+
