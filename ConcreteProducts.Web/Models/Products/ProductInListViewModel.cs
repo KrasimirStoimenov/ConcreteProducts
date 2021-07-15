@@ -3,7 +3,7 @@
     using System.ComponentModel.DataAnnotations;
     using ConcreteProducts.Web.Data.Models.Enumerations;
 
-    public class ProductListingViewModel
+    public class ProductInListViewModel
     {
         public int Id { get; init; }
 

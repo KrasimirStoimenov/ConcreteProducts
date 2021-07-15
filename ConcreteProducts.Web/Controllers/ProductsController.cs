@@ -14,10 +14,15 @@
         public ProductsController(ConcreteProductsDbContext data)
             => this.data = data;
 
-        public IActionResult All()
+        public IActionResult All(int id = 1)
         {
+            const int itemsPerPage = 8;
+
             var products = this.data.Products
-                .Select(p => new ProductListingViewModel
+                .OrderByDescending(p => p.Id)
+                .Skip((id - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .Select(p => new ProductInListViewModel
                 {
                     Id = p.Id,
                     Name = p.Name,
@@ -28,7 +33,15 @@
                 })
                 .ToList();
 
-            return View(products);
+            var productsViewModel = new ProductListViewModel
+            {
+                ItemsPerPage=itemsPerPage,
+                Products = products,
+                ProductsCount = this.data.Products.Count(),
+                PageNumber = id
+            };
+
+            return View(productsViewModel);
         }
 
         public IActionResult Add()
@@ -80,7 +93,7 @@
             this.data.SaveChanges();
             var categoryProducts = this.data.Categories.SelectMany(c => c.Products);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("All");
         }
 
         private IEnumerable<ProductCategoryViewModel> GetProductCategories()

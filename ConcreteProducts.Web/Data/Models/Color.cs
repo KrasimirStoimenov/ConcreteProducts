@@ -13,6 +13,8 @@
         [MaxLength(ColorNameMaxLength)]
         public string Name { get; set; }
 
+        public string ColorImageUrl { get; set; }
+
         public ICollection<ProductColor> ProductColors { get; init; } = new HashSet<ProductColor>();
     }
 }
