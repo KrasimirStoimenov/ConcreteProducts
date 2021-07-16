@@ -44,14 +44,19 @@
         [Display(Name = "Count in unit of measurement")]
         public double CountInUnitOfMeasurement { get; init; }
 
+        [EnumDataType(typeof(UnitOfMeasurement))]
+        public UnitOfMeasurement UnitOfMeasurement { get; init; }
+
         [Range(
             ProductWeightMinValue,
             ProductWeightMaxValue,
             ErrorMessage = QuantityErrorMessage)]
         public double Weight { get; init; }
 
-        [EnumDataType(typeof(UnitOfMeasurement))]
-        public UnitOfMeasurement UnitOfMeasurement { get; init; }
+        [Required]
+        [Url]
+        [Display(Name = "Image URL")]
+        public string ImageUrl { get; init; }
 
         [Display(Name = "Category")]
         public int CategoryId { get; init; }
@@ -59,8 +64,13 @@
         [Display(Name = "Color")]
         public int ColorId { get; init; }
 
+        [Display(Name = "Warehouse")]
+        public int WarehouseId { get; init; }
+
         public IEnumerable<ProductCategoryViewModel> Categories { get; set; }
 
         public IEnumerable<ProductColorViewModel> Colors { get; set; }
+
+        public IEnumerable<ProductWarehouseViewModel> Warehouses { get; set; }
     }
 }

@@ -49,26 +49,20 @@
             => View(new AddProductFormModel
             {
                 Categories = this.GetProductCategories(),
-                Colors = this.GetProductColors()
+                Colors = this.GetProductColors(),
+                Warehouses = this.GetProductWarehouses()
             });
 
         [HttpPost]
         public IActionResult Add(AddProductFormModel product)
         {
-            if (!this.data.Categories.Any(c => c.Id == product.CategoryId))
-            {
-                this.ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist.");
-            }
-
-            if (!this.data.Colors.Any(c => c.Id == product.ColorId))
-            {
-                this.ModelState.AddModelError(nameof(product.ColorId), "Color does not exist.");
-            }
+            this.ValidateCollections(product);
 
             if (!ModelState.IsValid)
             {
                 product.Categories = this.GetProductCategories();
                 product.Colors = this.GetProductColors();
+                product.Warehouses = this.GetProductWarehouses();
 
                 return View(product);
             }
@@ -83,18 +77,37 @@
                 UnitOfMeasurement = product.UnitOfMeasurement,
                 Weight = product.Weight,
                 CategoryId = product.CategoryId,
+                WarehouseId = product.WarehouseId
             };
 
             currentProduct.ProductColors.Add(new ProductColor
             {
-                ColorId = product.ColorId
+                ColorId = product.ColorId,
+                ImageUrl = product.ImageUrl
             });
 
             this.data.Products.Add(currentProduct);
             this.data.SaveChanges();
-            var categoryProducts = this.data.Categories.SelectMany(c => c.Products);
 
             return RedirectToAction("All");
+        }
+
+        private void ValidateCollections(AddProductFormModel product)
+        {
+            if (!this.data.Categories.Any(c => c.Id == product.CategoryId))
+            {
+                this.ModelState.AddModelError(nameof(product.CategoryId), $"{nameof(product.CategoryId)} does not exist.");
+            }
+
+            if (!this.data.Colors.Any(c => c.Id == product.ColorId))
+            {
+                this.ModelState.AddModelError(nameof(product.ColorId), $"{nameof(product.ColorId)} does not exist.");
+            }
+
+            if (!this.data.Warehouses.Any(c => c.Id == product.WarehouseId))
+            {
+                this.ModelState.AddModelError(nameof(product.WarehouseId), $"{nameof(product.WarehouseId)} does not exist.");
+            }
         }
 
         private IEnumerable<ProductCategoryViewModel> GetProductCategories()
@@ -114,6 +127,16 @@
                 {
                     Id = c.Id,
                     Name = c.Name
+                })
+                .ToList();
+
+        private IEnumerable<ProductWarehouseViewModel> GetProductWarehouses()
+            => this.data
+                .Warehouses
+                .Select(w => new ProductWarehouseViewModel
+                {
+                    Id = w.Id,
+                    Name = w.Name
                 })
                 .ToList();
     }
