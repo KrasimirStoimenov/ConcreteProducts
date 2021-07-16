@@ -16,38 +16,42 @@
         [Display(Name = "Product name")]
         public string Name { get; init; }
 
+        [Required]
+        [StringLength(
+            ProductDimensionsMaxLength,
+            MinimumLength = ProductDimensionsMinLength,
+            ErrorMessage = DefaultNameErrorMessage)]
+        public string Dimensions { get; init; }
+
         [Range(
-            QuantityInPalletInUnitMeasurementMinValue,
-            QuantityInPalletInUnitMeasurementMaxValue,
+            ProductQuantityInPalletInUnitMeasurementMinValue,
+            ProductQuantityInPalletInUnitMeasurementMaxValue,
             ErrorMessage = QuantityErrorMessage)]
         [Display(Name = "Quantity in pallet in unit of measurement")]
         public double QuantityInPalletInUnitOfMeasurement { get; init; }
 
         [Range(
-            QuantityInPalletInPiecesMinValue,
-            QuantityInPalletInPiecesMaxValue,
+            ProductQuantityInPalletInPiecesMinValue,
+            ProductQuantityInPalletInPiecesMaxValue,
             ErrorMessage = QuantityErrorMessage)]
         [Display(Name = "Quantity in pallet in pieces")]
         public double QuantityInPalletInPieces { get; init; }
 
         [Range(
-            CountInUnitMeasurementMinValue,
-            CountInUnitMeasurementMaxValue,
+            ProductCountInUnitMeasurementMinValue,
+            ProductCountInUnitMeasurementMaxValue,
             ErrorMessage = QuantityErrorMessage)]
         [Display(Name = "Count in unit of measurement")]
         public double CountInUnitOfMeasurement { get; init; }
 
         [Range(
-            WeightMinValue,
-            WeightMaxValue,
+            ProductWeightMinValue,
+            ProductWeightMaxValue,
             ErrorMessage = QuantityErrorMessage)]
         public double Weight { get; init; }
 
         [EnumDataType(typeof(UnitOfMeasurement))]
         public UnitOfMeasurement UnitOfMeasurement { get; init; }
-
-        [Display(Name = "Image URL")]
-        public string ImageUrl { get; init; }
 
         [Display(Name = "Category")]
         public int CategoryId { get; init; }

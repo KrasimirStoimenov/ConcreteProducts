@@ -1,8 +1,8 @@
 ﻿namespace ConcreteProducts.Web.Data.ModelConfiguration
 {
     using Microsoft.EntityFrameworkCore;
-    using ConcreteProducts.Web.Data.Models;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using ConcreteProducts.Web.Data.Models;
 
     public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
@@ -12,6 +12,12 @@
                 .HasOne(c => c.Category)
                 .WithMany(p => p.Products)
                 .HasForeignKey(c => c.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasOne(c => c.Warehouse)
+                .WithMany(p => p.Products)
+                .HasForeignKey(c => c.WarehouseId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

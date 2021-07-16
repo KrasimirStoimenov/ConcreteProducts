@@ -20,6 +20,7 @@
 
             SeedColors(dbContext);
             SeedCategories(dbContext);
+            SeedWarehouses(dbContext);
             SeedProducts(dbContext);
             SeedProductColor(dbContext);
 
@@ -71,6 +72,22 @@
 
             data.SaveChanges();
         }
+        private static void SeedWarehouses(ConcreteProductsDbContext data)
+        {
+            if (data.Warehouses.Any())
+            {
+                return;
+            }
+
+            data.Warehouses.AddRange(new[]
+            {
+                new Warehouse {Name = "Basic"}
+            });
+
+            data.SaveChanges();
+        }
+
+
 
         private static void SeedProducts(ConcreteProductsDbContext data)
         {
@@ -82,49 +99,59 @@
             data.Products.AddRange(new[]
             {
                 new Product {
-                    Name = "10/10/6",
+                    Name = "Паве",
+                    Dimensions = "10/10/6",
                     UnitOfMeasurement = UnitOfMeasurement.SquareMeters,
                     QuantityInPalletInUnitOfMeasurement = 9.36,
                     QuantityInPalletInPieces = 936,
                     CountInUnitOfMeasurement = 100,
                     Weight = 1.34,
-                    CategoryId = data.Categories.Where(c=>c.Name == "Pavement").Select(c=>c.Id).FirstOrDefault()
+                    CategoryId = data.Categories.Where(c=>c.Name == "Pavement").Select(c=>c.Id).FirstOrDefault(),
+                    WarehouseId = data.Warehouses.Where(w=>w.Name == "Basic").Select(w=>w.Id).FirstOrDefault()
                     },
                 new Product {
-                    Name = "40/40/5",
+                    Name = "Плочка",
+                    Dimensions = "40/40/5",
                     UnitOfMeasurement = UnitOfMeasurement.SquareMeters,
                     QuantityInPalletInUnitOfMeasurement = 9.60,
                     QuantityInPalletInPieces = 60,
                     CountInUnitOfMeasurement = 6.25,
                     Weight = 16.67,
                     CategoryId = data.Categories.Where(c=>c.Name == "Sidewalk").Select(c=>c.Id).FirstOrDefault(),
+                    WarehouseId = data.Warehouses.Where(w=>w.Name == "Basic").Select(w=>w.Id).FirstOrDefault()
                     },
                 new Product {
-                    Name = "20/16,5/6",
+                    Name = "Двойно Т",
+                    Dimensions = "20/16,5/6",
                     UnitOfMeasurement = UnitOfMeasurement.SquareMeters,
                     QuantityInPalletInUnitOfMeasurement = 9.29,
                     QuantityInPalletInPieces = 325,
                     CountInUnitOfMeasurement = 35,
                     Weight = 3.93,
                     CategoryId = data.Categories.Where(c=>c.Name == "Flooring").Select(c=>c.Id).FirstOrDefault(),
+                    WarehouseId = data.Warehouses.Where(w=>w.Name == "Basic").Select(w=>w.Id).FirstOrDefault()
                     },
                 new Product {
-                    Name = "50/15/25",
+                    Name = "Бордюр",
+                    Dimensions = "50/15/25",
                     UnitOfMeasurement = UnitOfMeasurement.Meters,
                     QuantityInPalletInUnitOfMeasurement = 18,
                     QuantityInPalletInPieces = 36,
                     CountInUnitOfMeasurement = 2,
                     Weight = 36.11,
                     CategoryId = data.Categories.Where(c=>c.Name == "Border").Select(c=>c.Id).FirstOrDefault(),
+                    WarehouseId = data.Warehouses.Where(w=>w.Name == "Basic").Select(w=>w.Id).FirstOrDefault()
                     },
                 new Product {
-                    Name = "40/20/20",
+                    Name = "Тухла",
+                    Dimensions = "40/20/20",
                     UnitOfMeasurement = UnitOfMeasurement.SquareMeters,
                     QuantityInPalletInUnitOfMeasurement = 3.84,
                     QuantityInPalletInPieces = 48,
                     CountInUnitOfMeasurement = 12.5,
                     Weight = 25,
                     CategoryId = data.Categories.Where(c=>c.Name == "Brick").Select(c=>c.Id).FirstOrDefault(),
+                    WarehouseId = data.Warehouses.Where(w=>w.Name == "Basic").Select(w=>w.Id).FirstOrDefault()
                     },
 
             });
@@ -143,27 +170,27 @@
             {
                 new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Red").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Name == "10/10/6").Select(p=>p.Id).FirstOrDefault(),
+                    ProductId = data.Products.Where(p=>p.Dimensions == "10/10/6").Select(p=>p.Id).FirstOrDefault(),
                     ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
                     },
                 new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Grey").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Name == "10/10/6").Select(p=>p.Id).FirstOrDefault(),
+                    ProductId = data.Products.Where(p=>p.Dimensions == "10/10/6").Select(p=>p.Id).FirstOrDefault(),
                     ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
                     },
                 new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Washed Yellow").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Name == "10/10/6").Select(p=>p.Id).FirstOrDefault(),
+                    ProductId = data.Products.Where(p=>p.Dimensions == "10/10/6").Select(p=>p.Id).FirstOrDefault(),
                     ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
                     },
                  new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Yellow").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Name == "40/20/20").Select(p=>p.Id).FirstOrDefault(),
+                    ProductId = data.Products.Where(p=>p.Dimensions == "40/20/20").Select(p=>p.Id).FirstOrDefault(),
                     ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
                     },
                  new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Blue").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Name == "40/40/5").Select(p=>p.Id).FirstOrDefault(),
+                    ProductId = data.Products.Where(p=>p.Dimensions == "40/40/5").Select(p=>p.Id).FirstOrDefault(),
                     ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
                     },
 

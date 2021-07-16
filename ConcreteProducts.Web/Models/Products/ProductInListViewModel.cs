@@ -10,6 +10,8 @@
         [Display(Name = "Product name")]
         public string Name { get; init; }
 
+        public string Dimensions { get; init; }
+
         [Display(Name = "Quantity in pallet in unit of measurement")]
         public double QuantityInPalletInUnitOfMeasurement { get; init; }
 

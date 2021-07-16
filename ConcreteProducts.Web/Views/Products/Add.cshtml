@@ -13,8 +13,13 @@
             <form method="post">
                 <div class="form-group">
                     <label asp-for="Name"></label>
-                    <input asp-for="Name" class="form-control" placeholder="20/20/6, 30/30/6 etc.">
+                    <input asp-for="Name" class="form-control" placeholder="Behaton etc.">
                     <span asp-validation-for="Name" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Dimensions"></label>
+                    <input asp-for="Dimensions" class="form-control" placeholder="20/20/6, 30/30/6 etc.">
+                    <span asp-validation-for="Dimensions" class="small text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="QuantityInPalletInUnitOfMeasurement"></label>

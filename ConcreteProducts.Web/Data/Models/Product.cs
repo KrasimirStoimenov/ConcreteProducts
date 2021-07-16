@@ -13,6 +13,10 @@
         [MaxLength(ProductNameMaxLength)]
         public string Name { get; set; }
 
+        [Required]
+        [MaxLength(ProductDimensionsMaxLength)]
+        public string Dimensions { get; set; }
+
         public double QuantityInPalletInUnitOfMeasurement { get; set; }
 
         public double QuantityInPalletInPieces { get; set; }
@@ -26,6 +30,10 @@
         public int CategoryId { get; set; }
 
         public Category Category { get; init; }
+
+        public int WarehouseId { get; set; }
+
+        public Warehouse Warehouse { get; init; }
 
         public ICollection<ProductColor> ProductColors { get; init; } = new HashSet<ProductColor>();
     }

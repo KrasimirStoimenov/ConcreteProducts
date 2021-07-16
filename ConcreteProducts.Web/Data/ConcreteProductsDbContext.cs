@@ -16,11 +16,14 @@
         public DbSet<Color> Colors { get; init; }
         public DbSet<Category> Categories { get; init; }
         public DbSet<ProductColor> ProductColors { get; init; }
+        public DbSet<Shape> Shapes { get; init; }
+        public DbSet<Warehouse> Warehouses { get; init; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new ProductConfiguration());
             builder.ApplyConfiguration(new ProductColorConfiguration());
+            builder.ApplyConfiguration(new ShapeConfiguration());
 
             base.OnModelCreating(builder);
         }

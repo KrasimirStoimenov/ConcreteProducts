@@ -26,7 +26,8 @@
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    ImageUrl = p.ProductColors.Select(p=>p.ImageUrl).FirstOrDefault(),
+                    Dimensions = p.Dimensions,
+                    ImageUrl = p.ProductColors.Select(p => p.ImageUrl).FirstOrDefault(),
                     QuantityInPalletInPieces = p.QuantityInPalletInPieces,
                     QuantityInPalletInUnitOfMeasurement = p.QuantityInPalletInUnitOfMeasurement,
                     UnitOfMeasurement = p.UnitOfMeasurement
@@ -35,7 +36,7 @@
 
             var productsViewModel = new ProductListViewModel
             {
-                ItemsPerPage=itemsPerPage,
+                ItemsPerPage = itemsPerPage,
                 Products = products,
                 ProductsCount = this.data.Products.Count(),
                 PageNumber = id
@@ -75,12 +76,13 @@
             var currentProduct = new Product
             {
                 Name = product.Name,
+                Dimensions = product.Dimensions,
                 QuantityInPalletInUnitOfMeasurement = product.QuantityInPalletInUnitOfMeasurement,
                 QuantityInPalletInPieces = product.QuantityInPalletInPieces,
                 CountInUnitOfMeasurement = product.CountInUnitOfMeasurement,
                 UnitOfMeasurement = product.UnitOfMeasurement,
                 Weight = product.Weight,
-                CategoryId = product.CategoryId
+                CategoryId = product.CategoryId,
             };
 
             currentProduct.ProductColors.Add(new ProductColor

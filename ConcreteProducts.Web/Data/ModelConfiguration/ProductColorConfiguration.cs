@@ -1,8 +1,8 @@
 ﻿namespace ConcreteProducts.Web.Data.ModelConfiguration
 {
     using Microsoft.EntityFrameworkCore;
-    using ConcreteProducts.Web.Data.Models;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using ConcreteProducts.Web.Data.Models;
 
     public class ProductColorConfiguration : IEntityTypeConfiguration<ProductColor>
     {
