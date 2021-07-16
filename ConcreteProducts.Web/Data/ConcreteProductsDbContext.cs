@@ -1,9 +1,9 @@
 ﻿namespace ConcreteProducts.Web.Data
 {
-    using System.Reflection.Emit;
-    using ConcreteProducts.Web.Data.Models;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using ConcreteProducts.Web.Data.ModelConfiguration;
+    using ConcreteProducts.Web.Data.Models;
 
     public class ConcreteProductsDbContext : IdentityDbContext
     {
@@ -19,8 +19,8 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<ProductColor>()
-                .HasKey(k => new { k.ProductId, k.ColorId });
+            builder.ApplyConfiguration(new ProductConfiguration());
+            builder.ApplyConfiguration(new ProductColorConfiguration());
 
             base.OnModelCreating(builder);
         }

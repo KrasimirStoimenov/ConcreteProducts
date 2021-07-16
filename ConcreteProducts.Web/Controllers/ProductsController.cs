@@ -26,7 +26,7 @@
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    ImageUrl = p.ImageUrl,
+                    ImageUrl = p.ProductColors.Select(p=>p.ImageUrl).FirstOrDefault(),
                     QuantityInPalletInPieces = p.QuantityInPalletInPieces,
                     QuantityInPalletInUnitOfMeasurement = p.QuantityInPalletInUnitOfMeasurement,
                     UnitOfMeasurement = p.UnitOfMeasurement
@@ -80,8 +80,7 @@
                 CountInUnitOfMeasurement = product.CountInUnitOfMeasurement,
                 UnitOfMeasurement = product.UnitOfMeasurement,
                 Weight = product.Weight,
-                CategoryId = product.CategoryId,
-                ImageUrl = product.ImageUrl
+                CategoryId = product.CategoryId
             };
 
             currentProduct.ProductColors.Add(new ProductColor

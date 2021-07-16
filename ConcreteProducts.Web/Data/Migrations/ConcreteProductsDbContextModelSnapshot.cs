@@ -63,11 +63,8 @@ namespace ConcreteProducts.Web.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<double>("CountInUnitMessurement")
+                    b.Property<double>("CountInUnitOfMeasurement")
                         .HasColumnType("float");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -77,7 +74,7 @@ namespace ConcreteProducts.Web.Data.Migrations
                     b.Property<double>("QuantityInPalletInPieces")
                         .HasColumnType("float");
 
-                    b.Property<double>("QuantityInPalletInUnitMeasurement")
+                    b.Property<double>("QuantityInPalletInUnitOfMeasurement")
                         .HasColumnType("float");
 
                     b.Property<int>("UnitOfMeasurement")
@@ -95,15 +92,19 @@ namespace ConcreteProducts.Web.Data.Migrations
 
             modelBuilder.Entity("ConcreteProducts.Web.Data.Models.ProductColor", b =>
                 {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ColorId")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductId", "ColorId");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("ColorId");
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ColorId", "ProductId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ProductColors");
                 });
@@ -313,7 +314,7 @@ namespace ConcreteProducts.Web.Data.Migrations
                     b.HasOne("ConcreteProducts.Web.Data.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -324,13 +325,13 @@ namespace ConcreteProducts.Web.Data.Migrations
                     b.HasOne("ConcreteProducts.Web.Data.Models.Color", "Color")
                         .WithMany("ProductColors")
                         .HasForeignKey("ColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ConcreteProducts.Web.Data.Models.Product", "Product")
                         .WithMany("ProductColors")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Color");

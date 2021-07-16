@@ -23,8 +23,6 @@
 
         public UnitOfMeasurement UnitOfMeasurement { get; set; }
 
-        public string ImageUrl { get; set; }
-
         public int CategoryId { get; set; }
 
         public Category Category { get; init; }

@@ -1,5 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class ProductColor
     {
         public int ProductId { get; set; }
@@ -8,5 +10,7 @@
         public int ColorId { get; set; }
         public Color Color { get; init; }
 
+        [Required]
+        public string ImageUrl { get; set; }
     }
 }

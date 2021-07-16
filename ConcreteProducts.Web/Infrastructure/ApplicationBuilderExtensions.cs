@@ -98,7 +98,6 @@
                     CountInUnitOfMeasurement = 6.25,
                     Weight = 16.67,
                     CategoryId = data.Categories.Where(c=>c.Name == "Sidewalk").Select(c=>c.Id).FirstOrDefault(),
-                    ImageUrl = "https://sd.cd9.xyz/image/4022-plochka-trotoarna-gladka-40405-siva-original-449.jpg"
                     },
                 new Product {
                     Name = "20/16,5/6",
@@ -108,7 +107,6 @@
                     CountInUnitOfMeasurement = 35,
                     Weight = 3.93,
                     CategoryId = data.Categories.Where(c=>c.Name == "Flooring").Select(c=>c.Id).FirstOrDefault(),
-                    ImageUrl = "https://osnovi.com/media/7/1404.jpg"
                     },
                 new Product {
                     Name = "50/15/25",
@@ -118,7 +116,6 @@
                     CountInUnitOfMeasurement = 2,
                     Weight = 36.11,
                     CategoryId = data.Categories.Where(c=>c.Name == "Border").Select(c=>c.Id).FirstOrDefault(),
-                    ImageUrl = "https://www.reliks-vibro.com/uploads/media/stenik_products_gallery/0001/03/05a2ebb0a2a5701bd5d52ad19339b1e7e9f25bae.jpeg"
                     },
                 new Product {
                     Name = "40/20/20",
@@ -128,7 +125,6 @@
                     CountInUnitOfMeasurement = 12.5,
                     Weight = 25,
                     CategoryId = data.Categories.Where(c=>c.Name == "Brick").Select(c=>c.Id).FirstOrDefault(),
-                    ImageUrl = "https://ikoen.bg/assets/pages/small/e66a5c859d95bdec268f38a22904eaa8.jpg?rand=7%0D%0A"
                     },
 
             });
@@ -147,23 +143,28 @@
             {
                 new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Red").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Name == "10/10/6").Select(p=>p.Id).FirstOrDefault()
+                    ProductId = data.Products.Where(p=>p.Name == "10/10/6").Select(p=>p.Id).FirstOrDefault(),
+                    ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
                     },
                 new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Grey").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Name == "10/10/6").Select(p=>p.Id).FirstOrDefault()
+                    ProductId = data.Products.Where(p=>p.Name == "10/10/6").Select(p=>p.Id).FirstOrDefault(),
+                    ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
                     },
                 new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Washed Yellow").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Name == "10/10/6").Select(p=>p.Id).FirstOrDefault()
+                    ProductId = data.Products.Where(p=>p.Name == "10/10/6").Select(p=>p.Id).FirstOrDefault(),
+                    ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
                     },
                  new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Yellow").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Name == "40/20/20").Select(p=>p.Id).FirstOrDefault()
+                    ProductId = data.Products.Where(p=>p.Name == "40/20/20").Select(p=>p.Id).FirstOrDefault(),
+                    ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
                     },
                  new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Blue").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Name == "40/40/5").Select(p=>p.Id).FirstOrDefault()
+                    ProductId = data.Products.Where(p=>p.Name == "40/40/5").Select(p=>p.Id).FirstOrDefault(),
+                    ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
                     },
 
             });
