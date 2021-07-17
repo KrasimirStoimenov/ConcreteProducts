@@ -2,14 +2,15 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Data.DataConstants;
+    using static Data.DataConstants.Color;
+    using static Data.DataConstants.ErrorMessages;
 
     public class AddColorFormModel
     {
         [Required]
         [StringLength(
-            ColorNameMaxLength,
-            MinimumLength = ColorNameMinLength,
+            NameMaxLength,
+            MinimumLength = NameMinLength,
             ErrorMessage = DefaultNameErrorMessage)]
         [Display(Name = "Color name")]
         public string Name { get; init; }

@@ -2,18 +2,18 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static DataConstants;
+    using static DataConstants.Shape;
 
     public class Shape
     {
         public int Id { get; init; }
 
         [Required]
-        [MaxLength(ShapeNameMaxLength)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(ShapeDimensionsMaxLength)]
+        [MaxLength(DimensionsMaxLength)]
         public string Dimensions { get; init; }
 
         public int WarehouseId { get; init; }

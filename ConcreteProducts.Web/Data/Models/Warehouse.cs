@@ -3,14 +3,14 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using static DataConstants;
+    using static DataConstants.Warehouse;
 
     public class Warehouse
     {
         public int Id { get; init; }
 
         [Required]
-        [MaxLength(WarehouseNameMaxLength)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
         public ICollection<Product> Products { get; init; } = new HashSet<Product>();

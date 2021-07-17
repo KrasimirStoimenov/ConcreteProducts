@@ -3,18 +3,19 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using ConcreteProducts.Web.Data.Models.Enumerations;
-    using static DataConstants;
+
+    using static DataConstants.Product;
 
     public class Product
     {
         public int Id { get; init; }
 
         [Required]
-        [MaxLength(ProductNameMaxLength)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(ProductDimensionsMaxLength)]
+        [MaxLength(DimensionsMaxLength)]
         public string Dimensions { get; set; }
 
         public double QuantityInPalletInUnitOfMeasurement { get; set; }

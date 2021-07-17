@@ -69,7 +69,7 @@
                 <div class="form-group">
                     <label asp-for="ColorId"></label>
                     <div class="input-group">
-                        <select asp-for="ColorId" class="form-control" id="slctProcedure">
+                        <select asp-for="ColorId" class="form-control">
                             @foreach (var color in Model.Colors)
                             {
                                 <option value="@color.Id">@color.Name</option>
@@ -83,14 +83,14 @@
                 <div class="form-group">
                     <label asp-for="WarehouseId"></label>
                     <div class="input-group">
-                        <select asp-for="WarehouseId" class="form-control" id="slctProcedure">
+                        <select asp-for="WarehouseId" class="form-control">
                             @foreach (var warehouse in Model.Warehouses)
                             {
                                 <option value="@warehouse.Id">@warehouse.Name</option>
                             }
                         </select>
                         <div class="input-group-append">
-                            <a class="btn btn-success" title="Add new" asp-area="" asp-controller="Colors" asp-action="Add"><i class="bi bi-plus-circle"></i></a>
+                            <a class="btn btn-success" title="Add new" asp-area="" asp-controller="Warehouses" asp-action="Add"><i class="bi bi-plus-circle"></i></a>
                         </div>
                     </div>
                 </div>

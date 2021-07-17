@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ConcreteProducts.Web.Models.Categories
+﻿namespace ConcreteProducts.Web.Models.Categories
 {
     public class CategoryListingModel
     {

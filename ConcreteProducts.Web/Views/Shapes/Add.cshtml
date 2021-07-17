@@ -1,0 +1,40 @@
+﻿@model AddShapeFormModel
+
+@{
+    ViewData["Title"] = "Add Shape";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <h2 class="headingMargin text-center">@ViewData["Title"]</h2>
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Brick, Tile etc.">
+                    <span asp-validation-for="Name" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Dimensions"></label>
+                    <input asp-for="Dimensions" class="form-control" placeholder="20/20/6, 30/30/6 etc.">
+                    <span asp-validation-for="Dimensions" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="WarehouseId"></label>
+                    <div class="input-group">
+                        <select asp-for="WarehouseId" class="form-control">
+                            @foreach (var warehouse in Model.Warehouses)
+                            {
+                                <option value="@warehouse.Id">@warehouse.Name</option>
+                            }
+                        </select>
+                        <div class="input-group-append">
+                            <a class="btn btn-success" title="Add new" asp-area="" asp-controller="Warehouses" asp-action="Add"><i class="bi bi-plus-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Save" />
+            </form>
+        </div>
+    </div>
+</div>

@@ -45,7 +45,7 @@
             this.data.Colors.Add(currentColor);
             this.data.SaveChanges();
 
-            return RedirectToAction("All", "Colors");
+            return RedirectToAction("All");
         }
     }
 }

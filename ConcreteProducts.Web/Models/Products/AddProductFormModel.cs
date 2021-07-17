@@ -4,42 +4,43 @@
     using System.ComponentModel.DataAnnotations;
     using ConcreteProducts.Web.Data.Models.Enumerations;
 
-    using static Data.DataConstants;
+    using static Data.DataConstants.Product;
+    using static Data.DataConstants.ErrorMessages;
 
     public class AddProductFormModel
     {
         [Required]
         [StringLength(
-            ProductNameMaxLength,
-            MinimumLength = ProductNameMinLength,
+            NameMaxLength,
+            MinimumLength = NameMinLength,
             ErrorMessage = DefaultNameErrorMessage)]
         [Display(Name = "Product name")]
         public string Name { get; init; }
 
         [Required]
         [StringLength(
-            ProductDimensionsMaxLength,
-            MinimumLength = ProductDimensionsMinLength,
+            DimensionsMaxLength,
+            MinimumLength = DimensionsMinLength,
             ErrorMessage = DefaultNameErrorMessage)]
         public string Dimensions { get; init; }
 
         [Range(
-            ProductQuantityInPalletInUnitMeasurementMinValue,
-            ProductQuantityInPalletInUnitMeasurementMaxValue,
+            QuantityInPalletInUnitMeasurementMinValue,
+            QuantityInPalletInUnitMeasurementMaxValue,
             ErrorMessage = QuantityErrorMessage)]
         [Display(Name = "Quantity in pallet in unit of measurement")]
         public double QuantityInPalletInUnitOfMeasurement { get; init; }
 
         [Range(
-            ProductQuantityInPalletInPiecesMinValue,
-            ProductQuantityInPalletInPiecesMaxValue,
+            QuantityInPalletInPiecesMinValue,
+            QuantityInPalletInPiecesMaxValue,
             ErrorMessage = QuantityErrorMessage)]
         [Display(Name = "Quantity in pallet in pieces")]
         public double QuantityInPalletInPieces { get; init; }
 
         [Range(
-            ProductCountInUnitMeasurementMinValue,
-            ProductCountInUnitMeasurementMaxValue,
+            CountInUnitMeasurementMinValue,
+            CountInUnitMeasurementMaxValue,
             ErrorMessage = QuantityErrorMessage)]
         [Display(Name = "Count in unit of measurement")]
         public double CountInUnitOfMeasurement { get; init; }
@@ -48,8 +49,8 @@
         public UnitOfMeasurement UnitOfMeasurement { get; init; }
 
         [Range(
-            ProductWeightMinValue,
-            ProductWeightMaxValue,
+            WeightMinValue,
+            WeightMaxValue,
             ErrorMessage = QuantityErrorMessage)]
         public double Weight { get; init; }
 

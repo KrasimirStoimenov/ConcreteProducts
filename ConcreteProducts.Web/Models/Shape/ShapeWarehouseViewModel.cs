@@ -1,6 +1,6 @@
-﻿namespace ConcreteProducts.Web.Models.Colors
+﻿namespace ConcreteProducts.Web.Models.Shape
 {
-    public class ColorListingModel
+    public class ShapeWarehouseViewModel
     {
         public int Id { get; init; }
 

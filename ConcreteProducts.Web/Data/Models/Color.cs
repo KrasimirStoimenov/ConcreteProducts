@@ -3,14 +3,14 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using static DataConstants;
+    using static DataConstants.Color;
 
     public class Color
     {
         public int Id { get; init; }
 
         [Required]
-        [MaxLength(ColorNameMaxLength)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
         public ICollection<ProductColor> ProductColors { get; init; } = new HashSet<ProductColor>();
