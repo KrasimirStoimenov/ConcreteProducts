@@ -16,11 +16,12 @@
         public IActionResult All()
         {
             var colors = this.data.Colors
-                .Select(c => new ColorListingModel
+                .Select(c => new ColorListingViewModel
                 {
                     Id = c.Id,
                     Name = c.Name
                 })
+                .OrderBy(c => c.Id)
                 .ToList();
 
             return View(colors);

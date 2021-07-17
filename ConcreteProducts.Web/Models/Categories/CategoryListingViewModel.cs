@@ -1,6 +1,6 @@
 ﻿namespace ConcreteProducts.Web.Models.Categories
 {
-    public class CategoryListingModel
+    public class CategoryListingViewModel
     {
         public int Id { get; init; }
 

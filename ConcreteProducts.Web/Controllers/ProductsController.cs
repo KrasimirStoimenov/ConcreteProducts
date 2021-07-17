@@ -34,7 +34,7 @@
                 })
                 .ToList();
 
-            var productsViewModel = new ProductListViewModel
+            var productsViewModel = new ProductListingViewModel
             {
                 ItemsPerPage = itemsPerPage,
                 Products = products,

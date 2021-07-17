@@ -14,6 +14,22 @@
         public ShapesController(ConcreteProductsDbContext data)
             => this.data = data;
 
+        public IActionResult All()
+        {
+            var shapes = this.data.Shapes
+                .Select(s => new ShapeListingViewModel
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Dimensions = s.Dimensions,
+                    WarehouseName = s.Warehouse.Name
+                })
+                .OrderBy(s => s.Id)
+                .ToList();
+
+            return View(shapes);
+        }
+
         public IActionResult Add()
             => View(new AddShapeFormModel
             {
@@ -46,21 +62,6 @@
             this.data.SaveChanges();
 
             return RedirectToAction("All");
-        }
-
-        public IActionResult All()
-        {
-            var shapes = this.data.Shapes
-                .Select(s => new ShapeListingViewModel
-                {
-                    Id = s.Id,
-                    Name = s.Name,
-                    Dimensions = s.Dimensions,
-                    WarehouseName = s.Warehouse.Name
-                })
-                .ToList();
-
-            return View(shapes);
         }
 
         private IEnumerable<ShapeWarehouseViewModel> GetShapeWarehouses()

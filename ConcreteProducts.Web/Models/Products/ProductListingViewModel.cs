@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public class ProductListViewModel
+    public class ProductListingViewModel
     {
         public IEnumerable<ProductInListViewModel> Products { get; init; }
 

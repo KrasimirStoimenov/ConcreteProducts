@@ -14,6 +14,7 @@
             NameMaxLength,
             MinimumLength = NameMinLength,
             ErrorMessage = DefaultNameErrorMessage)]
+        [Display(Name = "Shape name")]
         public string Name { get; init; }
 
         [Required]

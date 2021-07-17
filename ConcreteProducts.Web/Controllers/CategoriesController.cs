@@ -16,7 +16,7 @@
         public IActionResult All()
         {
             var categories = this.data.Categories
-                .Select(c => new CategoryListingModel
+                .Select(c => new CategoryListingViewModel
                 {
                     Id = c.Id,
                     Name = c.Name,
