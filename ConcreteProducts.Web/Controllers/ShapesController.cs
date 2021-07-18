@@ -14,8 +14,10 @@
         public ShapesController(ConcreteProductsDbContext data)
             => this.data = data;
 
-        public IActionResult All()
+        public IActionResult All(int id = 1)
         {
+            const int itemsPerPage = 8;
+
             var shapes = this.data.Shapes
                 .Select(s => new ShapeListingViewModel
                 {
@@ -27,7 +29,15 @@
                 .OrderBy(s => s.Id)
                 .ToList();
 
-            return View(shapes);
+            var shapesViewModel = new ListAllShapesViewModel
+            {
+                AllShapes = shapes.Skip((id - 1) * itemsPerPage).Take(itemsPerPage),
+                PageNumber = id,
+                Count = shapes.Count,
+                ItemsPerPage = itemsPerPage
+            };
+
+            return View(shapesViewModel);
         }
 
         public IActionResult Add()

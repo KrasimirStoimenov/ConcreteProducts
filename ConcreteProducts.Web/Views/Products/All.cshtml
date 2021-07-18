@@ -1,4 +1,4 @@
-﻿@model ProductListingViewModel
+﻿@model ListAllProductsViewModel
 
 @{
     ViewData["Title"] = "All Products";
@@ -6,14 +6,15 @@
 
 <h2 class="headingMargin text-center">@ViewData["Title"]</h2>
 <div class="row">
-    @foreach (var product in Model.Products)
+    @foreach (var product in Model.AllProducts)
     {
         <div class="card mb-3 ml-2" style="width: 17rem;">
             <img class="card-img-top" height="200" src="@product.DefaultImageUrl" alt="@product.Name">
             <div class="card-body">
                 <br />
                 <h4 class="card-title text-center"><br />@product.Name</h4>
-                <h6 class="text-center"><hr />Specifiations:</h6>
+                <hr />
+                <h6 class="text-center">Specifiations:</h6>
                 <div class="text-center"><br />Size - @product.Dimensions</div>
                 <div class="text-center"><br />In Pallet - @product.InPallet</div>
                 <div class="text-center"><br />Available in different colors</div>
@@ -24,34 +25,5 @@
     }
 </div>
 <hr />
-
-<nav aria-label="...">
-    <ul class="pagination justify-content-center">
-        <li class="page-item @if(!Model.HasPreviousPage){<text>disabled</text>} ">
-            <a class="page-link" asp-action="All" asp-route-id="@Model.PreviousPageNumber">Previous</a>
-        </li>
-        @for (int i = Model.PageNumber - 3; i < Model.PageNumber; i++)
-        {
-            @if (i > 0)
-            {
-                <li class="page-item"><a class="page-link" asp-action="All" asp-route-id="@i">@i</a></li>
-            }
-        }
-        <li class="page-item active">
-            <span class="page-link">
-                @Model.PageNumber
-            </span>
-        </li>
-        @for (int i = Model.PageNumber + 1; i <= Model.PageNumber + 3; i++)
-        {
-            @if (i <= Model.PagesCount)
-            {
-                <li class="page-item"><a class="page-link" asp-action="All" asp-route-id="@i">@i</a></li>
-            }
-        }
-        <li class="page-item @if(!Model.HasNextPage){<text>disabled</text>}">
-            <a class="page-link" asp-action="All" asp-route-id="@Model.NextPageNumber">Next</a>
-        </li>
-    </ul>
-</nav>
+<partial name="_PagingPartial" model="@this.Model" />
 

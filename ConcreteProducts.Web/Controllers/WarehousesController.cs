@@ -13,8 +13,10 @@
         public WarehousesController(ConcreteProductsDbContext data)
             => this.data = data;
 
-        public IActionResult All()
+        public IActionResult All(int id = 1)
         {
+            const int itemsPerPage = 8;
+
             var warehouses = this.data.Warehouses
                 .Select(w => new WarehouseListingViewModel
                 {
@@ -26,7 +28,15 @@
                 .OrderBy(w => w.Id)
                 .ToList();
 
-            return View(warehouses);
+            var warehousesViewModel = new ListAllWarehouseViewModel
+            {
+                AllWarehouses = warehouses.Skip((id - 1) * itemsPerPage).Take(itemsPerPage),
+                PageNumber = id,
+                Count = warehouses.Count,
+                ItemsPerPage = itemsPerPage
+            };
+
+            return View(warehousesViewModel);
         }
 
         public IActionResult Add()

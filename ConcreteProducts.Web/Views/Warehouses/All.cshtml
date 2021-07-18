@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WarehouseListingViewModel>
+﻿@model ListAllWarehouseViewModel
 
 @{
     ViewData["Title"] = "All Warehouses";
@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var warehouse in Model)
+                @foreach (var warehouse in Model.AllWarehouses)
                 {
                     <tr>
                         <th scope="row" class="text-center">@warehouse.Id</th>
@@ -27,16 +27,21 @@
                         <td class="text-center">@warehouse.TotalShapesCount</td>
                         <td class="text-center">
                             <div class="input-group-append">
-                                <a class="btn btn-info offset-3 col-3 text-center" title="Edit" asp-area="" asp-controller="Warehouses" asp-action="Edit" asp-route-id="@warehouse.Id"><i class="bi bi-pencil-square"></i></a>
-                                <a class="btn btn-danger offset-3 col-3 text-center" title="Delete" asp-area="" asp-controller="Warehouses" asp-action="Delete" asp-route-id="@warehouse.Id"><i class="bi bi-x-lg"></i></a>
+                                <a class="btn btn-info offset-3 col-3 text-center" title="Edit" asp-controller="Warehouses" asp-action="Edit" asp-route-id="@warehouse.Id"><i class="bi bi-pencil-square"></i></a>
+                                <a class="btn btn-danger offset-3 col-3 text-center" title="Delete" asp-controller="Warehouses" asp-action="Delete" asp-route-id="@warehouse.Id"><i class="bi bi-x-lg"></i></a>
                             </div>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-        <a class="btn btn-success text-center offset-md-3 col-md-6 col-sm-12" title="Add new" asp-area="" asp-controller="Shapes" asp-action="Add"><i class="bi bi-plus-circle"></i> Add new</a>
+        @if (!Model.HasNextPage)
+        {
+            <a class="btn btn-success text-center offset-md-3 col-md-6 col-sm-12" title="Add new" asp-controller="Warehouses" asp-action="Add"><i class="bi bi-plus-circle"></i> Add new</a>
+        }
     </div>
 </div>
+<hr />
+<partial name="_PagingPartial" model="this.Model" />
 
 

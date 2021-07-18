@@ -13,8 +13,10 @@
         public ColorsController(ConcreteProductsDbContext data)
             => this.data = data;
 
-        public IActionResult All()
+        public IActionResult All(int id = 1)
         {
+            const int itemsPerPage = 8;
+
             var colors = this.data.Colors
                 .Select(c => new ColorListingViewModel
                 {
@@ -24,7 +26,15 @@
                 .OrderBy(c => c.Id)
                 .ToList();
 
-            return View(colors);
+            var colorsViewModel = new ListAllColorsViewModel
+            {
+                AllColors = colors.Skip((id - 1) * itemsPerPage).Take(itemsPerPage),
+                PageNumber = id,
+                Count = colors.Count,
+                ItemsPerPage = itemsPerPage
+            };
+
+            return View(colorsViewModel);
         }
 
         public IActionResult Add()

@@ -1,26 +1,15 @@
 ﻿namespace ConcreteProducts.Web.Models.Products
 {
-    using System;
-    using System.Collections.Generic;
-
     public class ProductListingViewModel
     {
-        public IEnumerable<ProductInListViewModel> Products { get; init; }
+        public int Id { get; init; }
 
-        public int PageNumber { get; set; }
+        public string Name { get; init; }
 
-        public bool HasPreviousPage => this.PageNumber > 1;
+        public string Dimensions { get; init; }
 
-        public int PreviousPageNumber => this.PageNumber - 1;
+        public string InPallet { get; init; }
 
-        public bool HasNextPage => this.PageNumber < this.PagesCount;
-
-        public int NextPageNumber => this.PageNumber + 1;
-
-        public int PagesCount => (int)Math.Ceiling((double)this.ProductsCount / this.ItemsPerPage);
-
-        public int ProductsCount { get; set; }
-
-        public int ItemsPerPage { get; set; }
+        public string DefaultImageUrl { get; init; }
     }
 }

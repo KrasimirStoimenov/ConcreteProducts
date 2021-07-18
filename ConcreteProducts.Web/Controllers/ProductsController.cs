@@ -18,16 +18,14 @@
         {
             const int itemsPerPage = 8;
 
-            var productsToList = this.data.Products
+            var products = this.data.Products
                 .OrderByDescending(p => p.Id)
-                .Skip((id - 1) * itemsPerPage)
-                .Take(itemsPerPage)
-                .Select(p => new ProductInListViewModel
+                .Select(p => new ProductListingViewModel
                 {
                     Id = p.Id,
                     Name = p.Name,
                     Dimensions = p.Dimensions,
-                    InPallet = $"{p.QuantityInPalletInPieces} pieces / {p.QuantityInPalletInUnitOfMeasurement}                          {p.UnitOfMeasurement}",
+                    InPallet = $"{p.QuantityInPalletInPieces} pieces / {p.QuantityInPalletInUnitOfMeasurement}{p.UnitOfMeasurement}",
                     DefaultImageUrl = p.ProductColors
                                         .Where(c => c.Color.Name == "Grey")
                                         .Select(pc => pc.ImageUrl)
@@ -35,12 +33,12 @@
                 })
                 .ToList();
 
-            var productsViewModel = new ProductListingViewModel
+            var productsViewModel = new ListAllProductsViewModel
             {
-                ItemsPerPage = itemsPerPage,
-                Products = productsToList,
-                ProductsCount = productsToList.Count,
-                PageNumber = id
+                AllProducts = products.Skip((id - 1) * itemsPerPage).Take(itemsPerPage),
+                PageNumber = id,
+                Count = products.Count,
+                ItemsPerPage = itemsPerPage
             };
 
             return View(productsViewModel);

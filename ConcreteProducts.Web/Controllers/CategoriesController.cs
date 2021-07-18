@@ -13,8 +13,10 @@
         public CategoriesController(ConcreteProductsDbContext data)
             => this.data = data;
 
-        public IActionResult All()
+        public IActionResult All(int id = 1)
         {
+            const int itemsPerPage = 8;
+
             var categories = this.data.Categories
                 .Select(c => new CategoryListingViewModel
                 {
@@ -22,10 +24,18 @@
                     Name = c.Name,
                     ProductsCount = c.Products.Count
                 })
-                .OrderBy(c=>c.Id)
+                .OrderBy(c => c.Id)
                 .ToList();
 
-            return View(categories);
+            var categoriesViewModel = new ListAllCategoriesViewModel
+            {
+                AllCategories = categories.Skip((id - 1) * itemsPerPage).Take(itemsPerPage),
+                PageNumber = id,
+                Count = categories.Count,
+                ItemsPerPage = 12
+            };
+
+            return View(categoriesViewModel);
         }
 
         public IActionResult Add()
