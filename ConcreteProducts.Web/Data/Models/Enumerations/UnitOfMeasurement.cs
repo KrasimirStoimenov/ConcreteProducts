@@ -2,7 +2,7 @@
 {
     public enum UnitOfMeasurement
     {
-        SquareMeters = 1,
-        Meters = 2
+        m2 = 1,
+        m = 2
     }
 }

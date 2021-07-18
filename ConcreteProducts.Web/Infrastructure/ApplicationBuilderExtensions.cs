@@ -101,7 +101,7 @@
                 new Product {
                     Name = "Паве",
                     Dimensions = "10/10/6",
-                    UnitOfMeasurement = UnitOfMeasurement.SquareMeters,
+                    UnitOfMeasurement = UnitOfMeasurement.m2,
                     QuantityInPalletInUnitOfMeasurement = 9.36,
                     QuantityInPalletInPieces = 936,
                     CountInUnitOfMeasurement = 100,
@@ -112,7 +112,7 @@
                 new Product {
                     Name = "Плочка",
                     Dimensions = "40/40/5",
-                    UnitOfMeasurement = UnitOfMeasurement.SquareMeters,
+                    UnitOfMeasurement = UnitOfMeasurement.m2,
                     QuantityInPalletInUnitOfMeasurement = 9.60,
                     QuantityInPalletInPieces = 60,
                     CountInUnitOfMeasurement = 6.25,
@@ -123,18 +123,18 @@
                 new Product {
                     Name = "Двойно Т",
                     Dimensions = "20/16,5/6",
-                    UnitOfMeasurement = UnitOfMeasurement.SquareMeters,
+                    UnitOfMeasurement = UnitOfMeasurement.m2,
                     QuantityInPalletInUnitOfMeasurement = 9.29,
                     QuantityInPalletInPieces = 325,
                     CountInUnitOfMeasurement = 35,
                     Weight = 3.93,
                     CategoryId = data.Categories.Where(c=>c.Name == "Flooring").Select(c=>c.Id).FirstOrDefault(),
-                    WarehouseId = data.Warehouses.Where(w=>w.Name == "Basic").Select(w=>w.Id).FirstOrDefault()
+                    WarehouseId = data.Warehouses.Where(w=>w.Name == "Basic").Select(w=>w.Id).FirstOrDefault(),
                     },
                 new Product {
                     Name = "Бордюр",
                     Dimensions = "50/15/25",
-                    UnitOfMeasurement = UnitOfMeasurement.Meters,
+                    UnitOfMeasurement = UnitOfMeasurement.m,
                     QuantityInPalletInUnitOfMeasurement = 18,
                     QuantityInPalletInPieces = 36,
                     CountInUnitOfMeasurement = 2,
@@ -145,7 +145,7 @@
                 new Product {
                     Name = "Тухла",
                     Dimensions = "40/20/20",
-                    UnitOfMeasurement = UnitOfMeasurement.SquareMeters,
+                    UnitOfMeasurement = UnitOfMeasurement.m2,
                     QuantityInPalletInUnitOfMeasurement = 3.84,
                     QuantityInPalletInPieces = 48,
                     CountInUnitOfMeasurement = 12.5,

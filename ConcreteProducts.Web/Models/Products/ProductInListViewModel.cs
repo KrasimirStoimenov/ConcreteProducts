@@ -1,27 +1,18 @@
 ﻿namespace ConcreteProducts.Web.Models.Products
 {
-    using System.ComponentModel.DataAnnotations;
+    using System.Collections.Generic;
     using ConcreteProducts.Web.Data.Models.Enumerations;
 
     public class ProductInListViewModel
     {
         public int Id { get; init; }
 
-        [Display(Name = "Product name")]
         public string Name { get; init; }
 
         public string Dimensions { get; init; }
 
-        [Display(Name = "Quantity in pallet in unit of measurement")]
-        public double QuantityInPalletInUnitOfMeasurement { get; init; }
+        public string InPallet { get; init; }
 
-        [Display(Name = "Quantity in pallet in pieces")]
-        public double QuantityInPalletInPieces { get; init; }
-
-        [EnumDataType(typeof(UnitOfMeasurement))]
-        public UnitOfMeasurement UnitOfMeasurement { get; init; }
-
-        [Display(Name = "Image URL")]
-        public string ImageUrl { get; init; }
+        public string DefaultImageUrl { get; init; }
     }
 }

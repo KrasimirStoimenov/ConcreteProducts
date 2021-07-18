@@ -9,14 +9,15 @@
     @foreach (var product in Model.Products)
     {
         <div class="card mb-3 ml-2" style="width: 17rem;">
-            <img class="card-img-top" height="200" src="@product.ImageUrl" alt="@product.Name">
+            <img class="card-img-top" height="200" src="@product.DefaultImageUrl" alt="@product.Name">
             <div class="card-body">
                 <br />
-                <h5 class="card-title"><br />@product.Name</h5>
-                <h6><br /><hr />Specifiations:</h6>
+                <h4 class="card-title text-center"><br />@product.Name</h4>
+                <h6 class="text-center"><hr />Specifiations:</h6>
                 <div class="text-center"><br />Size - @product.Dimensions</div>
-                <div class="text-center"><br />Quantity In Pallet In Pieces - @product.QuantityInPalletInPieces</div>
-                <div class="text-center"><br />@product.QuantityInPalletInUnitOfMeasurement @product.UnitOfMeasurement.ToString()</div><br />
+                <div class="text-center"><br />In Pallet - @product.InPallet</div>
+                <div class="text-center"><br />Available in different colors</div>
+                <br />
                 <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary" style="width: 14rem;">Details</a>
             </div>
         </div>

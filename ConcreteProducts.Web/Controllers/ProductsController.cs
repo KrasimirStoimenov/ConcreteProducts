@@ -18,7 +18,7 @@
         {
             const int itemsPerPage = 8;
 
-            var products = this.data.Products
+            var productsToList = this.data.Products
                 .OrderByDescending(p => p.Id)
                 .Skip((id - 1) * itemsPerPage)
                 .Take(itemsPerPage)
@@ -27,18 +27,19 @@
                     Id = p.Id,
                     Name = p.Name,
                     Dimensions = p.Dimensions,
-                    ImageUrl = p.ProductColors.Select(p => p.ImageUrl).FirstOrDefault(),
-                    QuantityInPalletInPieces = p.QuantityInPalletInPieces,
-                    QuantityInPalletInUnitOfMeasurement = p.QuantityInPalletInUnitOfMeasurement,
-                    UnitOfMeasurement = p.UnitOfMeasurement
+                    InPallet = $"{p.QuantityInPalletInPieces} pieces / {p.QuantityInPalletInUnitOfMeasurement}                          {p.UnitOfMeasurement}",
+                    DefaultImageUrl = p.ProductColors
+                                        .Where(c => c.Color.Name == "Grey")
+                                        .Select(pc => pc.ImageUrl)
+                                        .FirstOrDefault(),
                 })
                 .ToList();
 
             var productsViewModel = new ProductListingViewModel
             {
                 ItemsPerPage = itemsPerPage,
-                Products = products,
-                ProductsCount = this.data.Products.Count(),
+                Products = productsToList,
+                ProductsCount = productsToList.Count,
                 PageNumber = id
             };
 
@@ -67,26 +68,51 @@
                 return View(product);
             }
 
-            var currentProduct = new Product
-            {
-                Name = product.Name,
-                Dimensions = product.Dimensions,
-                QuantityInPalletInUnitOfMeasurement = product.QuantityInPalletInUnitOfMeasurement,
-                QuantityInPalletInPieces = product.QuantityInPalletInPieces,
-                CountInUnitOfMeasurement = product.CountInUnitOfMeasurement,
-                UnitOfMeasurement = product.UnitOfMeasurement,
-                Weight = product.Weight,
-                CategoryId = product.CategoryId,
-                WarehouseId = product.WarehouseId
-            };
+            var currentProduct = this.data.Products
+                .Select(p => new Product
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Dimensions = p.Dimensions,
+                    ProductColors = p.ProductColors
+                })
+                .FirstOrDefault(p => p.Name == product.Name && p.Dimensions == product.Dimensions);
 
-            currentProduct.ProductColors.Add(new ProductColor
+            if (currentProduct == null)
             {
-                ColorId = product.ColorId,
-                ImageUrl = product.ImageUrl
-            });
+                currentProduct = new Product
+                {
+                    Name = product.Name,
+                    Dimensions = product.Dimensions,
+                    QuantityInPalletInUnitOfMeasurement = product.QuantityInPalletInUnitOfMeasurement,
+                    QuantityInPalletInPieces = product.QuantityInPalletInPieces,
+                    CountInUnitOfMeasurement = product.CountInUnitOfMeasurement,
+                    UnitOfMeasurement = product.UnitOfMeasurement,
+                    Weight = product.Weight,
+                    CategoryId = product.CategoryId,
+                    WarehouseId = product.WarehouseId
+                };
 
-            this.data.Products.Add(currentProduct);
+                currentProduct.ProductColors.Add(new ProductColor
+                {
+                    ColorId = product.ColorId,
+                    ImageUrl = product.ImageUrl
+                });
+
+                this.data.Products.Add(currentProduct);
+            }
+
+            if (!currentProduct.ProductColors.Any(pc => pc.ColorId == product.ColorId))
+            {
+                this.data.ProductColors.Add(new ProductColor
+                {
+                    ProductId = currentProduct.Id,
+                    ColorId = product.ColorId,
+                    ImageUrl = product.ImageUrl
+                });
+
+            }
+
             this.data.SaveChanges();
 
             return RedirectToAction("All");
