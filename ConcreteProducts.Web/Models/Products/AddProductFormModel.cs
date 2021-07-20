@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using ConcreteProducts.Web.Data.Models.Enumerations;
+    using ConcreteProducts.Web.Services.Colors.Dtos;
+    using ConcreteProducts.Web.Services.Categories.Dtos;
 
     using static Data.DataConstants.Product;
     using static Data.DataConstants.ErrorMessages;
@@ -68,7 +70,7 @@
         [Display(Name = "Warehouse")]
         public int WarehouseId { get; init; }
 
-        public IEnumerable<ProductCategoryViewModel> Categories { get; set; }
+        public IEnumerable<CategoryServiceModel> Categories { get; set; }
 
         public IEnumerable<ProductColorViewModel> Colors { get; set; }
 

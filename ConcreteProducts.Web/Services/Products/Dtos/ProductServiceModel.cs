@@ -1,6 +1,6 @@
-﻿namespace ConcreteProducts.Web.Models.Products
+﻿namespace ConcreteProducts.Web.Services.Products.Dtos
 {
-    public class ProductListingViewModel
+    public class ProductServiceModel
     {
         public int Id { get; init; }
 

@@ -6,38 +6,34 @@
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Models.Products;
+    using ConcreteProducts.Web.Services.Products;
+    using ConcreteProducts.Web.Services.Colors;
+    using ConcreteProducts.Web.Services.Categories;
 
     public class ProductsController : Controller
     {
+        private readonly IProductService productService;
+        private readonly ICategoryService categoryService;
         private readonly ConcreteProductsDbContext data;
 
-        public ProductsController(ConcreteProductsDbContext data)
-            => this.data = data;
+        public ProductsController(IProductService productService, ConcreteProductsDbContext data, IColorService colorService, ICategoryService categoryService)
+        {
+            this.productService = productService;
+            this.data = data;
+            this.categoryService = categoryService;
+        }
 
         public IActionResult All(int id = 1)
         {
             const int itemsPerPage = 8;
 
-            var products = this.data.Products
-                .OrderByDescending(p => p.Id)
-                .Select(p => new ProductListingViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Dimensions = p.Dimensions,
-                    InPallet = $"{p.QuantityInPalletInPieces} pieces / {p.QuantityInPalletInUnitOfMeasurement}{p.UnitOfMeasurement}",
-                    DefaultImageUrl = p.ProductColors
-                                        .Where(c => c.Color.Name == "Grey")
-                                        .Select(pc => pc.ImageUrl)
-                                        .FirstOrDefault(),
-                })
-                .ToList();
+            var products = this.productService.GetAllProducts();
 
             var productsViewModel = new ListAllProductsViewModel
             {
                 AllProducts = products.Skip((id - 1) * itemsPerPage).Take(itemsPerPage),
                 PageNumber = id,
-                Count = products.Count,
+                Count = products.Count(),
                 ItemsPerPage = itemsPerPage
             };
 
@@ -47,8 +43,8 @@
         public IActionResult Add()
             => View(new AddProductFormModel
             {
-                Categories = this.GetProductCategories(),
                 Colors = this.GetProductColors(),
+                Categories = this.categoryService.GetAllCategories(),
                 Warehouses = this.GetProductWarehouses()
             });
 
@@ -59,8 +55,8 @@
 
             if (!ModelState.IsValid)
             {
-                product.Categories = this.GetProductCategories();
                 product.Colors = this.GetProductColors();
+                product.Categories = this.categoryService.GetAllCategories();
                 product.Warehouses = this.GetProductWarehouses();
 
                 return View(product);
@@ -133,16 +129,6 @@
                 this.ModelState.AddModelError(nameof(product.WarehouseId), $"{nameof(product.WarehouseId)} does not exist.");
             }
         }
-
-        private IEnumerable<ProductCategoryViewModel> GetProductCategories()
-            => this.data
-                .Categories
-                .Select(c => new ProductCategoryViewModel
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                })
-                .ToList();
 
         private IEnumerable<ProductColorViewModel> GetProductColors()
             => this.data

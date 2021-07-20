@@ -5,33 +5,32 @@
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Models.Categories;
+    using ConcreteProducts.Web.Services.Categories;
 
     public class CategoriesController : Controller
     {
+        private readonly ICategoryService categoryService;
         private readonly ConcreteProductsDbContext data;
 
-        public CategoriesController(ConcreteProductsDbContext data)
-            => this.data = data;
+        public CategoriesController(ICategoryService categoryService, ConcreteProductsDbContext data)
+        {
+            this.categoryService = categoryService;
+            this.data = data;
+        }
 
         public IActionResult All(int id = 1)
         {
             const int itemsPerPage = 8;
 
-            var categories = this.data.Categories
-                .Select(c => new CategoryListingViewModel
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    ProductsCount = c.Products.Count
-                })
-                .OrderBy(c => c.Id)
-                .ToList();
+            var categoriesWithProducts = this.categoryService.GetAllCategoriesWithTheirProducts();
 
             var categoriesViewModel = new ListAllCategoriesViewModel
             {
-                AllCategories = categories.Skip((id - 1) * itemsPerPage).Take(itemsPerPage),
+                AllCategories = categoriesWithProducts
+                    .Skip((id - 1) * itemsPerPage)
+                    .Take(itemsPerPage),
                 PageNumber = id,
-                Count = categories.Count,
+                Count = categoriesWithProducts.Count(),
                 ItemsPerPage = 12
             };
 

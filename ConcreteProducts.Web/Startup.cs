@@ -1,7 +1,5 @@
 namespace ConcreteProducts.Web
 {
-    using ConcreteProducts.Web.Data;
-    using ConcreteProducts.Web.Infrastructure;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -9,6 +7,12 @@ namespace ConcreteProducts.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using ConcreteProducts.Web.Data;
+    using ConcreteProducts.Web.Infrastructure;
+    using ConcreteProducts.Web.Services.Categories;
+    using ConcreteProducts.Web.Services.Colors;
+    using ConcreteProducts.Web.Services.Products;
+
 
     public class Startup
     {
@@ -38,6 +42,10 @@ namespace ConcreteProducts.Web
 
             services
                 .AddControllersWithViews();
+
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IColorService, ColorService>();
+            services.AddTransient<IProductService, ProductService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
