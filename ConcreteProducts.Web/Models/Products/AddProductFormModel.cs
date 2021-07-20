@@ -5,6 +5,7 @@
     using ConcreteProducts.Web.Data.Models.Enumerations;
     using ConcreteProducts.Web.Services.Colors.Dtos;
     using ConcreteProducts.Web.Services.Categories.Dtos;
+    using ConcreteProducts.Web.Services.Warehouses.Dtos;
 
     using static Data.DataConstants.Product;
     using static Data.DataConstants.ErrorMessages;
@@ -74,6 +75,6 @@
 
         public IEnumerable<ColorServiceModel> Colors { get; set; }
 
-        public IEnumerable<ProductWarehouseViewModel> Warehouses { get; set; }
+        public IEnumerable<WarehouseServiceModel> Warehouses { get; set; }
     }
 }

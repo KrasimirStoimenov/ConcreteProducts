@@ -5,34 +5,30 @@
     using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Models.Warehouses;
     using System.Linq;
+    using ConcreteProducts.Web.Services.Warehouses;
 
     public class WarehousesController : Controller
     {
         private readonly ConcreteProductsDbContext data;
+        private readonly IWarehouseService warehouseService;
 
-        public WarehousesController(ConcreteProductsDbContext data)
-            => this.data = data;
+        public WarehousesController(ConcreteProductsDbContext data, IWarehouseService warehouseService)
+        {
+            this.data = data;
+            this.warehouseService = warehouseService;
+        }
 
         public IActionResult All(int id = 1)
         {
             const int itemsPerPage = 8;
 
-            var warehouses = this.data.Warehouses
-                .Select(w => new WarehouseListingViewModel
-                {
-                    Id = w.Id,
-                    Name = w.Name,
-                    TotalProductsCount = w.Products.Count,
-                    TotalShapesCount = w.Shapes.Count
-                })
-                .OrderBy(w => w.Id)
-                .ToList();
+            var warehouses = this.warehouseService.GetWarehousesWithProductsAndShapesCount();
 
             var warehousesViewModel = new ListAllWarehouseViewModel
             {
                 AllWarehouses = warehouses.Skip((id - 1) * itemsPerPage).Take(itemsPerPage),
                 PageNumber = id,
-                Count = warehouses.Count,
+                Count = warehouses.Count(),
                 ItemsPerPage = itemsPerPage
             };
 

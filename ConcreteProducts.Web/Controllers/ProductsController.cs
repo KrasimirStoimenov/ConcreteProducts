@@ -1,7 +1,6 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
     using System.Linq;
-    using System.Collections.Generic;
     using Microsoft.AspNetCore.Mvc;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Data.Models;
@@ -9,20 +8,23 @@
     using ConcreteProducts.Web.Services.Products;
     using ConcreteProducts.Web.Services.Colors;
     using ConcreteProducts.Web.Services.Categories;
+    using ConcreteProducts.Web.Services.Warehouses;
 
     public class ProductsController : Controller
     {
         private readonly IProductService productService;
         private readonly IColorService colorService;
         private readonly ICategoryService categoryService;
+        private readonly IWarehouseService warehouseService;
         private readonly ConcreteProductsDbContext data;
 
-        public ProductsController(IProductService productService, ConcreteProductsDbContext data, IColorService colorService, ICategoryService categoryService)
+        public ProductsController(IProductService productService, ConcreteProductsDbContext data, IColorService colorService, ICategoryService categoryService, IWarehouseService warehouseService)
         {
             this.productService = productService;
             this.data = data;
             this.colorService = colorService;
             this.categoryService = categoryService;
+            this.warehouseService = warehouseService;
         }
 
         public IActionResult All(int id = 1)
@@ -47,7 +49,7 @@
             {
                 Categories = this.categoryService.GetAllCategories(),
                 Colors = this.colorService.GetAllColors(),
-                Warehouses = this.GetProductWarehouses()
+                Warehouses = this.warehouseService.GetAllWarehouses()
             });
 
         [HttpPost]
@@ -59,7 +61,7 @@
             {
                 product.Categories = this.categoryService.GetAllCategories();
                 product.Colors = this.colorService.GetAllColors();
-                product.Warehouses = this.GetProductWarehouses();
+                product.Warehouses = this.warehouseService.GetAllWarehouses();
 
                 return View(product);
             }
@@ -131,15 +133,5 @@
                 this.ModelState.AddModelError(nameof(product.WarehouseId), $"{nameof(product.WarehouseId)} does not exist.");
             }
         }
-
-        private IEnumerable<ProductWarehouseViewModel> GetProductWarehouses()
-            => this.data
-                .Warehouses
-                .Select(w => new ProductWarehouseViewModel
-                {
-                    Id = w.Id,
-                    Name = w.Name
-                })
-                .ToList();
     }
 }
