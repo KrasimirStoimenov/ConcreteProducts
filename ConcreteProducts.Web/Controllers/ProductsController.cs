@@ -13,6 +13,7 @@
     public class ProductsController : Controller
     {
         private readonly IProductService productService;
+        private readonly IColorService colorService;
         private readonly ICategoryService categoryService;
         private readonly ConcreteProductsDbContext data;
 
@@ -20,6 +21,7 @@
         {
             this.productService = productService;
             this.data = data;
+            this.colorService = colorService;
             this.categoryService = categoryService;
         }
 
@@ -43,8 +45,8 @@
         public IActionResult Add()
             => View(new AddProductFormModel
             {
-                Colors = this.GetProductColors(),
                 Categories = this.categoryService.GetAllCategories(),
+                Colors = this.colorService.GetAllColors(),
                 Warehouses = this.GetProductWarehouses()
             });
 
@@ -55,8 +57,8 @@
 
             if (!ModelState.IsValid)
             {
-                product.Colors = this.GetProductColors();
                 product.Categories = this.categoryService.GetAllCategories();
+                product.Colors = this.colorService.GetAllColors();
                 product.Warehouses = this.GetProductWarehouses();
 
                 return View(product);
@@ -129,16 +131,6 @@
                 this.ModelState.AddModelError(nameof(product.WarehouseId), $"{nameof(product.WarehouseId)} does not exist.");
             }
         }
-
-        private IEnumerable<ProductColorViewModel> GetProductColors()
-            => this.data
-                .Colors
-                .Select(c => new ProductColorViewModel
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                })
-                .ToList();
 
         private IEnumerable<ProductWarehouseViewModel> GetProductWarehouses()
             => this.data

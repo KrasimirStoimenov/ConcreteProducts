@@ -5,32 +5,30 @@
     using ConcreteProducts.Web.Models.Colors;
     using ConcreteProducts.Web.Data.Models;
     using System.Linq;
+    using ConcreteProducts.Web.Services.Colors;
 
     public class ColorsController : Controller
     {
+        private readonly IColorService colorService;
         private readonly ConcreteProductsDbContext data;
 
-        public ColorsController(ConcreteProductsDbContext data)
-            => this.data = data;
+        public ColorsController(IColorService colorService, ConcreteProductsDbContext data)
+        {
+            this.colorService = colorService;
+            this.data = data;
+        }
 
         public IActionResult All(int id = 1)
         {
             const int itemsPerPage = 8;
 
-            var colors = this.data.Colors
-                .Select(c => new ColorListingViewModel
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                })
-                .OrderBy(c => c.Id)
-                .ToList();
+            var colors = colorService.GetAllColors();
 
             var colorsViewModel = new ListAllColorsViewModel
             {
                 AllColors = colors.Skip((id - 1) * itemsPerPage).Take(itemsPerPage),
                 PageNumber = id,
-                Count = colors.Count,
+                Count = colors.Count(),
                 ItemsPerPage = itemsPerPage
             };
 

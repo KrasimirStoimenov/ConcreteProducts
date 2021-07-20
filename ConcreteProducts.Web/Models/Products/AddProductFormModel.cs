@@ -72,7 +72,7 @@
 
         public IEnumerable<CategoryServiceModel> Categories { get; set; }
 
-        public IEnumerable<ProductColorViewModel> Colors { get; set; }
+        public IEnumerable<ColorServiceModel> Colors { get; set; }
 
         public IEnumerable<ProductWarehouseViewModel> Warehouses { get; set; }
     }

@@ -1,6 +1,6 @@
-﻿namespace ConcreteProducts.Web.Models.Colors
+﻿namespace ConcreteProducts.Web.Services.Colors.Dtos
 {
-    public class ColorListingViewModel
+    public class ColorServiceModel
     {
         public int Id { get; init; }
 
