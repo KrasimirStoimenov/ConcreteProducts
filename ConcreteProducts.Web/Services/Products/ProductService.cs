@@ -40,5 +40,17 @@
 
             return products;
         }
+
+        public bool IsProductExist(int id)
+            => this.data.Products.Any(p => p.Id == id);
+
+        public void DeleteProduct(int id)
+        {
+            var product = this.data.Products.Find(id);
+
+            this.data.Products.Remove(product);
+            this.data.SaveChanges();
+        }
+
     }
 }

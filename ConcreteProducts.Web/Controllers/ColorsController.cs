@@ -56,5 +56,17 @@
 
             return RedirectToAction("All");
         }
+
+        public IActionResult Delete(int id)
+        {
+            if (!this.colorService.IsColorExist(id))
+            {
+                return BadRequest("Color does not exist!");
+            }
+
+            this.colorService.DeleteColor(id);
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

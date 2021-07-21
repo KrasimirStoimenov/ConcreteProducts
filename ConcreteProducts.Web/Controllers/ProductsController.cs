@@ -121,6 +121,19 @@
             return RedirectToAction("All");
         }
 
+        public IActionResult Delete(int id)
+        {
+            var validateProductExist = this.productService.IsProductExist(id);
+            if (!validateProductExist)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            this.productService.DeleteProduct(id);
+
+            return RedirectToAction(nameof(All));
+        }
+
         private void ValidateCollections(AddProductFormModel product)
         {
             if (!this.data.Categories.Any(c => c.Id == product.CategoryId))

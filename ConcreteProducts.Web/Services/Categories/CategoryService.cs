@@ -1,10 +1,12 @@
 ﻿namespace ConcreteProducts.Web.Services.Categories
 {
+    using System;
     using System.Linq;
     using System.Collections.Generic;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Services.Categories.Dtos;
     using ConcreteProducts.Web.Models.Products;
+    using Microsoft.EntityFrameworkCore;
 
     public class CategoryService : ICategoryService
     {
@@ -33,5 +35,20 @@
                 })
                 .OrderBy(c => c.Id)
                 .ToList();
+
+        public bool IsCategoryExist(int id)
+            => this.data.Categories.Any(c => c.Id == id);
+
+        public void DeleteCategory(int id)
+        {
+            var category = this.data.Categories.Include(cp => cp.Products).FirstOrDefault(c => c.Id == id);
+
+            if (category.Products.Any())
+            {
+                return;
+            }
+            this.data.Categories.Remove(category);
+            this.data.SaveChanges();
+        }
     }
 }

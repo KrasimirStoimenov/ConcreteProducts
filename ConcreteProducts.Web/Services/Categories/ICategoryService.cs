@@ -6,6 +6,11 @@
     public interface ICategoryService
     {
         IEnumerable<CategoriesWithProducts> GetAllCategoriesWithTheirProducts();
+
         IEnumerable<CategoryServiceModel> GetAllCategories();
+
+        bool IsCategoryExist(int id);
+
+        void DeleteCategory(int id);
     }
 }

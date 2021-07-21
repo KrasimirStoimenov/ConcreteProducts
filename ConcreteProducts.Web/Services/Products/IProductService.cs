@@ -6,5 +6,9 @@
     public interface IProductService
     {
         IEnumerable<ProductServiceModel> GetAllProducts(string searchTerm);
+
+        bool IsProductExist(int id);
+
+        void DeleteProduct(int id);
     }
 }
