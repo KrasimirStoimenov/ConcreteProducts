@@ -6,13 +6,18 @@
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Models.Shape;
     using ConcreteProducts.Web.Data.Models;
+    using ConcreteProducts.Web.Services.Warehouses;
 
     public class ShapesController : Controller
     {
         private readonly ConcreteProductsDbContext data;
+        private readonly IWarehouseService warehouseService;
 
-        public ShapesController(ConcreteProductsDbContext data)
-            => this.data = data;
+        public ShapesController(ConcreteProductsDbContext data, IWarehouseService warehouseService)
+        {
+            this.data = data;
+            this.warehouseService = warehouseService;
+        }
 
         public IActionResult All(int id = 1)
         {
@@ -43,7 +48,7 @@
         public IActionResult Add()
             => View(new AddShapeFormModel
             {
-                Warehouses = this.GetShapeWarehouses()
+                Warehouses = this.warehouseService.GetAllWarehouses()
             });
 
         [HttpPost]
@@ -56,7 +61,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                shape.Warehouses = this.GetShapeWarehouses();
+                shape.Warehouses = this.warehouseService.GetAllWarehouses();
 
                 return View(shape);
             }
@@ -71,17 +76,7 @@
             this.data.Shapes.Add(currentShape);
             this.data.SaveChanges();
 
-            return RedirectToAction("All");
+            return RedirectToAction(nameof(All));
         }
-
-        private IEnumerable<ShapeWarehouseViewModel> GetShapeWarehouses()
-            => this.data
-                .Warehouses
-                .Select(w => new ShapeWarehouseViewModel
-                {
-                    Id = w.Id,
-                    Name = w.Name
-                })
-                .ToList();
     }
 }

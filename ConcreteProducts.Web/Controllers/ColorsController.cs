@@ -61,7 +61,7 @@
         {
             if (!this.colorService.IsColorExist(id))
             {
-                return BadRequest("Color does not exist!");
+                return BadRequest("Color does not exist.");
             }
 
             this.colorService.DeleteColor(id);

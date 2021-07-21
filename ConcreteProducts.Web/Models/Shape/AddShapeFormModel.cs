@@ -6,6 +6,7 @@
 
     using static Data.DataConstants.Shape;
     using static Data.DataConstants.ErrorMessages;
+    using ConcreteProducts.Web.Services.Warehouses.Dtos;
 
     public class AddShapeFormModel
     {
@@ -27,6 +28,6 @@
         [Display(Name = "Warehouse")]
         public int WarehouseId { get; init; }
 
-        public IEnumerable<ShapeWarehouseViewModel> Warehouses { get; set; }
+        public IEnumerable<WarehouseServiceModel> Warehouses { get; set; }
     }
 }

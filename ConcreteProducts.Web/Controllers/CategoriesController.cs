@@ -59,6 +59,48 @@
             return RedirectToAction("All");
         }
 
+        public IActionResult Edit(int id)
+            => View(new EditCategoryFormModel
+            {
+                CurrentCategoryName = this.data.Categories
+                    .Where(c => c.Id == id)
+                    .Select(c => c.Name)
+                    .FirstOrDefault()
+            });
+
+        [HttpPost]
+        public IActionResult Edit(int id, EditCategoryFormModel category)
+        {
+            if (!this.categoryService.IsCategoryExist(id))
+            {
+                this.ModelState.AddModelError(nameof(category.CurrentCategoryName), $"Current category name does not exist.");
+            }
+
+            if (this.data.Categories.Any(c => c.Name == category.NewCategoryName))
+            {
+                this.ModelState.AddModelError(nameof(category.NewCategoryName), $"Current category name already exist.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                category.CurrentCategoryName = this.data.Categories
+                    .Where(c => c.Id == id)
+                    .Select(c => c.Name)
+                    .FirstOrDefault();
+
+                return View(category);
+            }
+
+            var currentCategory = this.data.Categories.Find(id);
+
+            currentCategory.Name = category.NewCategoryName;
+
+            this.data.Categories.Update(currentCategory);
+            this.data.SaveChanges();
+
+            return RedirectToAction(nameof(All));
+        }
+
         public IActionResult Delete(int id)
         {
             if (!this.categoryService.IsCategoryExist(id))

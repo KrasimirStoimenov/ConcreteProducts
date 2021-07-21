@@ -30,7 +30,7 @@
         {
             var color = this.data.Colors.Include(pc => pc.ProductColors).FirstOrDefault(c => c.Id == id);
 
-            if (!color.ProductColors.Any())
+            if (color.ProductColors.Any())
             {
                 return;
             }
