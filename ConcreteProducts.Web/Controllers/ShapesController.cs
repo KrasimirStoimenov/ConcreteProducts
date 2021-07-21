@@ -7,15 +7,19 @@
     using ConcreteProducts.Web.Models.Shape;
     using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Services.Warehouses;
+    using ConcreteProducts.Web.Services.Shapes;
+    using ConcreteProducts.Web.Models.Warehouses;
 
     public class ShapesController : Controller
     {
         private readonly ConcreteProductsDbContext data;
+        private readonly IShapeService shapeService;
         private readonly IWarehouseService warehouseService;
 
-        public ShapesController(ConcreteProductsDbContext data, IWarehouseService warehouseService)
+        public ShapesController(ConcreteProductsDbContext data, IShapeService shapeService, IWarehouseService warehouseService)
         {
             this.data = data;
+            this.shapeService = shapeService;
             this.warehouseService = warehouseService;
         }
 
@@ -23,22 +27,13 @@
         {
             const int itemsPerPage = 8;
 
-            var shapes = this.data.Shapes
-                .Select(s => new ShapeListingViewModel
-                {
-                    Id = s.Id,
-                    Name = s.Name,
-                    Dimensions = s.Dimensions,
-                    WarehouseName = s.Warehouse.Name
-                })
-                .OrderBy(s => s.Id)
-                .ToList();
+            var shapes = this.shapeService.GetAllShapesWithWarehouse();
 
             var shapesViewModel = new ListAllShapesViewModel
             {
                 AllShapes = shapes.Skip((id - 1) * itemsPerPage).Take(itemsPerPage),
                 PageNumber = id,
-                Count = shapes.Count,
+                Count = shapes.Count(),
                 ItemsPerPage = itemsPerPage
             };
 
@@ -74,6 +69,63 @@
             };
 
             this.data.Shapes.Add(currentShape);
+            this.data.SaveChanges();
+
+            return RedirectToAction(nameof(All));
+        }
+
+        public IActionResult Edit(int id)
+            => View(new EditShapeFormModel
+            {
+                CurrentShapeName = this.data.Shapes
+                    .Where(c => c.Id == id)
+                    .Select(c => c.Name)
+                    .FirstOrDefault(),
+                CurrentShapeDimensions = this.data.Shapes
+                    .Where(c => c.Id == id)
+                    .Select(c => c.Dimensions)
+                    .FirstOrDefault(),
+            });
+
+        [HttpPost]
+        public IActionResult Edit(int id, EditShapeFormModel shape)
+        {
+            if (!this.shapeService.IsShapeExist(id))
+            {
+                this.ModelState.AddModelError(nameof(shape.CurrentShapeName), $"Current shape name does not exist.");
+            }
+
+            if (this.data.Shapes.Any(c => c.Name == shape.NewShapeName))
+            {
+                this.ModelState.AddModelError(nameof(shape.NewShapeName), $"Current shape name already exist.");
+            }
+
+            if (this.data.Shapes.Any(c => c.Name == shape.NewShapeName))
+            {
+                this.ModelState.AddModelError(nameof(shape.NewShapeName), $"Current shape dimensions already exist.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                shape.CurrentShapeName = this.data.Shapes
+                    .Where(c => c.Id == id)
+                    .Select(c => c.Name)
+                    .FirstOrDefault();
+
+                shape.CurrentShapeDimensions = this.data.Shapes
+                    .Where(c => c.Id == id)
+                    .Select(c => c.Dimensions)
+                    .FirstOrDefault();
+
+                return View(shape);
+            }
+
+            var currentShape = this.data.Shapes.Find(id);
+
+            currentShape.Name = shape.NewShapeName;
+            currentShape.Dimensions = shape.NewShapeDimensions;
+
+            this.data.Shapes.Update(currentShape);
             this.data.SaveChanges();
 
             return RedirectToAction(nameof(All));

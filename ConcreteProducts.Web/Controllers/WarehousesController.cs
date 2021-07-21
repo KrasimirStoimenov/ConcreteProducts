@@ -89,11 +89,11 @@
                 return View(warehouse);
             }
 
-            var currentWarehose = this.data.Warehouses.Find(id);
+            var currentWarehouse = this.data.Warehouses.Find(id);
 
-            currentWarehose.Name = warehouse.NewWarehouseName;
+            currentWarehouse.Name = warehouse.NewWarehouseName;
 
-            this.data.Warehouses.Update(currentWarehose);
+            this.data.Warehouses.Update(currentWarehouse);
             this.data.SaveChanges();
 
             return RedirectToAction(nameof(All));
