@@ -27,11 +27,16 @@
             this.warehouseService = warehouseService;
         }
 
-        public IActionResult All(int id = 1)
+        public IActionResult All(string searchTerm, int id = 1)
         {
             const int itemsPerPage = 8;
 
-            var products = this.productService.GetAllProducts();
+            if (searchTerm != null)
+            {
+                id = 1;
+            }
+
+            var products = this.productService.GetAllProducts(searchTerm);
 
             var productsViewModel = new ListAllProductsViewModel
             {

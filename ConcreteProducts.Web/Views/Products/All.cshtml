@@ -5,6 +5,16 @@
 }
 
 <h2 class="headingMargin text-center">@ViewData["Title"]</h2>
+
+
+<form method="get">
+    <div class="input-group offset-md-8 col-md-4 mb-3">
+        <input asp-for="SearchTerm" type="text" class="form-control form-control-lg" placeholder="Search Here">
+        <button type="submit" class="btn input-group-text btn-success"><i class="bi bi-search me-2"></i> Search</button>
+    </div>
+</form>
+
+
 <div class="row">
     @foreach (var product in Model.AllProducts)
     {
@@ -26,4 +36,6 @@
 </div>
 <hr />
 <partial name="_PagingPartial" model="@this.Model" />
+
+
 

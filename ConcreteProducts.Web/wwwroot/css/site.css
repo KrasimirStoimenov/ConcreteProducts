@@ -77,3 +77,11 @@ body {
     margin-top: 20px;
     margin-bottom: 40px;
 }
+
+.search-box {
+    margin: 40px auto;
+}
+
+.search-box .btn-light {
+    border: 1px solid #ced4da;
+}

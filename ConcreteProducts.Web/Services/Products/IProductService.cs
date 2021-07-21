@@ -5,6 +5,6 @@
 
     public interface IProductService
     {
-        IEnumerable<ProductServiceModel> GetAllProducts();
+        IEnumerable<ProductServiceModel> GetAllProducts(string searchTerm);
     }
 }

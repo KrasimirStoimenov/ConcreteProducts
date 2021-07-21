@@ -14,8 +14,16 @@
             this.data = data;
         }
 
-        public IEnumerable<ProductServiceModel> GetAllProducts()
-            => this.data.Products
+        public IEnumerable<ProductServiceModel> GetAllProducts(string searchTerm)
+        {
+            var productQuery = this.data.Products.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                productQuery = productQuery.Where(p => p.Name.Contains(searchTerm) || p.Dimensions.Contains(searchTerm));
+            }
+
+            var products = productQuery
                 .OrderByDescending(p => p.Id)
                 .Select(p => new ProductServiceModel
                 {
@@ -29,5 +37,8 @@
                                         .FirstOrDefault(),
                 })
                 .ToList();
+
+            return products;
+        }
     }
 }
