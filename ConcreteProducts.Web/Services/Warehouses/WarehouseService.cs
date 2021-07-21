@@ -2,9 +2,9 @@
 {
     using System.Linq;
     using System.Collections.Generic;
+    using Microsoft.EntityFrameworkCore;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Services.Warehouses.Dtos;
-    using ConcreteProducts.Web.Models.Warehouses;
 
     public class WarehouseService : IWarehouseService
     {
@@ -38,5 +38,21 @@
 
         public bool IsWarehouseExist(int id)
             => this.data.Warehouses.Any(w => w.Id == id);
+
+        public void DeleteWarehouse(int id)
+        {
+            var warehouse = this.data.Warehouses
+                .Include(w => w.Products)
+                .Include(w => w.Shapes)
+                .FirstOrDefault(c => c.Id == id);
+
+            if (warehouse.Products.Any() || warehouse.Shapes.Any())
+            {
+                return;
+            }
+
+            this.data.Warehouses.Remove(warehouse);
+            this.data.SaveChanges();
+        }
     }
 }

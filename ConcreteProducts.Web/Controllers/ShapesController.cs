@@ -1,14 +1,12 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
     using System.Linq;
-    using System.Collections.Generic;
     using Microsoft.AspNetCore.Mvc;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Models.Shape;
     using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Services.Shapes;
-    using ConcreteProducts.Web.Models.Warehouses;
 
     public class ShapesController : Controller
     {
@@ -127,6 +125,18 @@
 
             this.data.Shapes.Update(currentShape);
             this.data.SaveChanges();
+
+            return RedirectToAction(nameof(All));
+        }
+
+        public IActionResult Delete(int id)
+        {
+            if (!this.shapeService.IsShapeExist(id))
+            {
+                return BadRequest("Shape does not exist.");
+            }
+
+            this.shapeService.DeleteShape(id);
 
             return RedirectToAction(nameof(All));
         }

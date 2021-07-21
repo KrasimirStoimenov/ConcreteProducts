@@ -1,10 +1,10 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
+    using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Models.Warehouses;
-    using System.Linq;
     using ConcreteProducts.Web.Services.Warehouses;
 
     public class WarehousesController : Controller
@@ -95,6 +95,18 @@
 
             this.data.Warehouses.Update(currentWarehouse);
             this.data.SaveChanges();
+
+            return RedirectToAction(nameof(All));
+        }
+
+        public IActionResult Delete(int id)
+        {
+            if (!this.warehouseService.IsWarehouseExist(id))
+            {
+                return BadRequest("Warehouse does not exist!");
+            }
+
+            this.warehouseService.DeleteWarehouse(id);
 
             return RedirectToAction(nameof(All));
         }

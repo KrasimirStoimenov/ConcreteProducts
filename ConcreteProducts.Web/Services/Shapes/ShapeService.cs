@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Services.Shapes.Dto;
+using Microsoft.EntityFrameworkCore;
 
     public class ShapeService : IShapeService
     {
@@ -37,5 +38,13 @@
 
         public bool IsShapeExist(int id)
             => this.data.Shapes.Any(s => s.Id == id);
+
+        public void DeleteShape(int id)
+        {
+            var shape = this.data.Shapes.Find(id);
+
+            this.data.Shapes.Remove(shape);
+            this.data.SaveChanges();
+        }
     }
 }

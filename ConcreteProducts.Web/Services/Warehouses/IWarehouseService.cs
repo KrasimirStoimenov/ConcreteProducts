@@ -10,5 +10,7 @@
         IEnumerable<WarehouseWithProductsAndShapesCount> GetWarehousesWithProductsAndShapesCount();
 
         bool IsWarehouseExist(int id);
+
+        void DeleteWarehouse(int id);
     }
 }

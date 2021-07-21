@@ -10,5 +10,7 @@
         IEnumerable<ShapeAndWarehouseServiceModel> GetAllShapesWithWarehouse();
 
         bool IsShapeExist(int id);
+
+        void DeleteShape(int id);
     }
 }
