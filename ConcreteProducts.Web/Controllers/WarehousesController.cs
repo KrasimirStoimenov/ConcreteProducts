@@ -41,7 +41,7 @@
         [HttpPost]
         public IActionResult Add(AddWarehouseFormModel warehouse)
         {
-            if (this.ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 return View(warehouse);
             }
