@@ -35,5 +35,8 @@
                 })
                 .OrderBy(w => w.Id)
                 .ToList();
+
+        public bool IsWarehouseExist(int id)
+            => this.data.Warehouses.Any(w => w.Id == id);
     }
 }

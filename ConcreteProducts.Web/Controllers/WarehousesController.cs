@@ -56,5 +56,47 @@
 
             return RedirectToAction("All");
         }
+
+        public IActionResult Edit(int id)
+            => View(new EditWarehouseFormModel
+            {
+                CurrentWarehouseName = this.data.Warehouses
+                    .Where(c => c.Id == id)
+                    .Select(c => c.Name)
+                    .FirstOrDefault()
+            });
+
+        [HttpPost]
+        public IActionResult Edit(int id, EditWarehouseFormModel warehouse)
+        {
+            if (!this.warehouseService.IsWarehouseExist(id))
+            {
+                this.ModelState.AddModelError(nameof(warehouse.CurrentWarehouseName), $"Current warehouse name does not exist.");
+            }
+
+            if (this.data.Warehouses.Any(c => c.Name == warehouse.NewWarehouseName))
+            {
+                this.ModelState.AddModelError(nameof(warehouse.NewWarehouseName), $"Current warehouse name already exist.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                warehouse.CurrentWarehouseName = this.data.Warehouses
+                    .Where(c => c.Id == id)
+                    .Select(c => c.Name)
+                    .FirstOrDefault();
+
+                return View(warehouse);
+            }
+
+            var currentWarehose = this.data.Warehouses.Find(id);
+
+            currentWarehose.Name = warehouse.NewWarehouseName;
+
+            this.data.Warehouses.Update(currentWarehose);
+            this.data.SaveChanges();
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

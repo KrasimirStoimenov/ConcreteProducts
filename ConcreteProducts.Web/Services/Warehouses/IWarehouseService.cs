@@ -8,5 +8,7 @@
         IEnumerable<WarehouseServiceModel> GetAllWarehouses();
 
         IEnumerable<WarehouseWithProductsAndShapesCount> GetWarehousesWithProductsAndShapesCount();
+
+        bool IsWarehouseExist(int id);
     }
 }

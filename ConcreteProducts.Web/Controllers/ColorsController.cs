@@ -57,6 +57,48 @@
             return RedirectToAction("All");
         }
 
+        public IActionResult Edit(int id)
+            => View(new EditColorFormModel
+            {
+                CurrentColorName = this.data.Colors
+                    .Where(c => c.Id == id)
+                    .Select(c => c.Name)
+                    .FirstOrDefault()
+            });
+
+        [HttpPost]
+        public IActionResult Edit(int id, EditColorFormModel color)
+        {
+            if (!this.colorService.IsColorExist(id))
+            {
+                this.ModelState.AddModelError(nameof(color.CurrentColorName), $"Current color name does not exist.");
+            }
+
+            if (this.data.Colors.Any(c => c.Name == color.NewColorName))
+            {
+                this.ModelState.AddModelError(nameof(color.NewColorName), $"Current color name already exist.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                color.CurrentColorName = this.data.Colors
+                    .Where(c => c.Id == id)
+                    .Select(c => c.Name)
+                    .FirstOrDefault();
+
+                return View(color);
+            }
+
+            var currentColor = this.data.Colors.Find(id);
+
+            currentColor.Name = color.NewColorName;
+
+            this.data.Colors.Update(currentColor);
+            this.data.SaveChanges();
+
+            return RedirectToAction(nameof(All));
+        }
+
         public IActionResult Delete(int id)
         {
             if (!this.colorService.IsColorExist(id))
