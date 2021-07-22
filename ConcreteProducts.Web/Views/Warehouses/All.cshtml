@@ -10,7 +10,7 @@
         <table class="table table-hover offset-md-1 col-md-10">
             <thead>
                 <tr>
-                    <th class="col-md-1 text-center" scope="col">Id</th>
+                    <th class="col-md-1 text-center" scope="col">#</th>
                     <th class="col-md-2 text-center" scope="col">Warehouse name</th>
                     <th class="col-md-2 text-center" scope="col">Total products count</th>
                     <th class="col-md-2 text-center" scope="col">Total shapes count</th>
@@ -18,20 +18,26 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var warehouse in Model.AllWarehouses)
-                {
-                    <tr>
-                        <th scope="row" class="text-center">@warehouse.Id</th>
-                        <td class="text-center">@warehouse.Name</td>
-                        <td class="text-center">@warehouse.TotalProductsCount</td>
-                        <td class="text-center">@warehouse.TotalShapesCount</td>
-                        <td class="text-center">
-                            <div class="input-group-append">
-                                <a class="btn btn-info offset-3 col-3 text-center" title="Edit" asp-controller="Warehouses" asp-action="Edit" asp-route-id="@warehouse.Id"><i class="bi bi-pencil-square"></i></a>
-                                <a class="btn btn-danger offset-3 col-3 text-center" title="Delete" asp-controller="Warehouses" asp-action="Delete" asp-route-id="@warehouse.Id"><i class="bi bi-x-lg"></i></a>
-                            </div>
-                        </td>
-                    </tr>
+                @{
+                    var lineCounter = 1;
+
+                    foreach (var warehouse in Model.AllWarehouses)
+                    {
+                        <tr>
+                            <th scope="row" class="text-center">@lineCounter</th>
+                            <td class="text-center">@warehouse.Name</td>
+                            <td class="text-center">@warehouse.TotalProductsCount</td>
+                            <td class="text-center">@warehouse.TotalShapesCount</td>
+                            <td class="text-center">
+                                <div class="input-group-append">
+                                    <a class="btn btn-info offset-3 col-3 text-center" title="Edit" asp-controller="Warehouses" asp-action="Edit" asp-route-id="@warehouse.Id"><i class="bi bi-pencil-square"></i></a>
+                                    <a class="btn btn-danger offset-3 col-3 text-center" title="Delete" asp-controller="Warehouses" asp-action="Delete" asp-route-id="@warehouse.Id"><i class="bi bi-x-lg"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        lineCounter++;
+                    }
                 }
             </tbody>
         </table>

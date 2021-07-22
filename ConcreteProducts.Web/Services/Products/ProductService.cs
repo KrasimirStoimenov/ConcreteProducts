@@ -31,8 +31,8 @@
                     Name = p.Name,
                     Dimensions = p.Dimensions,
                     InPallet = $"{p.QuantityInPalletInPieces} pieces / {p.QuantityInPalletInUnitOfMeasurement}{p.UnitOfMeasurement}",
+                    CategoryName = p.Category.Name,
                     DefaultImageUrl = p.ProductColors
-                                        .Where(c => c.Color.Name == "Grey")
                                         .Select(pc => pc.ImageUrl)
                                         .FirstOrDefault(),
                 })

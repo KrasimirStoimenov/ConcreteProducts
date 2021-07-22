@@ -10,7 +10,7 @@
         <table class="table table-hover offset-md-1 col-md-10">
             <thead>
                 <tr>
-                    <th class="col-md-1 text-center" scope="col">Id</th>
+                    <th class="col-md-1 text-center" scope="col">#</th>
                     <th class="col-md-2 text-center" scope="col">Shape name</th>
                     <th class="col-md-2 text-center" scope="col">Shape dimensions</th>
                     <th class="col-md-2 text-center" scope="col">Warehouse name</th>
@@ -18,20 +18,26 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var shape in Model.AllShapes)
-                {
-                    <tr>
-                        <th scope="row" class="text-center">@shape.Id</th>
-                        <td class="text-center">@shape.Name</td>
-                        <td class="text-center">@shape.Dimensions</td>
-                        <td class="text-center">@shape.WarehouseName</td>
-                        <td class="text-center">
-                            <div class="input-group-append">
-                                <a class="btn btn-info offset-3 col-3 text-center" title="Edit" asp-controller="Shapes" asp-action="Edit" asp-route-id="@shape.Id"><i class="bi bi-pencil-square"></i></a>
-                                <a class="btn btn-danger offset-3 col-3 text-center" title="Delete" asp-controller="Shapes" asp-action="Delete" asp-route-id="@shape.Id"><i class="bi bi-x-lg"></i></a>
-                            </div>
-                        </td>
-                    </tr>
+                @{
+                    var lineCounter = 1;
+
+                    foreach (var shape in Model.AllShapes)
+                    {
+                        <tr>
+                            <th scope="row" class="text-center">@lineCounter</th>
+                            <td class="text-center">@shape.Name</td>
+                            <td class="text-center">@shape.Dimensions</td>
+                            <td class="text-center">@shape.WarehouseName</td>
+                            <td class="text-center">
+                                <div class="input-group-append">
+                                    <a class="btn btn-info offset-3 col-3 text-center" title="Edit" asp-controller="Shapes" asp-action="Edit" asp-route-id="@shape.Id"><i class="bi bi-pencil-square"></i></a>
+                                    <a class="btn btn-danger offset-3 col-3 text-center" title="Delete" asp-controller="Shapes" asp-action="Delete" asp-route-id="@shape.Id"><i class="bi bi-x-lg"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        lineCounter++;
+                    }
                 }
             </tbody>
         </table>

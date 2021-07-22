@@ -11,5 +11,7 @@
         public string InPallet { get; init; }
 
         public string DefaultImageUrl { get; init; }
+
+        public string CategoryName { get; init; }
     }
 }
