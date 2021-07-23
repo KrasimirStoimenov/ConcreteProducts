@@ -108,6 +108,14 @@
                 return BadRequest("Category does not exist!");
             }
 
+            var category = this.categoryService.GetCategoryToDelete(id);
+
+            return View(category);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int id)
+        {
             this.categoryService.DeleteCategory(id);
 
             return RedirectToAction(nameof(All));

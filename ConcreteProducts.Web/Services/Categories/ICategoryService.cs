@@ -5,9 +5,11 @@
 
     public interface ICategoryService
     {
-        IEnumerable<CategoriesWithProducts> GetAllCategoriesWithTheirProducts();
+        IEnumerable<CategoryWithProducts> GetAllCategoriesWithTheirProducts();
 
         IEnumerable<CategoryServiceModel> GetAllCategories();
+
+        CategoryWithProducts GetCategoryToDelete(int id);
 
         bool IsCategoryExist(int id);
 

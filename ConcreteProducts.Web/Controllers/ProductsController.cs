@@ -135,12 +135,19 @@
 
         public IActionResult Delete(int id)
         {
-            var validateProductExist = this.productService.IsProductExist(id);
-            if (!validateProductExist)
+            if (!this.productService.IsProductExist(id))
             {
-                return RedirectToAction(nameof(All));
+                return BadRequest("Product does not exist!");
             }
 
+            var product = this.productService.GetProductToDeleteById(id);
+
+            return View(product);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int id)
+        {
             this.productService.DeleteProduct(id);
 
             return RedirectToAction(nameof(All));

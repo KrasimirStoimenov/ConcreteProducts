@@ -1,6 +1,6 @@
 ﻿namespace ConcreteProducts.Web.Services.Categories.Dtos
 {
-    public class CategoriesWithProducts : CategoryServiceModel
+    public class CategoryWithProducts : CategoryServiceModel
     {
         public int ProductsCount { get; set; }
     }

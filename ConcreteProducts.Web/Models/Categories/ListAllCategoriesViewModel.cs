@@ -5,6 +5,6 @@
 
     public class ListAllCategoriesViewModel : PagingViewModel
     {
-        public IEnumerable<CategoriesWithProducts> AllCategories { get; init; }
+        public IEnumerable<CategoryWithProducts> AllCategories { get; init; }
     }
 }

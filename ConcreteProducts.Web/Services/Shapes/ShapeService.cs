@@ -3,8 +3,7 @@
     using System.Linq;
     using System.Collections.Generic;
     using ConcreteProducts.Web.Data;
-    using ConcreteProducts.Web.Services.Shapes.Dto;
-using Microsoft.EntityFrameworkCore;
+    using ConcreteProducts.Web.Services.Shapes.Dtos;
 
     public class ShapeService : IShapeService
     {
@@ -35,6 +34,17 @@ using Microsoft.EntityFrameworkCore;
                 })
                 .OrderBy(s => s.Id)
                 .ToList();
+
+        public ShapeServiceModel GetShapeToDeleteById(int id)
+            => this.data.Shapes
+                .Where(s => s.Id == id)
+                .Select(s => new ShapeServiceModel
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Dimensions = s.Dimensions
+                })
+                .FirstOrDefault();
 
         public bool IsShapeExist(int id)
             => this.data.Shapes.Any(s => s.Id == id);

@@ -1,0 +1,26 @@
+﻿@model ColorDeleteServiceModel
+
+@{
+    ViewData["Title"] = "Delete Color";
+}
+
+<h1 class="headingMargin">Delete</h1>
+
+@if (Model.ProductsRelatedToColor > 0)
+{
+    <h5>You can not delete color with related products to the color!</h5>
+    <h5>Related products - @Model.ProductsRelatedToColor</h5>
+    <br />
+}
+else
+{
+    <h5>Are you sure you want to delete <span class="font-weight-bold"><u>@Model.Name</u></span> color?</h5>
+    <br />
+}
+<div>
+    <form asp-action="DeleteConfirmed">
+        <input type="hidden" asp-for="@Model.Id" />
+        <input @if (Model.ProductsRelatedToColor > 0) { <text>disabled</text>} type="submit" asp-action="DeleteConfirmed" value="Delete" class="btn btn-danger" /> |
+        <a class="btn btn-info" asp-action="All">Back to List</a>
+    </form>
+</div>

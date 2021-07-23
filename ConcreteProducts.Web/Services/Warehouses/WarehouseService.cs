@@ -35,20 +35,23 @@
                 .OrderBy(w => w.Id)
                 .ToList();
 
+        public WarehouseWithProductsAndShapesCount GetWarehouseToDeleteById(int id)
+            => this.data.Warehouses
+                .Select(w => new WarehouseWithProductsAndShapesCount
+                {
+                    Id = w.Id,
+                    Name = w.Name,
+                    TotalProductsCount = w.Products.Count,
+                    TotalShapesCount = w.Shapes.Count
+                })
+                .FirstOrDefault();
+
         public bool IsWarehouseExist(int id)
             => this.data.Warehouses.Any(w => w.Id == id);
 
         public void DeleteWarehouse(int id)
         {
-            var warehouse = this.data.Warehouses
-                .Include(w => w.Products)
-                .Include(w => w.Shapes)
-                .FirstOrDefault(c => c.Id == id);
-
-            if (warehouse.Products.Any() || warehouse.Shapes.Any())
-            {
-                return;
-            }
+            var warehouse = this.data.Warehouses.Find(id);
 
             this.data.Warehouses.Remove(warehouse);
             this.data.SaveChanges();

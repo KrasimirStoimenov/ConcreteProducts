@@ -22,14 +22,15 @@
             <img class="card-img-top" height="200" src="@product.DefaultImageUrl" alt="@product.Name">
             <div class="card-body">
                 <br />
-                <h4 class="card-title text-center"><br />@product.Name</h4>
+                <h4 class="card-title text-center mb-4">@product.Name</h4>
                 <hr />
                 <h6 class="text-center">Specifiations:</h6>
-                <div class="text-center"><br />Size - @product.Dimensions</div>
-                <div class="text-center"><br />Category - @product.CategoryName</div>
-                <div class="text-center"><br />Available in different colors</div>
+                <div class="text-center mb-4">Size - @product.Dimensions</div>
+                <div class="text-center mb-4">Category - @product.CategoryName</div>
+                <div class="text-center mb-4">Available in different colors</div>
                 <br />
-                <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary" style="width: 14rem;">Details</a>
+                <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary" style="width: 7rem;">Details</a>
+                <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-primary" style="width: 7rem;">Delete</a>
             </div>
         </div>
     }

@@ -4,7 +4,7 @@
     ViewData["Title"] = Model.Name;
 }
 
-<h2 class="headingMargin text-left offset-2">@ViewData["Title"]</h2>
+<h2 class="headingMargin text-left offset-1">@ViewData["Title"]</h2>
 
 <div class="container">
     <div class="row">
@@ -13,24 +13,34 @@
         </div>
         <div class="col-md-6 mb-4">
             <p class="lead font-weight-bold">Specifiations</p>
-            <span>
-                Category - <a asp-for="Category" asp-action="ProductsInCategory" asp-rout-id="@Model.CategoryName"><span class="badge purple mr-1">@Model.CategoryName</span></a>
-            </span>
+            <hr />
 
-            <div><br />Size - @Model.Dimensions</div>
-            <div><br />Quantity in pallet (in @Model.UnitOfMeasurement)- @Model.QuantityInPalletInUnitOfMeasurement @Model.UnitOfMeasurement</div>
-            <div><br />Quantity in pallet (in pieces) - @Model.QuantityInPalletInPieces pieces</div>
-            <div><br />Count in @Model.UnitOfMeasurement - @Model.CountInUnitOfMeasurement pieces</div>
-            <div><br />Weight - @Model.Weight kg.</div>
-            <div>
-                <br />Availabe colors:<table>
-                    <tr>
-                        @foreach (var color in Model.AvailableColorsName)
-                        {
-                            <li>@color</li>
-                        }
-                    </tr>
-                </table>
+            <div class="mb-4">
+                <span class="font-weight-bold">Category</span> - @Model.CategoryName
+            </div>
+            <div class="mb-4">
+                <span class="font-weight-bold">Size</span> - @Model.Dimensions
+            </div>
+            <div class="mb-4">
+                <span class="font-weight-bold">Quantity in pallet (in @Model.UnitOfMeasurement)</span> - @Model.QuantityInPalletInUnitOfMeasurement @Model.UnitOfMeasurement
+            </div>
+            <div class="mb-4">
+                <span class="font-weight-bold">Quantity in pallet (in pieces)</span> - @Model.QuantityInPalletInPieces pieces
+            </div>
+            <div class="mb-4">
+                <span class="font-weight-bold">Count in @Model.UnitOfMeasurement</span> - @Model.CountInUnitOfMeasurement pieces
+            </div>
+            <div class="mb-4">
+                <span class="font-weight-bold">Weight</span> - @Model.Weight kg.
+            </div>
+            <div class="mb-4">
+                <span class="font-weight-bold">Availabe colors:</span>
+                <ul>
+                    @foreach (var color in Model.AvailableColorsName)
+                    {
+                        <li>@color</li>
+                    }
+                </ul>
             </div>
         </div>
     </div>

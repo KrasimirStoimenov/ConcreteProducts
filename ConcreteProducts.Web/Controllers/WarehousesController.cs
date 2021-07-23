@@ -103,9 +103,17 @@
         {
             if (!this.warehouseService.IsWarehouseExist(id))
             {
-                return BadRequest("Warehouse does not exist!");
+                return BadRequest("Shape does not exist!");
             }
 
+            var warehouse = this.warehouseService.GetWarehouseToDeleteById(id);
+
+            return View(warehouse);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int id)
+        {
             this.warehouseService.DeleteWarehouse(id);
 
             return RedirectToAction(nameof(All));

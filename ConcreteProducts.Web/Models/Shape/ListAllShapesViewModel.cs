@@ -1,7 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Models.Shape
 {
     using System.Collections.Generic;
-    using ConcreteProducts.Web.Services.Shapes.Dto;
+    using ConcreteProducts.Web.Services.Shapes.Dtos;
 
     public class ListAllShapesViewModel : PagingViewModel
     {

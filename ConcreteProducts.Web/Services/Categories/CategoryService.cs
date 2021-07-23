@@ -1,12 +1,9 @@
 ﻿namespace ConcreteProducts.Web.Services.Categories
 {
-    using System;
     using System.Linq;
     using System.Collections.Generic;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Services.Categories.Dtos;
-    using ConcreteProducts.Web.Models.Products;
-    using Microsoft.EntityFrameworkCore;
 
     public class CategoryService : ICategoryService
     {
@@ -25,9 +22,9 @@
                 })
                 .ToList();
 
-        public IEnumerable<CategoriesWithProducts> GetAllCategoriesWithTheirProducts()
+        public IEnumerable<CategoryWithProducts> GetAllCategoriesWithTheirProducts()
             => this.data.Categories
-                .Select(c => new CategoriesWithProducts
+                .Select(c => new CategoryWithProducts
                 {
                     Id = c.Id,
                     Name = c.Name,
@@ -36,19 +33,29 @@
                 .OrderBy(c => c.Id)
                 .ToList();
 
+        public CategoryWithProducts GetCategoryToDelete(int id)
+            => this.data.Categories
+                .Where(c => c.Id == id)
+                .Select(c => new CategoryWithProducts
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    ProductsCount = c.Products.Count
+                })
+                .FirstOrDefault();
+
         public bool IsCategoryExist(int id)
-            => this.data.Categories.Any(c => c.Id == id);
+            => this.data.Categories
+                .Any(c => c.Id == id);
 
         public void DeleteCategory(int id)
         {
-            var category = this.data.Categories.Include(cp => cp.Products).FirstOrDefault(c => c.Id == id);
+            var category = this.data.Categories.Find(id);
 
-            if (category.Products.Any())
-            {
-                return;
-            }
             this.data.Categories.Remove(category);
             this.data.SaveChanges();
         }
+
+
     }
 }

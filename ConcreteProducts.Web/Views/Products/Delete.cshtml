@@ -1,0 +1,18 @@
+﻿@model ProductDeleteServiceModel
+
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<h1 class="headingMargin">Delete</h1>
+
+<h5>Are you sure you want to delete <span class="font-weight-bold"><u>@Model.Name</u></span> product?</h5>
+<br />
+
+<div>
+    <form asp-action="DeleteConfirmed">
+        <input type="hidden" asp-for="@Model.Id" />
+        <input type="submit" asp-action="DeleteConfirmed" value="Delete" class="btn btn-danger" /> |
+        <a class="btn btn-info" asp-action="All">Back to List</a>
+    </form>
+</div>

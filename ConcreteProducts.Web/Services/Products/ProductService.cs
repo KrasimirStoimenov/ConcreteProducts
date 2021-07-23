@@ -1,9 +1,10 @@
 ﻿namespace ConcreteProducts.Web.Services.Products
 {
-    using System.Collections.Generic;
     using System.Linq;
+    using System.Collections.Generic;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Services.Products.Dtos;
+    using Microsoft.EntityFrameworkCore;
 
     public class ProductService : IProductService
     {
@@ -61,19 +62,28 @@
                 })
                 .FirstOrDefault();
 
-
+        public ProductDeleteServiceModel GetProductToDeleteById(int id)
+            => this.data.Products
+                .Where(p => p.Id == id)
+                .Select(p => new ProductDeleteServiceModel
+                {
+                    Id = p.Id,
+                    Name = p.Name
+                })
+                .FirstOrDefault();
 
         public bool IsProductExist(int id)
             => this.data.Products.Any(p => p.Id == id);
 
         public void DeleteProduct(int id)
         {
-            var product = this.data.Products.Find(id);
+            var product = this.data.Products
+                .Include(p => p.ProductColors)
+                .FirstOrDefault(p => p.Id == id);
 
+            this.data.ProductColors.RemoveRange(product.ProductColors);
             this.data.Products.Remove(product);
             this.data.SaveChanges();
         }
-
-
     }
 }

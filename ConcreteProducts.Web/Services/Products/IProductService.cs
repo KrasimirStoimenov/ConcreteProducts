@@ -9,6 +9,8 @@
 
         ProductDetailsServiceModel GetProductDetails(int id);
 
+        ProductDeleteServiceModel GetProductToDeleteById(int id);
+
         bool IsProductExist(int id);
 
         void DeleteProduct(int id);

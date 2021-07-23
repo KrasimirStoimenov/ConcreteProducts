@@ -133,9 +133,17 @@
         {
             if (!this.shapeService.IsShapeExist(id))
             {
-                return BadRequest("Shape does not exist.");
+                return BadRequest("Shape does not exist!");
             }
 
+            var shape = this.shapeService.GetShapeToDeleteById(id);
+
+            return View(shape);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int id)
+        {
             this.shapeService.DeleteShape(id);
 
             return RedirectToAction(nameof(All));

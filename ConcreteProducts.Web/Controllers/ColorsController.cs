@@ -103,9 +103,17 @@
         {
             if (!this.colorService.IsColorExist(id))
             {
-                return BadRequest("Color does not exist.");
+                return BadRequest("Color does not exist!");
             }
 
+            var color = this.colorService.GetColorToDeleteById(id);
+
+            return View(color);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int id)
+        {
             this.colorService.DeleteColor(id);
 
             return RedirectToAction(nameof(All));

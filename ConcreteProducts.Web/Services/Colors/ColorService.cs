@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Services.Colors.Dtos;
-    using Microsoft.EntityFrameworkCore;
 
     public class ColorService : IColorService
     {
@@ -23,17 +22,23 @@
                 .OrderBy(c => c.Id)
                 .ToList();
 
+        public ColorDeleteServiceModel GetColorToDeleteById(int id)
+            => this.data.Colors
+                .Where(c => c.Id == id)
+                .Select(c => new ColorDeleteServiceModel
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    ProductsRelatedToColor = c.ProductColors.Count()
+                })
+                .FirstOrDefault();
+
         public bool IsColorExist(int id)
             => this.data.Colors.Any(c => c.Id == id);
 
         public void DeleteColor(int id)
         {
-            var color = this.data.Colors.Include(pc => pc.ProductColors).FirstOrDefault(c => c.Id == id);
-
-            if (color.ProductColors.Any())
-            {
-                return;
-            }
+            var color = this.data.Colors.Find(id);
 
             this.data.Colors.Remove(color);
             this.data.SaveChanges();
