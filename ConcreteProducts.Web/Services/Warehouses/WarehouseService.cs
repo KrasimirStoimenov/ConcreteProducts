@@ -14,8 +14,7 @@
             => this.data = data;
 
         public IEnumerable<WarehouseServiceModel> GetAllWarehouses()
-            => this.data
-                .Warehouses
+            => this.data.Warehouses
                 .Select(w => new WarehouseServiceModel
                 {
                     Id = w.Id,

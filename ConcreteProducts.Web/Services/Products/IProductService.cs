@@ -7,6 +7,8 @@
     {
         IEnumerable<ProductServiceModel> GetAllProducts(string searchTerm);
 
+        ProductDetailsServiceModel GetProductDetails(int id);
+
         bool IsProductExist(int id);
 
         void DeleteProduct(int id);

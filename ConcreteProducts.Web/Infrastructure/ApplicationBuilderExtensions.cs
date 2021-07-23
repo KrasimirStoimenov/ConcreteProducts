@@ -101,7 +101,7 @@
                 new Product {
                     Name = "Паве",
                     Dimensions = "10/10/6",
-                    UnitOfMeasurement = UnitOfMeasurement.m2,
+                    UnitOfMeasurement = UnitOfMeasurement.SquareMeters,
                     QuantityInPalletInUnitOfMeasurement = 9.36,
                     QuantityInPalletInPieces = 936,
                     CountInUnitOfMeasurement = 100,
@@ -112,7 +112,7 @@
                 new Product {
                     Name = "Плочка",
                     Dimensions = "40/40/5",
-                    UnitOfMeasurement = UnitOfMeasurement.m2,
+                    UnitOfMeasurement = UnitOfMeasurement.SquareMeters,
                     QuantityInPalletInUnitOfMeasurement = 9.60,
                     QuantityInPalletInPieces = 60,
                     CountInUnitOfMeasurement = 6.25,
@@ -123,7 +123,7 @@
                 new Product {
                     Name = "Двойно Т",
                     Dimensions = "20/16,5/6",
-                    UnitOfMeasurement = UnitOfMeasurement.m2,
+                    UnitOfMeasurement = UnitOfMeasurement.SquareMeters,
                     QuantityInPalletInUnitOfMeasurement = 9.29,
                     QuantityInPalletInPieces = 325,
                     CountInUnitOfMeasurement = 35,
@@ -134,7 +134,7 @@
                 new Product {
                     Name = "Бордюр",
                     Dimensions = "50/15/25",
-                    UnitOfMeasurement = UnitOfMeasurement.m,
+                    UnitOfMeasurement = UnitOfMeasurement.Meters,
                     QuantityInPalletInUnitOfMeasurement = 18,
                     QuantityInPalletInPieces = 36,
                     CountInUnitOfMeasurement = 2,
@@ -145,7 +145,7 @@
                 new Product {
                     Name = "Тухла",
                     Dimensions = "40/20/20",
-                    UnitOfMeasurement = UnitOfMeasurement.m2,
+                    UnitOfMeasurement = UnitOfMeasurement.SquareMeters,
                     QuantityInPalletInUnitOfMeasurement = 3.84,
                     QuantityInPalletInPieces = 48,
                     CountInUnitOfMeasurement = 12.5,

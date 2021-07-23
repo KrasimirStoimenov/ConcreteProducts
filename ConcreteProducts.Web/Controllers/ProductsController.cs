@@ -121,6 +121,18 @@
             return RedirectToAction("All");
         }
 
+        public IActionResult Details(int id)
+        {
+            if (!this.productService.IsProductExist(id))
+            {
+                return BadRequest("Product does not exist.");
+            }
+
+            var productDetails = this.productService.GetProductDetails(id);
+
+            return View(productDetails);
+        }
+
         public IActionResult Delete(int id)
         {
             var validateProductExist = this.productService.IsProductExist(id);

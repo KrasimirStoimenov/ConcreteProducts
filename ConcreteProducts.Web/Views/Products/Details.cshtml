@@ -1,0 +1,38 @@
+﻿@model ProductDetailsServiceModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<h2 class="headingMargin text-left offset-2">@ViewData["Title"]</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <img src=@Model.DefaultImageUrl class="img-fluid" height="400" width="400" alt="@ViewData["Title"]">
+        </div>
+        <div class="col-md-6 mb-4">
+            <p class="lead font-weight-bold">Specifiations</p>
+            <span>
+                Category - <a asp-for="Category" asp-action="ProductsInCategory" asp-rout-id="@Model.CategoryName"><span class="badge purple mr-1">@Model.CategoryName</span></a>
+            </span>
+
+            <div><br />Size - @Model.Dimensions</div>
+            <div><br />Quantity in pallet (in @Model.UnitOfMeasurement)- @Model.QuantityInPalletInUnitOfMeasurement @Model.UnitOfMeasurement</div>
+            <div><br />Quantity in pallet (in pieces) - @Model.QuantityInPalletInPieces pieces</div>
+            <div><br />Count in @Model.UnitOfMeasurement - @Model.CountInUnitOfMeasurement pieces</div>
+            <div><br />Weight - @Model.Weight kg.</div>
+            <div>
+                <br />Availabe colors:<table>
+                    <tr>
+                        @foreach (var color in Model.AvailableColorsName)
+                        {
+                            <li>@color</li>
+                        }
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -41,6 +41,28 @@
             return products;
         }
 
+        public ProductDetailsServiceModel GetProductDetails(int id)
+            => this.data.Products
+                .Where(p => p.Id == id)
+                .Select(p => new ProductDetailsServiceModel
+                {
+                    Name = p.Name,
+                    Dimensions = p.Dimensions,
+                    QuantityInPalletInUnitOfMeasurement = p.QuantityInPalletInUnitOfMeasurement,
+                    QuantityInPalletInPieces = p.QuantityInPalletInPieces,
+                    CountInUnitOfMeasurement = p.CountInUnitOfMeasurement,
+                    UnitOfMeasurement = p.UnitOfMeasurement.ToString(),
+                    Weight = p.Weight,
+                    CategoryName = p.Category.Name,
+                    DefaultImageUrl = p.ProductColors
+                                        .Select(pc => pc.ImageUrl)
+                                        .FirstOrDefault(),
+                    AvailableColorsName = p.ProductColors.Select(pc => pc.Color.Name).ToList(),
+                })
+                .FirstOrDefault();
+
+
+
         public bool IsProductExist(int id)
             => this.data.Products.Any(p => p.Id == id);
 
@@ -51,6 +73,7 @@
             this.data.Products.Remove(product);
             this.data.SaveChanges();
         }
+
 
     }
 }

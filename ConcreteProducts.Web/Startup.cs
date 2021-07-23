@@ -14,6 +14,7 @@ namespace ConcreteProducts.Web
     using ConcreteProducts.Web.Services.Products;
     using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Services.Shapes;
+    using Microsoft.AspNetCore.Mvc;
 
     public class Startup
     {
@@ -42,7 +43,10 @@ namespace ConcreteProducts.Web
                 .AddEntityFrameworkStores<ConcreteProductsDbContext>();
 
             services
-                .AddControllersWithViews();
+                .AddControllersWithViews(options =>
+                {
+                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                });
 
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IColorService, ColorService>();
