@@ -1,18 +1,18 @@
-﻿namespace ConcreteProducts.Web.Models.Categories
+﻿namespace ConcreteProducts.Web.Models.Colors
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Data.DataConstants.Category;
+    using static Data.DataConstants.Color;
     using static Data.DataConstants.ErrorMessages;
 
-    public class AddCategoryFormModel
+    public class ColorFormModel
     {
         [Required]
         [StringLength(
             NameMaxLength,
             MinimumLength = NameMinLength,
             ErrorMessage = DefaultNameErrorMessage)]
-        [Display(Name = "Category name")]
+        [Display(Name = "Color name")]
         public string Name { get; init; }
     }
 }

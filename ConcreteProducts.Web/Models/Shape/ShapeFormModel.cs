@@ -2,13 +2,12 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using ConcreteProducts.Web.Models.Products;
+    using ConcreteProducts.Web.Services.Warehouses.Dtos;
 
     using static Data.DataConstants.Shape;
     using static Data.DataConstants.ErrorMessages;
-    using ConcreteProducts.Web.Services.Warehouses.Dtos;
 
-    public class AddShapeFormModel
+    public class ShapeFormModel
     {
         [Required]
         [StringLength(

@@ -1,0 +1,19 @@
+﻿@model ColorFormModel
+
+<div class="container">
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <h2 class="headingMargin text-center">@ViewBag.Title</h2>
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Gray,Blue,Red etc.">
+                    <span asp-validation-for="Name" class="small text-danger"></span>
+                </div>
+
+                <input class="btn btn-primary" type="submit" value="Save" />
+                <a class="btn btn-info" asp-action="All">Back to List</a>
+            </form>
+        </div>
+    </div>
+</div> 

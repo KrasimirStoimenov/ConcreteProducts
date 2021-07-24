@@ -1,18 +1,18 @@
-﻿namespace ConcreteProducts.Web.Models.Warehouses
+﻿namespace ConcreteProducts.Web.Models.Categories
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Data.DataConstants.Warehouse;
+    using static Data.DataConstants.Category;
     using static Data.DataConstants.ErrorMessages;
 
-    public class AddWarehouseFormModel
+    public class CategoryFormModel
     {
         [Required]
         [StringLength(
             NameMaxLength,
             MinimumLength = NameMinLength,
             ErrorMessage = DefaultNameErrorMessage)]
-        [Display(Name = "Warehouse name")]
+        [Display(Name = "Category name")]
         public string Name { get; init; }
     }
 }

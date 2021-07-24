@@ -2,19 +2,17 @@
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
-    using ConcreteProducts.Web.Data;
-    using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Models.Warehouses;
     using ConcreteProducts.Web.Services.Warehouses;
 
     public class WarehousesController : Controller
     {
-        private readonly ConcreteProductsDbContext data;
+        private readonly string notExistingWarehouseErrorMessage = "Warehouse does not exist.";
+        private readonly string takenWarehouseNameErrorMessage = "Warehouse name already taken.";
         private readonly IWarehouseService warehouseService;
 
-        public WarehousesController(ConcreteProductsDbContext data, IWarehouseService warehouseService)
+        public WarehousesController(IWarehouseService warehouseService)
         {
-            this.data = data;
             this.warehouseService = warehouseService;
         }
 
@@ -36,65 +34,55 @@
         }
 
         public IActionResult Add()
-            => View(new AddWarehouseFormModel());
+            => View(new WarehouseFormModel());
 
         [HttpPost]
-        public IActionResult Add(AddWarehouseFormModel warehouse)
+        public IActionResult Add(WarehouseFormModel warehouse)
         {
+            if (this.warehouseService.HasWarehouseWithSameName(warehouse.Name))
+            {
+                this.ModelState.AddModelError(nameof(warehouse.Name), takenWarehouseNameErrorMessage);
+            }
+
             if (!this.ModelState.IsValid)
             {
                 return View(warehouse);
             }
 
-            var currentWarehouse = new Warehouse
-            {
-                Name = warehouse.Name
-            };
+            this.warehouseService.Create(warehouse.Name);
 
-            this.data.Warehouses.Add(currentWarehouse);
-            this.data.SaveChanges();
-
-            return RedirectToAction("All");
+            return RedirectToAction(nameof(All));
         }
 
         public IActionResult Edit(int id)
-            => View(new EditWarehouseFormModel
-            {
-                CurrentWarehouseName = this.data.Warehouses
-                    .Where(c => c.Id == id)
-                    .Select(c => c.Name)
-                    .FirstOrDefault()
-            });
-
-        [HttpPost]
-        public IActionResult Edit(int id, EditWarehouseFormModel warehouse)
         {
             if (!this.warehouseService.IsWarehouseExist(id))
             {
-                this.ModelState.AddModelError(nameof(warehouse.CurrentWarehouseName), $"Current warehouse name does not exist.");
+                return BadRequest(notExistingWarehouseErrorMessage);
             }
 
-            if (this.data.Warehouses.Any(c => c.Name == warehouse.NewWarehouseName))
+            var warehouseDetails = this.warehouseService.GetWarehouseDetails(id);
+
+            return View(new WarehouseFormModel
             {
-                this.ModelState.AddModelError(nameof(warehouse.NewWarehouseName), $"Current warehouse name already exist.");
+                Name = warehouseDetails.Name
+            });
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, WarehouseFormModel warehouse)
+        {
+            if (!this.warehouseService.IsWarehouseExist(id))
+            {
+                this.ModelState.AddModelError(nameof(warehouse.Name), notExistingWarehouseErrorMessage);
             }
 
             if (!ModelState.IsValid)
             {
-                warehouse.CurrentWarehouseName = this.data.Warehouses
-                    .Where(c => c.Id == id)
-                    .Select(c => c.Name)
-                    .FirstOrDefault();
-
                 return View(warehouse);
             }
 
-            var currentWarehouse = this.data.Warehouses.Find(id);
-
-            currentWarehouse.Name = warehouse.NewWarehouseName;
-
-            this.data.Warehouses.Update(currentWarehouse);
-            this.data.SaveChanges();
+            this.warehouseService.Edit(id, warehouse.Name);
 
             return RedirectToAction(nameof(All));
         }
@@ -103,7 +91,7 @@
         {
             if (!this.warehouseService.IsWarehouseExist(id))
             {
-                return BadRequest("Shape does not exist!");
+                return BadRequest(notExistingWarehouseErrorMessage);
             }
 
             var warehouse = this.warehouseService.GetWarehouseToDeleteById(id);

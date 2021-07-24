@@ -2,21 +2,20 @@
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
-    using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Models.Shape;
-    using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Services.Shapes;
 
     public class ShapesController : Controller
     {
-        private readonly ConcreteProductsDbContext data;
+        private readonly string notExistingShapeErrorMessage = "Shape does not exist.";
+        private readonly string takenShapeNameErrorMessage = "Shape name already taken.";
+        private readonly string notExistingWarehouseErrorMessage = "Warehouse does not exist.";
         private readonly IShapeService shapeService;
         private readonly IWarehouseService warehouseService;
 
-        public ShapesController(ConcreteProductsDbContext data, IShapeService shapeService, IWarehouseService warehouseService)
+        public ShapesController(IShapeService shapeService, IWarehouseService warehouseService)
         {
-            this.data = data;
             this.shapeService = shapeService;
             this.warehouseService = warehouseService;
         }
@@ -39,17 +38,22 @@
         }
 
         public IActionResult Add()
-            => View(new AddShapeFormModel
+            => View(new ShapeFormModel
             {
                 Warehouses = this.warehouseService.GetAllWarehouses()
             });
 
         [HttpPost]
-        public IActionResult Add(AddShapeFormModel shape)
+        public IActionResult Add(ShapeFormModel shape)
         {
-            if (!this.data.Warehouses.Any(w => w.Id == shape.WarehouseId))
+            if (!this.warehouseService.IsWarehouseExist(shape.WarehouseId))
             {
-                this.ModelState.AddModelError(nameof(shape.WarehouseId), $"{nameof(shape.WarehouseId)} does not exist.");
+                this.ModelState.AddModelError(nameof(shape.WarehouseId), notExistingWarehouseErrorMessage);
+            }
+
+            if (this.shapeService.HasShapeWithSameName(shape.Name))
+            {
+                this.ModelState.AddModelError(nameof(shape.Name), takenShapeNameErrorMessage);
             }
 
             if (!this.ModelState.IsValid)
@@ -59,72 +63,51 @@
                 return View(shape);
             }
 
-            var currentShape = new Shape
-            {
-                Name = shape.Name,
-                Dimensions = shape.Dimensions,
-                WarehouseId = shape.WarehouseId
-            };
-
-            this.data.Shapes.Add(currentShape);
-            this.data.SaveChanges();
+            this.shapeService.Create(shape.Name, shape.Dimensions, shape.WarehouseId);
 
             return RedirectToAction(nameof(All));
         }
 
         public IActionResult Edit(int id)
-            => View(new EditShapeFormModel
-            {
-                CurrentShapeName = this.data.Shapes
-                    .Where(c => c.Id == id)
-                    .Select(c => c.Name)
-                    .FirstOrDefault(),
-                CurrentShapeDimensions = this.data.Shapes
-                    .Where(c => c.Id == id)
-                    .Select(c => c.Dimensions)
-                    .FirstOrDefault(),
-            });
-
-        [HttpPost]
-        public IActionResult Edit(int id, EditShapeFormModel shape)
         {
             if (!this.shapeService.IsShapeExist(id))
             {
-                this.ModelState.AddModelError(nameof(shape.CurrentShapeName), $"Current shape name does not exist.");
+                return BadRequest(notExistingShapeErrorMessage);
             }
 
-            if (this.data.Shapes.Any(c => c.Name == shape.NewShapeName))
+            var shapeDetails = this.shapeService.GetShapeDetails(id);
+            var warehouses = this.warehouseService.GetAllWarehouses();
+
+            return View(new ShapeFormModel
             {
-                this.ModelState.AddModelError(nameof(shape.NewShapeName), $"Current shape name already exist.");
+                Name = shapeDetails.Name,
+                Dimensions = shapeDetails.Dimensions,
+                WarehouseId = shapeDetails.WarehouseId,
+                Warehouses = warehouses
+            });
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, ShapeFormModel shape)
+        {
+            if (!this.shapeService.IsShapeExist(id))
+            {
+                this.ModelState.AddModelError(nameof(shape.Name), notExistingShapeErrorMessage);
             }
 
-            if (this.data.Shapes.Any(c => c.Name == shape.NewShapeName))
+            if (this.shapeService.HasShapeWithSameName(shape.Name))
             {
-                this.ModelState.AddModelError(nameof(shape.NewShapeName), $"Current shape dimensions already exist.");
+                this.ModelState.AddModelError(nameof(shape.Name), takenShapeNameErrorMessage);
             }
 
             if (!ModelState.IsValid)
             {
-                shape.CurrentShapeName = this.data.Shapes
-                    .Where(c => c.Id == id)
-                    .Select(c => c.Name)
-                    .FirstOrDefault();
-
-                shape.CurrentShapeDimensions = this.data.Shapes
-                    .Where(c => c.Id == id)
-                    .Select(c => c.Dimensions)
-                    .FirstOrDefault();
+                shape.Warehouses = this.warehouseService.GetAllWarehouses();
 
                 return View(shape);
             }
 
-            var currentShape = this.data.Shapes.Find(id);
-
-            currentShape.Name = shape.NewShapeName;
-            currentShape.Dimensions = shape.NewShapeDimensions;
-
-            this.data.Shapes.Update(currentShape);
-            this.data.SaveChanges();
+            this.shapeService.Edit(id, shape.Name, shape.Dimensions, shape.WarehouseId);
 
             return RedirectToAction(nameof(All));
         }
@@ -133,7 +116,7 @@
         {
             if (!this.shapeService.IsShapeExist(id))
             {
-                return BadRequest("Shape does not exist!");
+                return BadRequest(notExistingShapeErrorMessage);
             }
 
             var shape = this.shapeService.GetShapeToDeleteById(id);

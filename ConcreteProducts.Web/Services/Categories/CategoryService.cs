@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Services.Categories.Dtos;
+    using ConcreteProducts.Web.Data.Models;
 
     public class CategoryService : ICategoryService
     {
@@ -44,9 +45,44 @@
                 })
                 .FirstOrDefault();
 
+        public int Create(string name)
+        {
+            var category = new Category
+            {
+                Name = name
+            };
+
+            this.data.Categories.Add(category);
+            this.data.SaveChanges();
+
+            return category.Id;
+        }
+
+        public void Edit(int id, string name)
+        {
+            var category = this.data.Categories.Find(id);
+
+            category.Name = name;
+
+            this.data.SaveChanges();
+        }
+
+        public CategoryServiceModel GetCategoryDetails(int id)
+            => this.data.Categories
+                .Where(c => c.Id == id)
+                .Select(c => new CategoryServiceModel
+                {
+                    Name = c.Name
+                })
+                .FirstOrDefault();
+
         public bool IsCategoryExist(int id)
             => this.data.Categories
                 .Any(c => c.Id == id);
+
+        public bool HasCategoryWithSameName(string name)
+            => this.data.Categories
+                .Any(c => c.Name == name);
 
         public void DeleteCategory(int id)
         {
@@ -55,7 +91,5 @@
             this.data.Categories.Remove(category);
             this.data.SaveChanges();
         }
-
-
     }
 }

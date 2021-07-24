@@ -16,7 +16,7 @@
         [MaxLength(DimensionsMaxLength)]
         public string Dimensions { get; set; }
 
-        public int WarehouseId { get; init; }
+        public int WarehouseId { get; set; }
 
         public Warehouse Warehouse { get; init; }
     }

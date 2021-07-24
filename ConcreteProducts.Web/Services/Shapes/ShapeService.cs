@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Services.Shapes.Dtos;
+    using ConcreteProducts.Web.Data.Models;
 
     public class ShapeService : IShapeService
     {
@@ -44,10 +45,50 @@
                     Name = s.Name,
                     Dimensions = s.Dimensions
                 })
+.FirstOrDefault();
+        public int Create(string name, string dimensions, int warehouseId)
+        {
+            var shape = new Shape
+            {
+                Name = name,
+                Dimensions = dimensions,
+                WarehouseId = warehouseId
+            };
+
+            this.data.Shapes.Add(shape);
+            this.data.SaveChanges();
+
+            return shape.Id;
+        }
+
+        public void Edit(int id, string name, string dimensions, int warehouseId)
+        {
+            var shape = this.data.Shapes.Find(id);
+
+            shape.Name = name;
+            shape.Dimensions = dimensions;
+            shape.WarehouseId = warehouseId;
+
+            this.data.SaveChanges();
+        }
+
+        public ShapeDetailsServiceModel GetShapeDetails(int id)
+            => this.data.Shapes
+                .Where(s => s.Id == id)
+                .Select(s => new ShapeDetailsServiceModel
+                {
+                    Name = s.Name,
+                    Dimensions = s.Dimensions,
+                    WarehouseId = s.WarehouseId
+                })
                 .FirstOrDefault();
 
         public bool IsShapeExist(int id)
             => this.data.Shapes.Any(s => s.Id == id);
+
+        public bool HasShapeWithSameName(string name)
+            => this.data.Shapes
+                .Any(s => s.Name == name);
 
         public void DeleteShape(int id)
         {

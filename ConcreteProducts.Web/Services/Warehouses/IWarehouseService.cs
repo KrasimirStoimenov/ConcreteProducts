@@ -11,7 +11,15 @@
 
         WarehouseWithProductsAndShapesCount GetWarehouseToDeleteById(int id);
 
+        int Create(string name);
+
+        void Edit(int id, string name);
+
+        WarehouseServiceModel GetWarehouseDetails(int id);
+
         bool IsWarehouseExist(int id);
+
+        bool HasWarehouseWithSameName(string name);
 
         void DeleteWarehouse(int id);
     }

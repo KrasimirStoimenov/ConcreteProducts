@@ -9,7 +9,15 @@
 
         ColorDeleteServiceModel GetColorToDeleteById(int id);
 
+        int Create(string name);
+
+        void Edit(int id, string name);
+
+        ColorServiceModel GetColorDetails(int id);
+
         bool IsColorExist(int id);
+
+        bool HasColorWithSameName(string name);
 
         void DeleteColor(int id);
     }

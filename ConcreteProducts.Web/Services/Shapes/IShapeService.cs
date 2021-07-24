@@ -11,7 +11,15 @@
 
         ShapeServiceModel GetShapeToDeleteById(int id);
 
+        int Create(string name, string dimensions, int warehouseId);
+
+        void Edit(int id, string name, string dimensions, int warehouseId);
+
+        ShapeDetailsServiceModel GetShapeDetails(int id);
+
         bool IsShapeExist(int id);
+
+        bool HasShapeWithSameName(string name);
 
         void DeleteShape(int id);
     }

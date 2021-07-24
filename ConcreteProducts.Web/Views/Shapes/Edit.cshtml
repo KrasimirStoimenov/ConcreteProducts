@@ -1,48 +1,7 @@
-﻿@model EditShapeFormModel
+﻿@model ShapeFormModel
 
 @{
-    ViewData["Title"] = "Edit Shape";
+    ViewBag.Title = "Edit Shape";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="offset-md-3 col-md-6">
-            <h2 class="headingMargin text-center">@ViewData["Title"]</h2>
-            <form method="post">
-                <div class="form-group">
-                    <label asp-for="NewShapeName"></label>
-                    <input asp-for="NewShapeName" class="form-control" placeholder="Brick, Tile etc.">
-                    <span asp-validation-for="NewShapeName" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="NewShapeDimensions"></label>
-                    <input asp-for="NewShapeDimensions" class="form-control" placeholder="20/20/6, 30/30/6 etc.">
-                    <span asp-validation-for="NewShapeDimensions" class="small text-danger"></span>
-                </div>
-                <input class="btn btn-primary" data-toggle="modal" data-target="#alertModal" type="button" value="Save" />
-                <!-- Modal -->
-                <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Change Shape name</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                Are you sure that you want to change '@Model.CurrentShapeName' shape name?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                <button type="submit" class="btn btn-primary">Yes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
+<partial name="_ShapeFormPartial" model="@Model" />

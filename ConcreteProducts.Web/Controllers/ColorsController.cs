@@ -1,21 +1,19 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
-    using ConcreteProducts.Web.Data;
-    using ConcreteProducts.Web.Models.Colors;
-    using ConcreteProducts.Web.Data.Models;
     using System.Linq;
+    using Microsoft.AspNetCore.Mvc;
+    using ConcreteProducts.Web.Models.Colors;
     using ConcreteProducts.Web.Services.Colors;
 
     public class ColorsController : Controller
     {
+        private readonly string notExistingColorErrorMessage = "Color does not exist.";
+        private readonly string takenColorNameErrorMessage = "Color name already taken.";
         private readonly IColorService colorService;
-        private readonly ConcreteProductsDbContext data;
 
-        public ColorsController(IColorService colorService, ConcreteProductsDbContext data)
+        public ColorsController(IColorService colorService)
         {
             this.colorService = colorService;
-            this.data = data;
         }
 
         public IActionResult All(int id = 1)
@@ -36,65 +34,60 @@
         }
 
         public IActionResult Add()
-            => View(new AddColorFormModel());
+            => View(new ColorFormModel());
 
         [HttpPost]
-        public IActionResult Add(AddColorFormModel color)
+        public IActionResult Add(ColorFormModel color)
         {
+            if (this.colorService.HasColorWithSameName(color.Name))
+            {
+                this.ModelState.AddModelError(nameof(color.Name), takenColorNameErrorMessage);
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(color);
             }
 
-            var currentColor = new Color
-            {
-                Name = color.Name
-            };
+            this.colorService.Create(color.Name);
 
-            this.data.Colors.Add(currentColor);
-            this.data.SaveChanges();
-
-            return RedirectToAction("All");
+            return RedirectToAction(nameof(All));
         }
 
         public IActionResult Edit(int id)
-            => View(new EditColorFormModel
-            {
-                CurrentColorName = this.data.Colors
-                    .Where(c => c.Id == id)
-                    .Select(c => c.Name)
-                    .FirstOrDefault()
-            });
-
-        [HttpPost]
-        public IActionResult Edit(int id, EditColorFormModel color)
         {
             if (!this.colorService.IsColorExist(id))
             {
-                this.ModelState.AddModelError(nameof(color.CurrentColorName), $"Current color name does not exist.");
+                return BadRequest(notExistingColorErrorMessage);
             }
 
-            if (this.data.Colors.Any(c => c.Name == color.NewColorName))
+            var colorDetails = this.colorService.GetColorDetails(id);
+
+            return View(new ColorFormModel
             {
-                this.ModelState.AddModelError(nameof(color.NewColorName), $"Current color name already exist.");
+                Name = colorDetails.Name
+            });
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, ColorFormModel color)
+        {
+            if (!this.colorService.IsColorExist(id))
+            {
+                this.ModelState.AddModelError(nameof(color.Name), notExistingColorErrorMessage);
+            }
+
+            if (this.colorService.HasColorWithSameName(color.Name))
+            {
+                this.ModelState.AddModelError(nameof(color.Name), takenColorNameErrorMessage);
             }
 
             if (!ModelState.IsValid)
             {
-                color.CurrentColorName = this.data.Colors
-                    .Where(c => c.Id == id)
-                    .Select(c => c.Name)
-                    .FirstOrDefault();
-
                 return View(color);
             }
 
-            var currentColor = this.data.Colors.Find(id);
-
-            currentColor.Name = color.NewColorName;
-
-            this.data.Colors.Update(currentColor);
-            this.data.SaveChanges();
+            this.colorService.Edit(id, color.Name);
 
             return RedirectToAction(nameof(All));
         }
@@ -103,7 +96,7 @@
         {
             if (!this.colorService.IsColorExist(id))
             {
-                return BadRequest("Color does not exist!");
+                return BadRequest(notExistingColorErrorMessage);
             }
 
             var color = this.colorService.GetColorToDeleteById(id);

@@ -2,20 +2,18 @@
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
-    using ConcreteProducts.Web.Data;
-    using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Models.Categories;
     using ConcreteProducts.Web.Services.Categories;
 
     public class CategoriesController : Controller
     {
+        private readonly string notExistingCategoryErrorMessage = "Category does not exist.";
+        private readonly string takenCategoryNameErrorMessage = "Category name already taken.";
         private readonly ICategoryService categoryService;
-        private readonly ConcreteProductsDbContext data;
 
-        public CategoriesController(ICategoryService categoryService, ConcreteProductsDbContext data)
+        public CategoriesController(ICategoryService categoryService)
         {
             this.categoryService = categoryService;
-            this.data = data;
         }
 
         public IActionResult All(int id = 1)
@@ -31,72 +29,67 @@
                     .Take(itemsPerPage),
                 PageNumber = id,
                 Count = categoriesWithProducts.Count(),
-                ItemsPerPage = 12
+                ItemsPerPage = itemsPerPage
             };
 
             return View(categoriesViewModel);
         }
 
         public IActionResult Add()
-            => View(new AddCategoryFormModel());
+            => View(new CategoryFormModel());
 
         [HttpPost]
-        public IActionResult Add(AddCategoryFormModel category)
+        public IActionResult Add(CategoryFormModel category)
         {
+            if (this.categoryService.HasCategoryWithSameName(category.Name))
+            {
+                this.ModelState.AddModelError(nameof(category.Name), takenCategoryNameErrorMessage);
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(category);
             }
 
-            var currentCategory = new Category
-            {
-                Name = category.Name
-            };
-
-            this.data.Categories.Add(currentCategory);
-            this.data.SaveChanges();
+            this.categoryService.Create(category.Name);
 
             return RedirectToAction("All");
         }
 
         public IActionResult Edit(int id)
-            => View(new EditCategoryFormModel
-            {
-                CurrentCategoryName = this.data.Categories
-                    .Where(c => c.Id == id)
-                    .Select(c => c.Name)
-                    .FirstOrDefault()
-            });
-
-        [HttpPost]
-        public IActionResult Edit(int id, EditCategoryFormModel category)
         {
             if (!this.categoryService.IsCategoryExist(id))
             {
-                this.ModelState.AddModelError(nameof(category.CurrentCategoryName), $"Current category name does not exist.");
+                return BadRequest(notExistingCategoryErrorMessage);
             }
 
-            if (this.data.Categories.Any(c => c.Name == category.NewCategoryName))
+            var categoryDetails = this.categoryService.GetCategoryDetails(id);
+
+            return View(new CategoryFormModel
             {
-                this.ModelState.AddModelError(nameof(category.NewCategoryName), $"Current category name already exist.");
+                Name = categoryDetails.Name
+            });
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, CategoryFormModel category)
+        {
+            if (!this.categoryService.IsCategoryExist(id))
+            {
+                this.ModelState.AddModelError(nameof(category.Name), notExistingCategoryErrorMessage);
+            }
+
+            if (this.categoryService.HasCategoryWithSameName(category.Name))
+            {
+                this.ModelState.AddModelError(nameof(category.Name), takenCategoryNameErrorMessage);
             }
 
             if (!ModelState.IsValid)
             {
-                category.CurrentCategoryName = this.data.Categories
-                    .Where(c => c.Id == id)
-                    .Select(c => c.Name)
-                    .FirstOrDefault();
-
                 return View(category);
             }
 
-            var currentCategory = this.data.Categories.Find(id);
-
-            currentCategory.Name = category.NewCategoryName;
-
-            this.data.Categories.Update(currentCategory);
-            this.data.SaveChanges();
+            this.categoryService.Edit(id, category.Name);
 
             return RedirectToAction(nameof(All));
         }
@@ -105,7 +98,7 @@
         {
             if (!this.categoryService.IsCategoryExist(id))
             {
-                return BadRequest("Category does not exist!");
+                return BadRequest(notExistingCategoryErrorMessage);
             }
 
             var category = this.categoryService.GetCategoryToDelete(id);

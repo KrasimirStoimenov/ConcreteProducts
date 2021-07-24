@@ -11,7 +11,15 @@
 
         CategoryWithProducts GetCategoryToDelete(int id);
 
+        int Create(string name);
+
+        void Edit(int id, string name);
+
+        CategoryServiceModel GetCategoryDetails(int id);
+
         bool IsCategoryExist(int id);
+
+        bool HasCategoryWithSameName(string name);
 
         void DeleteCategory(int id);
     }

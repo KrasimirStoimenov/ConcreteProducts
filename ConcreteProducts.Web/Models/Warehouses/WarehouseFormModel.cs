@@ -1,18 +1,18 @@
-﻿namespace ConcreteProducts.Web.Models.Colors
+﻿namespace ConcreteProducts.Web.Models.Warehouses
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Data.DataConstants.Color;
+    using static Data.DataConstants.Warehouse;
     using static Data.DataConstants.ErrorMessages;
 
-    public class AddColorFormModel
+    public class WarehouseFormModel
     {
         [Required]
         [StringLength(
             NameMaxLength,
             MinimumLength = NameMinLength,
             ErrorMessage = DefaultNameErrorMessage)]
-        [Display(Name = "Color name")]
+        [Display(Name = "Warehouse name")]
         public string Name { get; init; }
     }
 }

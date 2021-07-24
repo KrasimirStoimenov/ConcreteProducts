@@ -1,22 +1,7 @@
-﻿@model AddWarehouseFormModel
+﻿@model WarehouseFormModel
 
 @{
-    ViewData["Title"] = "Add Warehouse";
+    ViewBag.Title = "Add Warehouse";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="offset-md-3 col-md-6">
-            <h2 class="headingMargin text-center">@ViewData["Title"]</h2>
-            <form method="post">
-                <div class="form-group">
-                    <label asp-for="Name"></label>
-                    <input asp-for="Name" class="form-control" placeholder="Warehouse name">
-                    <span asp-validation-for="Name" class="small text-danger"></span>
-                </div>
-
-                <input class="btn btn-primary" type="submit" value="Save" />
-            </form>
-        </div>
-    </div>
-</div>
+<partial name="_WarehouseFormPartial" model="@Model" />
