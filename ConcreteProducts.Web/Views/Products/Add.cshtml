@@ -3,99 +3,101 @@
 @using ConcreteProducts.Web.Data.Models.Enumerations
 
 @{
-    ViewData["Title"] = "Add Product";
+    ViewBag.Title = "Add Product";
 }
 
 <div class="container">
     <div class="row">
         <div class="offset-md-3 col-md-6">
-            <h2 class="headingMargin text-center">@ViewData["Title"]</h2>
-            <form method="post">
-                <div class="form-group">
-                    <label asp-for="Name"></label>
-                    <input asp-for="Name" class="form-control" placeholder="Behaton etc.">
-                    <span asp-validation-for="Name" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Dimensions"></label>
-                    <input asp-for="Dimensions" class="form-control" placeholder="20/20/6, 30/30/6 etc.">
-                    <span asp-validation-for="Dimensions" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="QuantityInPalletInUnitOfMeasurement"></label>
-                    <input asp-for="QuantityInPalletInUnitOfMeasurement" type="number" step="0.01" class="form-control">
-                    <span asp-validation-for="QuantityInPalletInUnitOfMeasurement" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="QuantityInPalletInPieces"></label>
-                    <input asp-for="QuantityInPalletInPieces" type="number" step="0.01" class="form-control">
-                    <span asp-validation-for="QuantityInPalletInPieces" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CountInUnitOfMeasurement"></label>
-                    <input asp-for="CountInUnitOfMeasurement" type="number" step="0.01" class="form-control">
-                    <span asp-validation-for="CountInUnitOfMeasurement" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <select asp-for="UnitOfMeasurement" asp-items="Html.GetEnumSelectList<UnitOfMeasurement>()">
-                        <option value="">Please select</option>
-                    </select>
-                    <span asp-validation-for="UnitOfMeasurement" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ImageUrl"></label>
-                    <input asp-for="ImageUrl" class="form-control" placeholder="Valid image url">
-                    <span asp-validation-for="ImageUrl" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Weight"></label>
-                    <input asp-for="Weight" type="number" step="0.01" class="form-control">
-                    <span asp-validation-for="Weight" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CategoryId"></label>
-                    <div class="input-group">
-                        <select asp-for="CategoryId" class="form-control">
-                            @foreach (var category in Model.Categories)
-                            {
-                                <option value="@category.Id">@category.Name</option>
-                            }
+            <section>
+                <h2 class="headingMargin text-center">@ViewBag.Title</h2>
+                <form method="post">
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" placeholder="Behaton etc.">
+                        <span asp-validation-for="Name" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Dimensions"></label>
+                        <input asp-for="Dimensions" class="form-control" placeholder="20/20/6, 30/30/6 etc.">
+                        <span asp-validation-for="Dimensions" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="QuantityInPalletInUnitOfMeasurement"></label>
+                        <input asp-for="QuantityInPalletInUnitOfMeasurement" type="number" step="0.01" class="form-control">
+                        <span asp-validation-for="QuantityInPalletInUnitOfMeasurement" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="QuantityInPalletInPieces"></label>
+                        <input asp-for="QuantityInPalletInPieces" type="number" step="0.01" class="form-control">
+                        <span asp-validation-for="QuantityInPalletInPieces" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CountInUnitOfMeasurement"></label>
+                        <input asp-for="CountInUnitOfMeasurement" type="number" step="0.01" class="form-control">
+                        <span asp-validation-for="CountInUnitOfMeasurement" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <select asp-for="UnitOfMeasurement" asp-items="Html.GetEnumSelectList<UnitOfMeasurement>()">
+                            <option value="">Please select</option>
                         </select>
-                        <div class="input-group-append">
-                            <a class="btn btn-success" title="Add new" asp-area="" asp-controller="Categories" asp-action="Add"><i class="bi bi-plus-circle"></i></a>
+                        <span asp-validation-for="UnitOfMeasurement" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ImageUrl"></label>
+                        <input asp-for="ImageUrl" class="form-control" placeholder="Valid image url">
+                        <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Weight"></label>
+                        <input asp-for="Weight" type="number" step="0.01" class="form-control">
+                        <span asp-validation-for="Weight" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CategoryId"></label>
+                        <div class="input-group">
+                            <select asp-for="CategoryId" class="form-control">
+                                @foreach (var category in Model.Categories)
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            </select>
+                            <div class="input-group-append">
+                                <a class="btn btn-success" title="Add new" asp-area="" asp-controller="Categories" asp-action="Add"><i class="bi bi-plus-circle"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ColorId"></label>
-                    <div class="input-group">
-                        <select asp-for="ColorId" class="form-control">
-                            @foreach (var color in Model.Colors)
-                            {
-                                <option value="@color.Id">@color.Name</option>
-                            }
-                        </select>
-                        <div class="input-group-append">
-                            <a class="btn btn-success" title="Add new" asp-area="" asp-controller="Colors" asp-action="Add"><i class="bi bi-plus-circle"></i></a>
+                    <div class="form-group">
+                        <label asp-for="ColorId"></label>
+                        <div class="input-group">
+                            <select asp-for="ColorId" class="form-control">
+                                @foreach (var color in Model.Colors)
+                                {
+                                    <option value="@color.Id">@color.Name</option>
+                                }
+                            </select>
+                            <div class="input-group-append">
+                                <a class="btn btn-success" title="Add new" asp-area="" asp-controller="Colors" asp-action="Add"><i class="bi bi-plus-circle"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="WarehouseId"></label>
-                    <div class="input-group">
-                        <select asp-for="WarehouseId" class="form-control">
-                            @foreach (var warehouse in Model.Warehouses)
-                            {
-                                <option value="@warehouse.Id">@warehouse.Name</option>
-                            }
-                        </select>
-                        <div class="input-group-append">
-                            <a class="btn btn-success" title="Add new" asp-area="" asp-controller="Warehouses" asp-action="Add"><i class="bi bi-plus-circle"></i></a>
+                    <div class="form-group">
+                        <label asp-for="WarehouseId"></label>
+                        <div class="input-group">
+                            <select asp-for="WarehouseId" class="form-control">
+                                @foreach (var warehouse in Model.Warehouses)
+                                {
+                                    <option value="@warehouse.Id">@warehouse.Name</option>
+                                }
+                            </select>
+                            <div class="input-group-append">
+                                <a class="btn btn-success" title="Add new" asp-area="" asp-controller="Warehouses" asp-action="Add"><i class="bi bi-plus-circle"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <input class="btn btn-primary" type="submit" value="Save" />
-            </form>
+                    <input class="btn btn-primary" type="submit" value="Save" />
+                </form>
+            </section>
         </div>
     </div>
 </div>

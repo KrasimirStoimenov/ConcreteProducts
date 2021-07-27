@@ -2,9 +2,11 @@
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
     using ConcreteProducts.Web.Models.Categories;
     using ConcreteProducts.Web.Services.Categories;
 
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class CategoriesController : Controller
     {
         private readonly string notExistingCategoryErrorMessage = "Category does not exist.";

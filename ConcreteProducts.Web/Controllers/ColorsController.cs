@@ -2,9 +2,11 @@
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
     using ConcreteProducts.Web.Models.Colors;
     using ConcreteProducts.Web.Services.Colors;
 
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class ColorsController : Controller
     {
         private readonly string notExistingColorErrorMessage = "Color does not exist.";

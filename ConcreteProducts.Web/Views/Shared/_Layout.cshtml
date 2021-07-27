@@ -19,29 +19,38 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <div class="btn-group">
-                                <a class="nav-link text-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Products
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">All Products</a>
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Add">Add Product</a>
+                        @if (this.User.IsAdmin())
+                        {
+                            <li class="nav-item">
+                                <div class="btn-group">
+                                    <a class="nav-link text-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Products
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">All Products</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Add">Add Product</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="All">Categories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Colors" asp-action="All">Colors</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Shapes" asp-action="All">Shapes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Warehouses" asp-action="All">Warehouses</a>
-                        </li>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="All">Categories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Colors" asp-action="All">Colors</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Shapes" asp-action="All">Shapes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Warehouses" asp-action="All">Warehouses</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Products</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

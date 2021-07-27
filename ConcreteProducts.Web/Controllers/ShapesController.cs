@@ -2,10 +2,12 @@
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
     using ConcreteProducts.Web.Models.Shape;
     using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Services.Shapes;
 
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class ShapesController : Controller
     {
         private readonly string notExistingShapeErrorMessage = "Shape does not exist.";

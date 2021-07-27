@@ -9,6 +9,14 @@
             public const string InvalidUnitOfMeasurementValue = "Invalid value";
         }
 
+        public class User
+        {
+            public const int UsernameMinLength = 4;
+            public const int UsernameMaxLength = 20;
+            public const int PasswordMinLength = 6;
+            public const int PasswordMaxLength = 20;
+        }
+
         public class Product
         {
             public const int DimensionsMinLength = 3;

@@ -50,13 +50,14 @@
 
                     await roleManager.CreateAsync(role);
 
+                    const string adminUsername = "admin";
                     const string adminEmail = "admin@cps.com";
                     const string adminPassword = "admin12";
 
                     var user = new IdentityUser
                     {
-                        Email = adminEmail,
-                        UserName = adminEmail
+                        UserName = adminUsername,
+                        Email = adminEmail
                     };
 
                     await userManager.CreateAsync(user, adminPassword);

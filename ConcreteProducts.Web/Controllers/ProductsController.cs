@@ -9,6 +9,8 @@
     using ConcreteProducts.Web.Services.Colors;
     using ConcreteProducts.Web.Services.Categories;
     using ConcreteProducts.Web.Services.Warehouses;
+    using Microsoft.AspNetCore.Authorization;
+    using System.Data;
 
     public class ProductsController : Controller
     {
@@ -45,10 +47,10 @@
                 Count = products.Count(),
                 ItemsPerPage = itemsPerPage
             };
-
             return View(productsViewModel);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Add()
             => View(new AddProductFormModel
             {
@@ -57,6 +59,7 @@
                 Warehouses = this.warehouseService.GetAllWarehouses()
             });
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public IActionResult Add(AddProductFormModel product)
         {
@@ -133,6 +136,7 @@
             return View(productDetails);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Delete(int id)
         {
             if (!this.productService.IsProductExist(id))
@@ -145,6 +149,7 @@
             return View(product);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public IActionResult DeleteConfirmed(int id)
         {

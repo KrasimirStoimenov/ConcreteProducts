@@ -29,8 +29,15 @@
                 <div class="text-center mb-4">Category - @product.CategoryName</div>
                 <div class="text-center mb-4">Available in different colors</div>
                 <br />
-                <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-info" style="width: 7rem;">Details</a>
-                <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger" style="width: 7rem;">Delete</a>
+                @if (this.User.IsAdmin())
+                {
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-info" style="width: 7rem;">Details</a>
+                    <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger" style="width: 7rem;">Delete</a>
+                }
+                else
+                {
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-info" style="width: 14rem;">Details</a>
+                }
             </div>
         </div>
     }
