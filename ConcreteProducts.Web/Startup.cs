@@ -7,6 +7,7 @@ namespace ConcreteProducts.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.AspNetCore.Mvc;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Infrastructure;
     using ConcreteProducts.Web.Services.Categories;
@@ -14,7 +15,6 @@ namespace ConcreteProducts.Web
     using ConcreteProducts.Web.Services.Products;
     using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Services.Shapes;
-    using Microsoft.AspNetCore.Mvc;
 
     public class Startup
     {
@@ -40,6 +40,7 @@ namespace ConcreteProducts.Web
                     options.Password.RequireUppercase = false;
                     options.Password.RequireLowercase = false;
                 })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ConcreteProductsDbContext>();
 
             services

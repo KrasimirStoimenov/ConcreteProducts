@@ -1,21 +1,26 @@
 ﻿namespace ConcreteProducts.Web.Infrastructure
 {
+    using System;
     using System.Linq;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Data.Models.Enumerations;
+    using Microsoft.AspNetCore.Identity;
+
+    using static GlobalConstants;
 
     public static class ApplicationBuilderExtensions
     {
         public static IApplicationBuilder ApplyMigrations(this IApplicationBuilder app)
         {
-            using var services = app.ApplicationServices.CreateScope();
+            using var serviceScope = app.ApplicationServices.CreateScope();
+            var services = serviceScope.ServiceProvider;
 
-            var dbContext = services.ServiceProvider.GetService<ConcreteProductsDbContext>();
-
+            var dbContext = services.GetRequiredService<ConcreteProductsDbContext>();
             dbContext.Database.Migrate();
 
             SeedColors(dbContext);
@@ -23,8 +28,43 @@
             SeedWarehouses(dbContext);
             SeedProducts(dbContext);
             SeedProductColor(dbContext);
+            SeedAdministrator(services);
 
             return app;
+        }
+
+        private static void SeedAdministrator(IServiceProvider services)
+        {
+            var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            Task
+                .Run(async () =>
+                {
+                    if (await roleManager.RoleExistsAsync(AdministratorRoleName))
+                    {
+                        return;
+                    }
+
+                    var role = new IdentityRole { Name = AdministratorRoleName };
+
+                    await roleManager.CreateAsync(role);
+
+                    const string adminEmail = "admin@cps.com";
+                    const string adminPassword = "admin12";
+
+                    var user = new IdentityUser
+                    {
+                        Email = adminEmail,
+                        UserName = adminEmail
+                    };
+
+                    await userManager.CreateAsync(user, adminPassword);
+
+                    await userManager.AddToRoleAsync(user, role.Name);
+                })
+                .GetAwaiter()
+                .GetResult();
         }
 
         private static void SeedColors(ConcreteProductsDbContext data)
@@ -72,6 +112,7 @@
 
             data.SaveChanges();
         }
+
         private static void SeedWarehouses(ConcreteProductsDbContext data)
         {
             if (data.Warehouses.Any())
@@ -86,8 +127,6 @@
 
             data.SaveChanges();
         }
-
-
 
         private static void SeedProducts(ConcreteProductsDbContext data)
         {
