@@ -1,6 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
     using System.Linq;
+    using System.Data;
     using Microsoft.AspNetCore.Mvc;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Data.Models;
@@ -10,10 +11,12 @@
     using ConcreteProducts.Web.Services.Categories;
     using ConcreteProducts.Web.Services.Warehouses;
     using Microsoft.AspNetCore.Authorization;
-    using System.Data;
+    using ConcreteProducts.Web.Areas.Admin;
 
     public class ProductsController : Controller
     {
+        private const string notExistingProduct = "Product does not exist.";
+
         private readonly IProductService productService;
         private readonly IColorService colorService;
         private readonly ICategoryService categoryService;
@@ -50,7 +53,7 @@
             return View(productsViewModel);
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Authorize(Roles = AdminConstants.AdministratorRoleName)]
         public IActionResult Add()
             => View(new AddProductFormModel
             {
@@ -59,7 +62,7 @@
                 Warehouses = this.warehouseService.GetAllWarehouses()
             });
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Authorize(Roles = AdminConstants.AdministratorRoleName)]
         [HttpPost]
         public IActionResult Add(AddProductFormModel product)
         {
@@ -121,14 +124,14 @@
 
             this.data.SaveChanges();
 
-            return RedirectToAction("All");
+            return RedirectToAction(nameof(All));
         }
 
         public IActionResult Details(int id)
         {
             if (!this.productService.IsProductExist(id))
             {
-                return BadRequest("Product does not exist.");
+                return BadRequest(notExistingProduct);
             }
 
             var productDetails = this.productService.GetProductDetails(id);
@@ -136,12 +139,12 @@
             return View(productDetails);
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Authorize(Roles = AdminConstants.AdministratorRoleName)]
         public IActionResult Delete(int id)
         {
             if (!this.productService.IsProductExist(id))
             {
-                return BadRequest("Product does not exist!");
+                return BadRequest(notExistingProduct);
             }
 
             var product = this.productService.GetProductToDeleteById(id);
@@ -149,7 +152,7 @@
             return View(product);
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Authorize(Roles = AdminConstants.AdministratorRoleName)]
         [HttpPost]
         public IActionResult DeleteConfirmed(int id)
         {
@@ -160,19 +163,19 @@
 
         private void ValidateCollections(AddProductFormModel product)
         {
-            if (!this.data.Categories.Any(c => c.Id == product.CategoryId))
+            if (!this.categoryService.IsCategoryExist(product.CategoryId))
             {
-                this.ModelState.AddModelError(nameof(product.CategoryId), $"{nameof(product.CategoryId)} does not exist.");
+                this.ModelState.AddModelError(nameof(product.CategoryId), $"Category does not exist.");
             }
 
-            if (!this.data.Colors.Any(c => c.Id == product.ColorId))
+            if (!this.colorService.IsColorExist(product.ColorId))
             {
-                this.ModelState.AddModelError(nameof(product.ColorId), $"{nameof(product.ColorId)} does not exist.");
+                this.ModelState.AddModelError(nameof(product.ColorId), $"Color does not exist.");
             }
 
-            if (!this.data.Warehouses.Any(c => c.Id == product.WarehouseId))
+            if (!this.warehouseService.IsWarehouseExist(product.WarehouseId))
             {
-                this.ModelState.AddModelError(nameof(product.WarehouseId), $"{nameof(product.WarehouseId)} does not exist.");
+                this.ModelState.AddModelError(nameof(product.WarehouseId), $"Warehouse does not exist.");
             }
         }
     }

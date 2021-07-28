@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.Models.Shape
+﻿namespace ConcreteProducts.Web.Areas.Admin.Models.Shapes
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

@@ -1,12 +1,15 @@
-﻿namespace ConcreteProducts.Web.Controllers
+﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-    using ConcreteProducts.Web.Models.Categories;
     using ConcreteProducts.Web.Services.Categories;
+    using ConcreteProducts.Web.Areas.Admin.Models.Categories;
 
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+    using static AdminConstants;
+
+    [Authorize(Roles = AdministratorRoleName)]
+    [Area(AreaName)]
     public class CategoriesController : Controller
     {
         private readonly string notExistingCategoryErrorMessage = "Category does not exist.";

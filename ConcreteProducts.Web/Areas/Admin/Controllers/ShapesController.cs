@@ -1,13 +1,16 @@
-﻿namespace ConcreteProducts.Web.Controllers
+﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-    using ConcreteProducts.Web.Models.Shape;
-    using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Services.Shapes;
+    using ConcreteProducts.Web.Services.Warehouses;
+    using ConcreteProducts.Web.Areas.Admin.Models.Shapes;
 
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+    using static AdminConstants;
+
+    [Authorize(Roles = AdministratorRoleName)]
+    [Area(AreaName)]
     public class ShapesController : Controller
     {
         private readonly string notExistingShapeErrorMessage = "Shape does not exist.";

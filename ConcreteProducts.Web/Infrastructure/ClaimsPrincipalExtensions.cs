@@ -2,7 +2,7 @@
 {
     using System.Security.Claims;
 
-    using static GlobalConstants;
+    using static ConcreteProducts.Web.Areas.Admin.AdminConstants;
 
     public static class ClaimsPrincipalExtensions
     {

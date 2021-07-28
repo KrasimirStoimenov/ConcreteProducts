@@ -11,7 +11,7 @@
     using ConcreteProducts.Web.Data.Models.Enumerations;
     using Microsoft.AspNetCore.Identity;
 
-    using static GlobalConstants;
+    using static Areas.Admin.AdminConstants;
 
     public static class ApplicationBuilderExtensions
     {

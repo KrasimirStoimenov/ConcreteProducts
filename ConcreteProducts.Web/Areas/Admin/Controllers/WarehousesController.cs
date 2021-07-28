@@ -1,12 +1,15 @@
-﻿namespace ConcreteProducts.Web.Controllers
+﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-    using ConcreteProducts.Web.Models.Warehouses;
     using ConcreteProducts.Web.Services.Warehouses;
 
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+    using static AdminConstants;
+    using ConcreteProducts.Web.Areas.Admin.Models.Warehouses;
+
+    [Authorize(Roles = AdministratorRoleName)]
+    [Area(AreaName)]
     public class WarehousesController : Controller
     {
         private readonly string notExistingWarehouseErrorMessage = "Warehouse does not exist.";

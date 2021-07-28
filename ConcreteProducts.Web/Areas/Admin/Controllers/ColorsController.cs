@@ -1,12 +1,15 @@
-﻿namespace ConcreteProducts.Web.Controllers
+﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-    using ConcreteProducts.Web.Models.Colors;
     using ConcreteProducts.Web.Services.Colors;
+    using ConcreteProducts.Web.Areas.Admin.Models.Colors;
 
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+    using static AdminConstants;
+
+    [Authorize(Roles = AdministratorRoleName)]
+    [Area(AreaName)]
     public class ColorsController : Controller
     {
         private readonly string notExistingColorErrorMessage = "Color does not exist.";
