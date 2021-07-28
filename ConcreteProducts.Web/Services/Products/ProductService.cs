@@ -42,6 +42,15 @@
             return products;
         }
 
+        public IEnumerable<ProductsInWarehouseViewModel> GetAllProductsInWarehouse()
+            => this.data.Products
+                .Select(p => new ProductsInWarehouseViewModel
+                {
+                    Id = p.Id,
+                    Name = p.Name
+                })
+                .ToList();
+
         public ProductDetailsServiceModel GetProductDetails(int id)
             => this.data.Products
                 .Where(p => p.Id == id)
@@ -85,5 +94,7 @@
             this.data.Products.Remove(product);
             this.data.SaveChanges();
         }
+
+
     }
 }

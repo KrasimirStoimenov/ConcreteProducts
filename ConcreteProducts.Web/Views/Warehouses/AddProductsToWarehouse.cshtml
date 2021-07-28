@@ -1,0 +1,49 @@
+﻿@model AddProductsToWarehouseFormModel
+
+@{
+    ViewBag.Title = "Add Product To Warehouse";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <section>
+                <h2 class="headingMargin text-center">@ViewBag.Title</h2>
+                <form method="post">
+                    <div class="form-group">
+                        <label asp-for="ProductId"></label>
+                        <div class="input-group">
+                            <select asp-for="ProductId" class="form-control">
+                                @foreach (var product in Model.Products)
+                                {
+                                    <option value="@product.Id">@product.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Quantity"></label>
+                        <input asp-for="Quantity" class="form-control" placeholder="Behaton etc.">
+                        <span asp-validation-for="Quantity" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ColorId"></label>
+                        <div class="input-group">
+                            <select asp-for="ColorId" class="form-control">
+                                @foreach (var color in Model.Colors)
+                                {
+                                    <option value="@color.Id">@color.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Save" />
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

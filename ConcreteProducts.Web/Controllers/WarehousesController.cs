@@ -5,6 +5,8 @@
     using Microsoft.AspNetCore.Authorization;
     using ConcreteProducts.Web.Models.Warehouses;
     using ConcreteProducts.Web.Services.Warehouses;
+    using ConcreteProducts.Web.Services.Colors;
+    using ConcreteProducts.Web.Services.Products;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class WarehousesController : Controller
@@ -12,10 +14,14 @@
         private readonly string notExistingWarehouseErrorMessage = "Warehouse does not exist.";
         private readonly string takenWarehouseNameErrorMessage = "Warehouse name already taken.";
         private readonly IWarehouseService warehouseService;
+        private readonly IProductService productService;
+        private readonly IColorService colorService;
 
-        public WarehousesController(IWarehouseService warehouseService)
+        public WarehousesController(IWarehouseService warehouseService, IProductService productService, IColorService colorService)
         {
             this.warehouseService = warehouseService;
+            this.productService = productService;
+            this.colorService = colorService;
         }
 
         public IActionResult All(int id = 1)
@@ -55,6 +61,13 @@
 
             return RedirectToAction(nameof(All));
         }
+
+        public IActionResult AddProductsToWarehouse()
+            => View(new AddProductsToWarehouseFormModel
+            {
+                Products = this.productService.GetAllProductsInWarehouse(),
+                Colors = this.colorService.GetAllColors(),
+            });
 
         public IActionResult Edit(int id)
         {

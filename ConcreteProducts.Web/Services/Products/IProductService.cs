@@ -7,6 +7,8 @@
     {
         IEnumerable<ProductServiceModel> GetAllProducts(string searchTerm);
 
+        IEnumerable<ProductsInWarehouseViewModel> GetAllProductsInWarehouse();
+
         ProductDetailsServiceModel GetProductDetails(int id);
 
         ProductDeleteServiceModel GetProductToDeleteById(int id);
