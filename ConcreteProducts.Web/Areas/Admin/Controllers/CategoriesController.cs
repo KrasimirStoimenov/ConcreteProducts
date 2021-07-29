@@ -2,15 +2,10 @@
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
     using ConcreteProducts.Web.Services.Categories;
     using ConcreteProducts.Web.Areas.Admin.Models.Categories;
 
-    using static AdminConstants;
-
-    [Authorize(Roles = AdministratorRoleName)]
-    [Area(AreaName)]
-    public class CategoriesController : Controller
+    public class CategoriesController : AdminController
     {
         private readonly string notExistingCategoryErrorMessage = "Category does not exist.";
         private readonly string takenCategoryNameErrorMessage = "Category name already taken.";

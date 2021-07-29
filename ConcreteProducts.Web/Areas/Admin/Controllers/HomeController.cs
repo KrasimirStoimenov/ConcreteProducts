@@ -1,12 +1,11 @@
-﻿namespace ConcreteProducts.Web.Controllers
+﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers
 {
     using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using ConcreteProducts.Web.Models;
-    using ConcreteProducts.Web.Areas.Admin;
 
-    public class HomeController : Controller
+    public class HomeController : AdminController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -17,11 +16,6 @@
 
         public IActionResult Index()
         {
-            if (this.User.IsInRole(AdminConstants.AdministratorRoleName))
-            {
-                return RedirectToAction("Index", "Admin");
-            }
-
             return View();
         }
 

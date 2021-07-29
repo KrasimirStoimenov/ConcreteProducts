@@ -1,3 +1,10 @@
 ﻿@{
-    Layout = "_Layout";
+    if (this.User.IsAdmin())
+    {
+        Layout = "/Areas/Admin/Views/_LayoutAdmin.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }

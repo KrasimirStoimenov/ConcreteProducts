@@ -2,15 +2,10 @@
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
     using ConcreteProducts.Web.Services.Colors;
     using ConcreteProducts.Web.Areas.Admin.Models.Colors;
 
-    using static AdminConstants;
-
-    [Authorize(Roles = AdministratorRoleName)]
-    [Area(AreaName)]
-    public class ColorsController : Controller
+    public class ColorsController : AdminController
     {
         private readonly string notExistingColorErrorMessage = "Color does not exist.";
         private readonly string takenColorNameErrorMessage = "Color name already taken.";

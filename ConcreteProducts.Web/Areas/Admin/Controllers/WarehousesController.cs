@@ -2,15 +2,9 @@
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
     using ConcreteProducts.Web.Services.Warehouses;
-
-    using static AdminConstants;
     using ConcreteProducts.Web.Areas.Admin.Models.Warehouses;
-
-    [Authorize(Roles = AdministratorRoleName)]
-    [Area(AreaName)]
-    public class WarehousesController : Controller
+    public class WarehousesController : AdminController
     {
         private readonly string notExistingWarehouseErrorMessage = "Warehouse does not exist.";
         private readonly string takenWarehouseNameErrorMessage = "Warehouse name already taken.";
