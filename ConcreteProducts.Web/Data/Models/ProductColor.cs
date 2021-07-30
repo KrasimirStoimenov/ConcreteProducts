@@ -9,8 +9,5 @@
 
         public int ColorId { get; set; }
         public Color Color { get; init; }
-
-        [Required]
-        public string ImageUrl { get; set; }
     }
 }
