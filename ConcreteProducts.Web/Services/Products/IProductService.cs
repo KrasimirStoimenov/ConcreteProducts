@@ -5,13 +5,17 @@
 
     public interface IProductService
     {
-        IEnumerable<ProductServiceModel> GetAllProducts(string searchTerm);
+        IEnumerable<ProductInfoServiceModel> GetAllProducts(string searchTerm);
 
         ProductDetailsServiceModel GetProductDetails(int id);
 
         ProductDeleteServiceModel GetProductToDeleteById(int id);
 
+        void AddColorToProduct(int productId, int colorId);
+
         bool IsProductExist(int id);
+
+        bool HasProductWithSameNameAndDimensions(string name, string dimensions);
 
         void DeleteProduct(int id);
     }

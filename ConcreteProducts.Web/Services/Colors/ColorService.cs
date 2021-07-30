@@ -2,6 +2,8 @@
 {
     using System.Linq;
     using System.Collections.Generic;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Services.Colors.Dtos;
     using ConcreteProducts.Web.Data.Models;
@@ -9,29 +11,24 @@
     public class ColorService : IColorService
     {
         private readonly ConcreteProductsDbContext data;
+        private readonly IMapper mapper;
 
-        public ColorService(ConcreteProductsDbContext data)
-            => this.data = data;
+        public ColorService(ConcreteProductsDbContext data, IMapper mapper)
+        {
+            this.data = data;
+            this.mapper = mapper;
+        }
 
         public IEnumerable<ColorServiceModel> GetAllColors()
             => this.data.Colors
-                .Select(c => new ColorServiceModel
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                })
+                .ProjectTo<ColorServiceModel>(this.mapper.ConfigurationProvider)
                 .OrderBy(c => c.Id)
                 .ToList();
 
         public ColorDeleteServiceModel GetColorToDeleteById(int id)
             => this.data.Colors
                 .Where(c => c.Id == id)
-                .Select(c => new ColorDeleteServiceModel
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    ProductsRelatedToColor = c.ProductColors.Count()
-                })
+                .ProjectTo<ColorDeleteServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefault();
 
         public int Create(string name)
@@ -59,10 +56,7 @@
         public ColorServiceModel GetColorDetails(int id)
             => this.data.Colors
                 .Where(c => c.Id == id)
-                .Select(c => new ColorServiceModel
-                {
-                    Name = c.Name
-                })
+                .ProjectTo<ColorServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefault();
 
         public bool IsColorExist(int id)

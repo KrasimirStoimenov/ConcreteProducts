@@ -49,6 +49,8 @@ namespace ConcreteProducts.Web
                     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 });
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IColorService, ColorService>();
             services.AddTransient<IProductService, ProductService>();

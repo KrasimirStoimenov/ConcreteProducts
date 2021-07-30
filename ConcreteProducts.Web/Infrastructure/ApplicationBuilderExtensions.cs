@@ -12,6 +12,7 @@
     using Microsoft.AspNetCore.Identity;
 
     using static Areas.Admin.AdminConstants;
+    using static System.Net.WebRequestMethods;
 
     public static class ApplicationBuilderExtensions
     {
@@ -112,6 +113,7 @@
                     QuantityInPalletInPieces = 936,
                     CountInUnitOfMeasurement = 100,
                     Weight = 1.34,
+                    ImageUrl = "https://www.masterhaus.bg/thumbs/246x246/products/11/03/11/1103110014-15-tuhla-beton_246x246_pad_478b24840a.jpg",
                     CategoryId = data.Categories.Where(c=>c.Name == "Pavement").Select(c=>c.Id).FirstOrDefault(),
                     WarehouseId = data.Warehouses.Where(w=>w.Name == "Basic").Select(w=>w.Id).FirstOrDefault()
                     },
@@ -123,6 +125,7 @@
                     QuantityInPalletInPieces = 60,
                     CountInUnitOfMeasurement = 6.25,
                     Weight = 16.67,
+                    ImageUrl = "https://www.masterhaus.bg/thumbs/246x246/products/11/03/11/1103110014-15-tuhla-beton_246x246_pad_478b24840a.jpg",
                     CategoryId = data.Categories.Where(c=>c.Name == "Sidewalk").Select(c=>c.Id).FirstOrDefault(),
                     WarehouseId = data.Warehouses.Where(w=>w.Name == "Basic").Select(w=>w.Id).FirstOrDefault()
                     },
@@ -134,6 +137,7 @@
                     QuantityInPalletInPieces = 325,
                     CountInUnitOfMeasurement = 35,
                     Weight = 3.93,
+                    ImageUrl = "https://www.masterhaus.bg/thumbs/246x246/products/11/03/11/1103110014-15-tuhla-beton_246x246_pad_478b24840a.jpg",
                     CategoryId = data.Categories.Where(c=>c.Name == "Flooring").Select(c=>c.Id).FirstOrDefault(),
                     WarehouseId = data.Warehouses.Where(w=>w.Name == "Basic").Select(w=>w.Id).FirstOrDefault(),
                     },
@@ -145,6 +149,7 @@
                     QuantityInPalletInPieces = 36,
                     CountInUnitOfMeasurement = 2,
                     Weight = 36.11,
+                    ImageUrl = "https://www.masterhaus.bg/thumbs/246x246/products/11/03/11/1103110014-15-tuhla-beton_246x246_pad_478b24840a.jpg",
                     CategoryId = data.Categories.Where(c=>c.Name == "Border").Select(c=>c.Id).FirstOrDefault(),
                     WarehouseId = data.Warehouses.Where(w=>w.Name == "Basic").Select(w=>w.Id).FirstOrDefault()
                     },
@@ -156,6 +161,7 @@
                     QuantityInPalletInPieces = 48,
                     CountInUnitOfMeasurement = 12.5,
                     Weight = 25,
+                    ImageUrl = "https://www.masterhaus.bg/thumbs/246x246/products/11/03/11/1103110014-15-tuhla-beton_246x246_pad_478b24840a.jpg",
                     CategoryId = data.Categories.Where(c=>c.Name == "Brick").Select(c=>c.Id).FirstOrDefault(),
                     WarehouseId = data.Warehouses.Where(w=>w.Name == "Basic").Select(w=>w.Id).FirstOrDefault()
                     },
@@ -176,28 +182,23 @@
             {
                 new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Red").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Dimensions == "10/10/6").Select(p=>p.Id).FirstOrDefault(),
-                    ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
+                    ProductId = data.Products.Where(p=>p.Dimensions == "10/10/6").Select(p=>p.Id).FirstOrDefault()
                     },
                 new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Grey").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Dimensions == "10/10/6").Select(p=>p.Id).FirstOrDefault(),
-                    ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
+                    ProductId = data.Products.Where(p=>p.Dimensions == "10/10/6").Select(p=>p.Id).FirstOrDefault()
                     },
                 new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Washed Yellow").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Dimensions == "10/10/6").Select(p=>p.Id).FirstOrDefault(),
-                    ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
+                    ProductId = data.Products.Where(p=>p.Dimensions == "10/10/6").Select(p=>p.Id).FirstOrDefault()
                     },
                  new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Yellow").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Dimensions == "40/20/20").Select(p=>p.Id).FirstOrDefault(),
-                    ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
+                    ProductId = data.Products.Where(p=>p.Dimensions == "40/20/20").Select(p=>p.Id).FirstOrDefault()
                     },
                  new ProductColor {
                     ColorId = data.Colors.Where(c=>c.Name == "Blue").Select(c=>c.Id).FirstOrDefault(),
-                    ProductId = data.Products.Where(p=>p.Dimensions == "40/40/5").Select(p=>p.Id).FirstOrDefault(),
-                    ImageUrl = "https://cdn.planeta-design.com/9815980/colore_grigio_perla_14.jpg.webp"
+                    ProductId = data.Products.Where(p=>p.Dimensions == "40/40/5").Select(p=>p.Id).FirstOrDefault()
                     },
 
             });

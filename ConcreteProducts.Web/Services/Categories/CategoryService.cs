@@ -2,6 +2,8 @@
 {
     using System.Linq;
     using System.Collections.Generic;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Services.Categories.Dtos;
     using ConcreteProducts.Web.Data.Models;
@@ -9,40 +11,29 @@
     public class CategoryService : ICategoryService
     {
         private readonly ConcreteProductsDbContext data;
+        private readonly IMapper mapper;
 
-        public CategoryService(ConcreteProductsDbContext data)
-            => this.data = data;
+        public CategoryService(ConcreteProductsDbContext data, IMapper mapper)
+        {
+            this.data = data;
+            this.mapper = mapper;
+        }
 
         public IEnumerable<CategoryServiceModel> GetAllCategories()
-            => this.data
-                .Categories
-                .Select(c => new CategoryServiceModel
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                })
+            => this.data.Categories
+                .ProjectTo<CategoryServiceModel>(this.mapper.ConfigurationProvider)
                 .ToList();
 
         public IEnumerable<CategoryWithProducts> GetAllCategoriesWithTheirProducts()
             => this.data.Categories
-                .Select(c => new CategoryWithProducts
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    ProductsCount = c.Products.Count
-                })
+                .ProjectTo<CategoryWithProducts>(this.mapper.ConfigurationProvider)
                 .OrderBy(c => c.Id)
                 .ToList();
 
         public CategoryWithProducts GetCategoryToDelete(int id)
             => this.data.Categories
                 .Where(c => c.Id == id)
-                .Select(c => new CategoryWithProducts
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    ProductsCount = c.Products.Count
-                })
+                .ProjectTo<CategoryWithProducts>(this.mapper.ConfigurationProvider)
                 .FirstOrDefault();
 
         public int Create(string name)
@@ -70,10 +61,7 @@
         public CategoryServiceModel GetCategoryDetails(int id)
             => this.data.Categories
                 .Where(c => c.Id == id)
-                .Select(c => new CategoryServiceModel
-                {
-                    Name = c.Name
-                })
+                .ProjectTo<CategoryServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefault();
 
         public bool IsCategoryExist(int id)

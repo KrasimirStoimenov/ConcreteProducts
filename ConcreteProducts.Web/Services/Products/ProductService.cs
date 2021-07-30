@@ -2,9 +2,10 @@
 {
     using System.Linq;
     using System.Collections.Generic;
+    using Microsoft.EntityFrameworkCore;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Services.Products.Dtos;
-    using Microsoft.EntityFrameworkCore;
+    using ConcreteProducts.Web.Data.Models;
 
     public class ProductService : IProductService
     {
@@ -15,7 +16,7 @@
             this.data = data;
         }
 
-        public IEnumerable<ProductServiceModel> GetAllProducts(string searchTerm)
+        public IEnumerable<ProductInfoServiceModel> GetAllProducts(string searchTerm)
         {
             var productQuery = this.data.Products.AsQueryable();
 
@@ -26,16 +27,14 @@
 
             var products = productQuery
                 .OrderByDescending(p => p.Id)
-                .Select(p => new ProductServiceModel
+                .Select(p => new ProductInfoServiceModel
                 {
                     Id = p.Id,
                     Name = p.Name,
                     Dimensions = p.Dimensions,
                     InPallet = $"{p.QuantityInPalletInPieces} pieces / {p.QuantityInPalletInUnitOfMeasurement}{p.UnitOfMeasurement}",
                     CategoryName = p.Category.Name,
-                    DefaultImageUrl = p.ProductColors
-                                        .Select(pc => pc.ImageUrl)
-                                        .FirstOrDefault(),
+                    DefaultImageUrl = p.ImageUrl
                 })
                 .ToList();
 
@@ -47,6 +46,7 @@
                 .Where(p => p.Id == id)
                 .Select(p => new ProductDetailsServiceModel
                 {
+                    Id = p.Id,
                     Name = p.Name,
                     Dimensions = p.Dimensions,
                     QuantityInPalletInUnitOfMeasurement = p.QuantityInPalletInUnitOfMeasurement,
@@ -55,9 +55,7 @@
                     UnitOfMeasurement = p.UnitOfMeasurement.ToString(),
                     Weight = p.Weight,
                     CategoryName = p.Category.Name,
-                    DefaultImageUrl = p.ProductColors
-                                        .Select(pc => pc.ImageUrl)
-                                        .FirstOrDefault(),
+                    DefaultImageUrl = p.ImageUrl,
                     AvailableColorsName = p.ProductColors.Select(pc => pc.Color.Name).ToList(),
                 })
                 .FirstOrDefault();
@@ -72,8 +70,24 @@
                 })
                 .FirstOrDefault();
 
+        public void AddColorToProduct(int productId, int colorId)
+        {
+            var product = this.data.Products.Find(productId);
+
+            product.ProductColors.Add(new ProductColor
+            {
+                ColorId = colorId
+            });
+
+            this.data.SaveChanges();
+        }
+
         public bool IsProductExist(int id)
             => this.data.Products.Any(p => p.Id == id);
+
+        public bool HasProductWithSameNameAndDimensions(string name, string dimensions)
+            => this.data.Products
+                .Any(p => p.Name == name && p.Dimensions == dimensions);
 
         public void DeleteProduct(int id)
         {
@@ -85,5 +99,7 @@
             this.data.Products.Remove(product);
             this.data.SaveChanges();
         }
+
+
     }
 }

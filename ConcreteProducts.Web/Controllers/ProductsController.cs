@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Data;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Models.Products;
@@ -10,12 +11,12 @@
     using ConcreteProducts.Web.Services.Colors;
     using ConcreteProducts.Web.Services.Categories;
     using ConcreteProducts.Web.Services.Warehouses;
-    using Microsoft.AspNetCore.Authorization;
     using ConcreteProducts.Web.Areas.Admin;
 
     public class ProductsController : Controller
     {
         private const string notExistingProduct = "Product does not exist.";
+        private const string existProductWithSameParameters = "Product already exist.";
 
         private readonly IProductService productService;
         private readonly IColorService colorService;
@@ -68,6 +69,11 @@
         {
             this.ValidateCollections(product);
 
+            if (this.productService.HasProductWithSameNameAndDimensions(product.Name, product.Dimensions))
+            {
+                this.ModelState.AddModelError(nameof(product.Name), existProductWithSameParameters);
+            }
+
             if (!ModelState.IsValid)
             {
                 product.Categories = this.categoryService.GetAllCategories();
@@ -77,51 +83,26 @@
                 return View(product);
             }
 
-            var currentProduct = this.data.Products
-                .Select(p => new Product
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Dimensions = p.Dimensions,
-                    ProductColors = p.ProductColors
-                })
-                .FirstOrDefault(p => p.Name == product.Name && p.Dimensions == product.Dimensions);
-
-            if (currentProduct == null)
+            var currentProduct = new Product
             {
-                currentProduct = new Product
-                {
-                    Name = product.Name,
-                    Dimensions = product.Dimensions,
-                    QuantityInPalletInUnitOfMeasurement = product.QuantityInPalletInUnitOfMeasurement,
-                    QuantityInPalletInPieces = product.QuantityInPalletInPieces,
-                    CountInUnitOfMeasurement = product.CountInUnitOfMeasurement,
-                    UnitOfMeasurement = product.UnitOfMeasurement,
-                    Weight = product.Weight,
-                    CategoryId = product.CategoryId,
-                    WarehouseId = product.WarehouseId
-                };
+                Name = product.Name,
+                Dimensions = product.Dimensions,
+                QuantityInPalletInUnitOfMeasurement = product.QuantityInPalletInUnitOfMeasurement,
+                QuantityInPalletInPieces = product.QuantityInPalletInPieces,
+                CountInUnitOfMeasurement = product.CountInUnitOfMeasurement,
+                UnitOfMeasurement = product.UnitOfMeasurement,
+                Weight = product.Weight,
+                CategoryId = product.CategoryId,
+                WarehouseId = product.WarehouseId
+            };
 
-                currentProduct.ProductColors.Add(new ProductColor
-                {
-                    ColorId = product.ColorId,
-                    ImageUrl = product.ImageUrl
-                });
-
-                this.data.Products.Add(currentProduct);
-            }
-
-            if (!currentProduct.ProductColors.Any(pc => pc.ColorId == product.ColorId))
+            currentProduct.ProductColors.Add(new ProductColor
             {
-                this.data.ProductColors.Add(new ProductColor
-                {
-                    ProductId = currentProduct.Id,
-                    ColorId = product.ColorId,
-                    ImageUrl = product.ImageUrl
-                });
+                ColorId = product.ColorId
+            });
 
-            }
 
+            this.data.Products.Add(currentProduct);
             this.data.SaveChanges();
 
             return RedirectToAction(nameof(All));

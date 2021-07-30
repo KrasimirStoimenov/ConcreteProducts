@@ -5,47 +5,37 @@
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Services.Shapes.Dtos;
     using ConcreteProducts.Web.Data.Models;
+    using AutoMapper.QueryableExtensions;
+    using AutoMapper;
 
     public class ShapeService : IShapeService
     {
         private readonly ConcreteProductsDbContext data;
+        private readonly IMapper mapper;
 
-        public ShapeService(ConcreteProductsDbContext data)
-            => this.data = data;
+        public ShapeService(ConcreteProductsDbContext data, IMapper mapper)
+        {
+            this.data = data;
+            this.mapper = mapper;
+        }
 
         public IEnumerable<ShapeServiceModel> GetAllShapes()
             => this.data.Shapes
-                .Select(s => new ShapeServiceModel
-                {
-                    Id = s.Id,
-                    Name = s.Name,
-                    Dimensions = s.Dimensions,
-                })
+                .ProjectTo<ShapeServiceModel>(this.mapper.ConfigurationProvider)
                 .OrderBy(s => s.Id)
                 .ToList();
 
         public IEnumerable<ShapeAndWarehouseServiceModel> GetAllShapesWithWarehouse()
             => this.data.Shapes
-                .Select(s => new ShapeAndWarehouseServiceModel
-                {
-                    Id = s.Id,
-                    Name = s.Name,
-                    Dimensions = s.Dimensions,
-                    WarehouseName = s.Warehouse.Name
-                })
+                .ProjectTo<ShapeAndWarehouseServiceModel>(this.mapper.ConfigurationProvider)
                 .OrderBy(s => s.Id)
                 .ToList();
 
         public ShapeServiceModel GetShapeToDeleteById(int id)
             => this.data.Shapes
                 .Where(s => s.Id == id)
-                .Select(s => new ShapeServiceModel
-                {
-                    Id = s.Id,
-                    Name = s.Name,
-                    Dimensions = s.Dimensions
-                })
-.FirstOrDefault();
+                .ProjectTo<ShapeServiceModel>(this.mapper.ConfigurationProvider)
+                .FirstOrDefault();
         public int Create(string name, string dimensions, int warehouseId)
         {
             var shape = new Shape
@@ -75,12 +65,7 @@
         public ShapeDetailsServiceModel GetShapeDetails(int id)
             => this.data.Shapes
                 .Where(s => s.Id == id)
-                .Select(s => new ShapeDetailsServiceModel
-                {
-                    Name = s.Name,
-                    Dimensions = s.Dimensions,
-                    WarehouseId = s.WarehouseId
-                })
+                .ProjectTo<ShapeDetailsServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefault();
 
         public bool IsShapeExist(int id)

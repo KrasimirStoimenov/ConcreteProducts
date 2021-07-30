@@ -41,6 +41,10 @@
                         <li>@color</li>
                     }
                 </ul>
+                @if (this.User.IsAdmin())
+                {
+                    <a class="btn btn-success" asp-controller="ProductColors" asp-action="AddColorToProduct" asp-route-productId="@Model.Id"><i class="bi bi-plus-circle"></i> Add new color to product</a>
+                }
             </div>
         </div>
     </div>
