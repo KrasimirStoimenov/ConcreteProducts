@@ -1,0 +1,61 @@
+﻿@model IEnumerable<UserViewModel>
+
+@{
+    ViewData["Title"] = "All Users";
+}
+
+<div class="container">
+    <div class="row">
+        <h2 class="headingMargin text-center offset-md-3 col-md-6 col-sm-12">
+            @ViewData["Title"]
+        </h2>
+        <table class="table table-hover offset-md-1 col-md-10">
+            <thead>
+                <tr>
+                    <th class="col-1 text-center">#</th>
+                    <th class="col-3 text-center">User</th>
+                    <th class="col-2 text-center">Email</th>
+                    <th class="col-2 text-center">Role</th>
+                    <th class="col-2 text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var lineCounter = 1;
+
+                    foreach (var user in Model)
+                    {
+                        <tr>
+                            <td class="text-center font-weight-bold">@lineCounter</td>
+                            <td class="col-3 text-center">
+                                @user.UserName
+                                <br />
+                                <small>@user.Id</small>
+                            </td>
+                            <td class="col-2 text-center">@user.Email</td>
+                            <td class="col-2 text-center">@user.Role</td>
+                            <td class="col-2 text-center">
+                                <div class="input-group-append">
+                                    @if (user.Role != "Employee")
+                                    {
+                                        <a class="btn btn-info text-center" asp-controller="Users" asp-action="Promote" asp-route-id="@user.Id">Promote to employee</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-danger text-center" asp-controller="Users" asp-action="Demote" asp-route-id="@user.Id">Demote to basic</a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+
+                        lineCounter++;
+
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+

@@ -1,6 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Areas.Identity.Pages.Account
 {
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
@@ -34,8 +35,8 @@
         {
             [Required]
             [StringLength(
-                UsernameMaxLength, 
-                ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", 
+                UsernameMaxLength,
+                ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
                 MinimumLength = UsernameMinLength)]
             [Display(Name = "Username")]
             public string UserName { get; set; }
@@ -47,8 +48,8 @@
 
             [Required]
             [StringLength(
-                PasswordMaxLength, 
-                ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", 
+                PasswordMaxLength,
+                ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
                 MinimumLength = PasswordMinLength)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -69,6 +70,11 @@
         {
             returnUrl ??= Url.Content("~/");
 
+            if (this.userManager.Users.Any(u => u.Email == Input.Email))
+            {
+                ModelState.AddModelError(string.Empty, "Email is already used.");
+            }
+
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser
@@ -81,7 +87,8 @@
 
                 if (result.Succeeded)
                 {
-                    await signInManager.SignInAsync(user, isPersistent: false);
+                    await this.userManager.AddToRoleAsync(user, "Basic");
+                    await this.signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
 

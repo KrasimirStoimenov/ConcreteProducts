@@ -28,44 +28,10 @@
             SeedWarehouses(dbContext);
             SeedProducts(dbContext);
             SeedProductColor(dbContext);
+            SeedRoles(services);
             SeedAdministrator(services);
 
             return app;
-        }
-
-        private static void SeedAdministrator(IServiceProvider services)
-        {
-            var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-
-            Task
-                .Run(async () =>
-                {
-                    if (await roleManager.RoleExistsAsync(AdministratorRoleName))
-                    {
-                        return;
-                    }
-
-                    var role = new IdentityRole { Name = AdministratorRoleName };
-
-                    await roleManager.CreateAsync(role);
-
-                    const string adminUsername = "admin";
-                    const string adminEmail = "admin@cps.com";
-                    const string adminPassword = "admin12";
-
-                    var user = new IdentityUser
-                    {
-                        UserName = adminUsername,
-                        Email = adminEmail
-                    };
-
-                    await userManager.CreateAsync(user, adminPassword);
-
-                    await userManager.AddToRoleAsync(user, role.Name);
-                })
-                .GetAwaiter()
-                .GetResult();
         }
 
         private static void SeedColors(ConcreteProductsDbContext data)
@@ -237,6 +203,59 @@
             });
 
             data.SaveChanges();
+        }
+
+        private static void SeedRoles(IServiceProvider services)
+        {
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            if (roleManager.Roles.Any())
+            {
+                return;
+            }
+
+            Task
+                .Run(async () =>
+                {
+                    await roleManager.CreateAsync(new IdentityRole("Administrator"));
+                    await roleManager.CreateAsync(new IdentityRole("Employee"));
+                    await roleManager.CreateAsync(new IdentityRole("Basic"));
+                })
+                .GetAwaiter()
+                .GetResult();
+        }
+
+        private static void SeedAdministrator(IServiceProvider services)
+        {
+            var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            if (userManager.Users.Any(u => u.UserName == "admin"))
+            {
+                return;
+            }
+
+            Task
+                .Run(async () =>
+                {
+                    var role = await roleManager.FindByNameAsync(AdministratorRoleName);
+
+                    const string adminUsername = "admin";
+                    const string adminEmail = "admin@cps.com";
+                    const string adminPassword = "admin12";
+
+                    var user = new IdentityUser
+                    {
+                        UserName = adminUsername,
+                        Email = adminEmail
+                    };
+
+                    await userManager.CreateAsync(user, adminPassword);
+
+                    await userManager.AddToRoleAsync(user, role.Name);
+                })
+                .GetAwaiter()
+                .GetResult();
         }
 
     }
