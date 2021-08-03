@@ -29,6 +29,10 @@
             this.CreateMap<Color, ColorDeleteServiceModel>()
                 .ForMember(c => c.ProductsRelatedToColor, cfg => cfg.MapFrom(c => c.ProductColors.Count));
 
+            this.CreateMap<ProductColor, ColorServiceModel>()
+                .ForMember(c => c.Id, cfg => cfg.MapFrom(pc => pc.ColorId))
+                .ForMember(c => c.Name, cfg => cfg.MapFrom(pc => pc.Color.Name));
+
             this.CreateMap<Shape, ShapeServiceModel>();
             this.CreateMap<Shape, ShapeDetailsServiceModel>();
             this.CreateMap<Shape, ShapeAndWarehouseServiceModel>()

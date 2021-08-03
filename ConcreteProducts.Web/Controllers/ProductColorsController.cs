@@ -22,13 +22,14 @@
         public IActionResult AddColorToProduct(int productId)
             => View(new AddColorToProductViewModel
             {
+                ProductId = productId,
                 Colors = this.productColorsService.GetColorsNotRelatedToProduct(productId)
             });
 
         [HttpPost]
         public IActionResult AddColorToProduct(AddColorToProductViewModel model)
         {
-            if (!this.colorService.IsColorExist(model.ProductId))
+            if (!this.productService.IsProductExist(model.ProductId))
             {
                 this.ModelState.AddModelError(nameof(model.ProductId), $"Product does not exist.");
             }
@@ -36,6 +37,11 @@
             if (!this.colorService.IsColorExist(model.ColorId))
             {
                 this.ModelState.AddModelError(nameof(model.ColorId), $"Color does not exist.");
+            }
+
+            if (this.productColorsService.IsColorRelatedToProduct(model.ProductId, model.ColorId))
+            {
+                this.ModelState.AddModelError(nameof(model.ColorId), $"Color is already related to product.");
             }
 
             if (!ModelState.IsValid)
