@@ -19,7 +19,7 @@
     @foreach (var product in Model.AllProducts)
     {
         <div class="card mb-3 ml-2" style="width: 17rem;">
-            <img class="card-img-top" height="200" src="@product.DefaultImageUrl" alt="@product.Name">
+            <img class="card-img-top" height="200" src="@product.ImageUrl" alt="@product.Name">
             <div class="card-body">
                 <br />
                 <h4 class="card-title text-center mb-4">@product.Name</h4>

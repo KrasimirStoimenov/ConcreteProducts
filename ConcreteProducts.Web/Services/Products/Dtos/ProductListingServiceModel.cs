@@ -1,16 +1,12 @@
 ﻿namespace ConcreteProducts.Web.Services.Products.Dtos
 {
-    public class ProductInfoServiceModel
+    public class ProductListingServiceModel : ProductBaseServiceModel
     {
-        public int Id { get; init; }
-
-        public string Name { get; init; }
-
         public string Dimensions { get; init; }
 
         public string InPallet { get; init; }
 
-        public string DefaultImageUrl { get; init; }
+        public string ImageUrl { get; init; }
 
         public string CategoryName { get; init; }
     }

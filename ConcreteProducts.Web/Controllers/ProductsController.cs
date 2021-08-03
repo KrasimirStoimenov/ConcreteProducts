@@ -22,32 +22,30 @@
         private readonly IColorService colorService;
         private readonly ICategoryService categoryService;
         private readonly IWarehouseService warehouseService;
-        private readonly ConcreteProductsDbContext data;
 
         public ProductsController(IProductService productService, ConcreteProductsDbContext data, IColorService colorService, ICategoryService categoryService, IWarehouseService warehouseService)
         {
             this.productService = productService;
-            this.data = data;
             this.colorService = colorService;
             this.categoryService = categoryService;
             this.warehouseService = warehouseService;
         }
 
-        public IActionResult All(string searchTerm, int id = 1)
+        public IActionResult All(string searchTerm, int page = 1)
         {
             const int itemsPerPage = 8;
 
             if (searchTerm != null)
             {
-                id = 1;
+                page = 1;
             }
 
-            var products = this.productService.GetAllProducts(searchTerm);
+            var products = this.productService.GetAllListingProducts(searchTerm);
 
             var productsViewModel = new ListAllProductsViewModel
             {
-                AllProducts = products.Skip((id - 1) * itemsPerPage).Take(itemsPerPage),
-                PageNumber = id,
+                AllProducts = products.Skip((page - 1) * itemsPerPage).Take(itemsPerPage),
+                PageNumber = page,
                 Count = products.Count(),
                 ItemsPerPage = itemsPerPage
             };
@@ -69,11 +67,6 @@
         {
             this.ValidateCollections(product);
 
-            if (this.productService.HasProductWithSameNameAndDimensions(product.Name, product.Dimensions))
-            {
-                this.ModelState.AddModelError(nameof(product.Name), existProductWithSameParameters);
-            }
-
             if (!ModelState.IsValid)
             {
                 product.Categories = this.categoryService.GetAllCategories();
@@ -83,27 +76,18 @@
                 return View(product);
             }
 
-            var currentProduct = new Product
-            {
-                Name = product.Name,
-                Dimensions = product.Dimensions,
-                QuantityInPalletInUnitOfMeasurement = product.QuantityInPalletInUnitOfMeasurement,
-                QuantityInPalletInPieces = product.QuantityInPalletInPieces,
-                CountInUnitOfMeasurement = product.CountInUnitOfMeasurement,
-                UnitOfMeasurement = product.UnitOfMeasurement,
-                Weight = product.Weight,
-                CategoryId = product.CategoryId,
-                WarehouseId = product.WarehouseId
-            };
-
-            currentProduct.ProductColors.Add(new ProductColor
-            {
-                ColorId = product.ColorId
-            });
-
-
-            this.data.Products.Add(currentProduct);
-            this.data.SaveChanges();
+            this.productService.Create(
+                product.Name,
+                product.Dimensions,
+                product.QuantityInPalletInUnitOfMeasurement,
+                product.QuantityInPalletInPieces,
+                product.CountInUnitOfMeasurement,
+                product.UnitOfMeasurement,
+                product.Weight,
+                product.ImageUrl,
+                product.CategoryId,
+                product.WarehouseId,
+                product.ColorId);
 
             return RedirectToAction(nameof(All));
         }
@@ -157,6 +141,11 @@
             if (!this.warehouseService.IsWarehouseExist(product.WarehouseId))
             {
                 this.ModelState.AddModelError(nameof(product.WarehouseId), $"Warehouse does not exist.");
+            }
+
+            if (this.productService.HasProductWithSameNameAndDimensions(product.Name, product.Dimensions))
+            {
+                this.ModelState.AddModelError(nameof(product.Name), existProductWithSameParameters);
             }
         }
     }

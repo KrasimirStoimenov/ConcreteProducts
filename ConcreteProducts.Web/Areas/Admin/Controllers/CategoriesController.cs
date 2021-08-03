@@ -16,7 +16,7 @@
             this.categoryService = categoryService;
         }
 
-        public IActionResult All(int id = 1)
+        public IActionResult All(int page = 1)
         {
             const int itemsPerPage = 8;
 
@@ -25,9 +25,9 @@
             var categoriesViewModel = new ListAllCategoriesViewModel
             {
                 AllCategories = categoriesWithProducts
-                    .Skip((id - 1) * itemsPerPage)
+                    .Skip((page - 1) * itemsPerPage)
                     .Take(itemsPerPage),
-                PageNumber = id,
+                PageNumber = page,
                 Count = categoriesWithProducts.Count(),
                 ItemsPerPage = itemsPerPage
             };

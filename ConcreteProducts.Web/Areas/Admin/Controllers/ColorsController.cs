@@ -16,7 +16,7 @@
             this.colorService = colorService;
         }
 
-        public IActionResult All(int id = 1)
+        public IActionResult All(int page = 1)
         {
             const int itemsPerPage = 8;
 
@@ -24,8 +24,8 @@
 
             var colorsViewModel = new ListAllColorsViewModel
             {
-                AllColors = colors.Skip((id - 1) * itemsPerPage).Take(itemsPerPage),
-                PageNumber = id,
+                AllColors = colors.Skip((page - 1) * itemsPerPage).Take(itemsPerPage),
+                PageNumber = page,
                 Count = colors.Count(),
                 ItemsPerPage = itemsPerPage
             };

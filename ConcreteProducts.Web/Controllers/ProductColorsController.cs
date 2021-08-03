@@ -1,26 +1,28 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using ConcreteProducts.Web.Models.ProductColors;
     using ConcreteProducts.Web.Services.Colors;
     using ConcreteProducts.Web.Services.Products;
+    using ConcreteProducts.Web.Models.ProductColors;
+    using ConcreteProducts.Web.Services.ProductColors;
 
     public class ProductColorsController : Controller
     {
+        private readonly IProductColorsService productColorsService;
         private readonly IProductService productService;
         private readonly IColorService colorService;
 
-        public ProductColorsController(IProductService productService, IColorService colorService)
+        public ProductColorsController(IProductService productService, IColorService colorService, IProductColorsService productColorsService)
         {
             this.productService = productService;
             this.colorService = colorService;
+            this.productColorsService = productColorsService;
         }
 
         public IActionResult AddColorToProduct(int productId)
             => View(new AddColorToProductViewModel
             {
-                ProductId = productId,
-                Colors = this.colorService.GetAllColors()
+                Colors = this.productColorsService.GetColorsNotRelatedToProduct(productId)
             });
 
         [HttpPost]
@@ -38,12 +40,12 @@
 
             if (!ModelState.IsValid)
             {
-                model.Colors = this.colorService.GetAllColors();
+                model.Colors = this.productColorsService.GetColorsNotRelatedToProduct(model.ProductId);
 
                 return View(model);
             }
 
-            this.productService.AddColorToProduct(model.ProductId, model.ColorId);
+            this.productColorsService.AddColorToProduct(model.ProductId, model.ColorId);
 
             return RedirectToAction("Details", "Products", new { id = model.ProductId });
         }

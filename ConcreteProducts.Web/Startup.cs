@@ -15,6 +15,7 @@ namespace ConcreteProducts.Web
     using ConcreteProducts.Web.Services.Products;
     using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Services.Shapes;
+    using ConcreteProducts.Web.Services.ProductColors;
 
     public class Startup
     {
@@ -51,11 +52,12 @@ namespace ConcreteProducts.Web
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IShapeService, ShapeService>();
             services.AddTransient<IColorService, ColorService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IWarehouseService, WarehouseService>();
-            services.AddTransient<IShapeService, ShapeService>();
+            services.AddTransient<IProductColorsService, ProductColorsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

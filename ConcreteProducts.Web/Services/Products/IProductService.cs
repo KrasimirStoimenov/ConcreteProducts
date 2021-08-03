@@ -1,17 +1,28 @@
 ﻿namespace ConcreteProducts.Web.Services.Products
 {
     using System.Collections.Generic;
+using ConcreteProducts.Web.Data.Models.Enumerations;
     using ConcreteProducts.Web.Services.Products.Dtos;
 
     public interface IProductService
     {
-        IEnumerable<ProductInfoServiceModel> GetAllProducts(string searchTerm);
+        IEnumerable<ProductListingServiceModel> GetAllListingProducts(string searchTerm);
 
         ProductDetailsServiceModel GetProductDetails(int id);
 
-        ProductDeleteServiceModel GetProductToDeleteById(int id);
+        ProductBaseServiceModel GetProductToDeleteById(int id);
 
-        void AddColorToProduct(int productId, int colorId);
+        int Create(string name,
+            string dimensions,
+            double quantityInPalletInUnitOfMeasurement,
+            double quantityInPalletInPieces,
+            double countInUnitOfMeasurement,
+            UnitOfMeasurement unitOfMeasurement,
+            double weight,
+            string imageUrl,
+            int categoryId,
+            int warehouseId,
+            int colorId);
 
         bool IsProductExist(int id);
 

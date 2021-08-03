@@ -3,20 +3,25 @@
     using System.Linq;
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using ConcreteProducts.Web.Data;
-    using ConcreteProducts.Web.Services.Products.Dtos;
     using ConcreteProducts.Web.Data.Models;
+    using ConcreteProducts.Web.Services.Products.Dtos;
+    using ConcreteProducts.Web.Data.Models.Enumerations;
 
     public class ProductService : IProductService
     {
         private readonly ConcreteProductsDbContext data;
+        private readonly IMapper mapper;
 
-        public ProductService(ConcreteProductsDbContext data)
+        public ProductService(ConcreteProductsDbContext data, IMapper mapper)
         {
             this.data = data;
+            this.mapper = mapper;
         }
 
-        public IEnumerable<ProductInfoServiceModel> GetAllProducts(string searchTerm)
+        public IEnumerable<ProductListingServiceModel> GetAllListingProducts(string searchTerm)
         {
             var productQuery = this.data.Products.AsQueryable();
 
@@ -27,15 +32,7 @@
 
             var products = productQuery
                 .OrderByDescending(p => p.Id)
-                .Select(p => new ProductInfoServiceModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Dimensions = p.Dimensions,
-                    InPallet = $"{p.QuantityInPalletInPieces} pieces / {p.QuantityInPalletInUnitOfMeasurement}{p.UnitOfMeasurement}",
-                    CategoryName = p.Category.Name,
-                    DefaultImageUrl = p.ImageUrl
-                })
+                .ProjectTo<ProductListingServiceModel>(this.mapper.ConfigurationProvider)
                 .ToList();
 
             return products;
@@ -44,42 +41,52 @@
         public ProductDetailsServiceModel GetProductDetails(int id)
             => this.data.Products
                 .Where(p => p.Id == id)
-                .Select(p => new ProductDetailsServiceModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Dimensions = p.Dimensions,
-                    QuantityInPalletInUnitOfMeasurement = p.QuantityInPalletInUnitOfMeasurement,
-                    QuantityInPalletInPieces = p.QuantityInPalletInPieces,
-                    CountInUnitOfMeasurement = p.CountInUnitOfMeasurement,
-                    UnitOfMeasurement = p.UnitOfMeasurement.ToString(),
-                    Weight = p.Weight,
-                    CategoryName = p.Category.Name,
-                    DefaultImageUrl = p.ImageUrl,
-                    AvailableColorsName = p.ProductColors.Select(pc => pc.Color.Name).ToList(),
-                })
+                .ProjectTo<ProductDetailsServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefault();
 
-        public ProductDeleteServiceModel GetProductToDeleteById(int id)
+        public ProductBaseServiceModel GetProductToDeleteById(int id)
             => this.data.Products
                 .Where(p => p.Id == id)
-                .Select(p => new ProductDeleteServiceModel
-                {
-                    Id = p.Id,
-                    Name = p.Name
-                })
+                .ProjectTo<ProductBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefault();
 
-        public void AddColorToProduct(int productId, int colorId)
+        public int Create(
+            string name,
+            string dimensions,
+            double quantityInPalletInUnitOfMeasurement,
+            double quantityInPalletInPieces,
+            double countInUnitOfMeasurement,
+            UnitOfMeasurement unitOfMeasurement,
+            double weight,
+            string imageUrl,
+            int categoryId,
+            int warehouseId,
+            int colorId)
         {
-            var product = this.data.Products.Find(productId);
+            var product = new Product
+            {
+                Name = name,
+                Dimensions = dimensions,
+                QuantityInPalletInUnitOfMeasurement = quantityInPalletInUnitOfMeasurement,
+                QuantityInPalletInPieces = quantityInPalletInPieces,
+                CountInUnitOfMeasurement = countInUnitOfMeasurement,
+                UnitOfMeasurement = unitOfMeasurement,
+                Weight = weight,
+                ImageUrl = imageUrl,
+                CategoryId = categoryId,
+                WarehouseId = warehouseId
+            };
 
             product.ProductColors.Add(new ProductColor
             {
                 ColorId = colorId
             });
 
+
+            this.data.Products.Add(product);
             this.data.SaveChanges();
+
+            return product.Id;
         }
 
         public bool IsProductExist(int id)

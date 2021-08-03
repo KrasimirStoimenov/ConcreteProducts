@@ -15,7 +15,7 @@
             this.warehouseService = warehouseService;
         }
 
-        public IActionResult All(int id = 1)
+        public IActionResult All(int page = 1)
         {
             const int itemsPerPage = 8;
 
@@ -23,8 +23,8 @@
 
             var warehousesViewModel = new ListAllWarehouseViewModel
             {
-                AllWarehouses = warehouses.Skip((id - 1) * itemsPerPage).Take(itemsPerPage),
-                PageNumber = id,
+                AllWarehouses = warehouses.Skip((page - 1) * itemsPerPage).Take(itemsPerPage),
+                PageNumber = page,
                 Count = warehouses.Count(),
                 ItemsPerPage = itemsPerPage
             };

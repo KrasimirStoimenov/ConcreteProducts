@@ -2,12 +2,8 @@
 {
     using System.Collections.Generic;
 
-    public class ProductDetailsServiceModel
+    public class ProductDetailsServiceModel : ProductBaseServiceModel
     {
-        public int Id { get; init; }
-
-        public string Name { get; init; }
-
         public string Dimensions { get; init; }
 
         public double QuantityInPalletInUnitOfMeasurement { get; init; }
@@ -18,7 +14,7 @@
 
         public string UnitOfMeasurement { get; init; }
 
-        public string DefaultImageUrl { get; init; }
+        public string ImageUrl { get; init; }
 
         public string CategoryName { get; init; }
 

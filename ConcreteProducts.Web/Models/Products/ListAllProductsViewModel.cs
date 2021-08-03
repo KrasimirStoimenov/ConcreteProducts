@@ -13,6 +13,6 @@
 
         public string SearchTerm { get; init; }
 
-        public IEnumerable<ProductInfoServiceModel> AllProducts { get; init; }
+        public IEnumerable<ProductListingServiceModel> AllProducts { get; init; }
     }
 }
