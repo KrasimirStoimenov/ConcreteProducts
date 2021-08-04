@@ -1,7 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Services.Categories
 {
     using System.Collections.Generic;
-    using ConcreteProducts.Web.Services.Categories.Dtos;
+    using ConcreteProducts.Web.Services.Categories.Models;
 
     public interface ICategoryService
     {

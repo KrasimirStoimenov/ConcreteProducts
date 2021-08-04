@@ -7,7 +7,7 @@
     using AutoMapper.QueryableExtensions;
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Data.Models;
-    using ConcreteProducts.Web.Services.Products.Dtos;
+    using ConcreteProducts.Web.Services.Products.Models;
     using ConcreteProducts.Web.Data.Models.Enumerations;
 
     public class ProductService : IProductService

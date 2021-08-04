@@ -5,7 +5,7 @@
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using ConcreteProducts.Web.Data;
-    using ConcreteProducts.Web.Services.Categories.Dtos;
+    using ConcreteProducts.Web.Services.Categories.Models;
     using ConcreteProducts.Web.Data.Models;
 
     public class CategoryService : ICategoryService

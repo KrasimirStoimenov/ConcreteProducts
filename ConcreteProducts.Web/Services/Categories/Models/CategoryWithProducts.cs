@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.Services.Categories.Dtos
+﻿namespace ConcreteProducts.Web.Services.Categories.Models
 {
     public class CategoryWithProducts : CategoryServiceModel
     {

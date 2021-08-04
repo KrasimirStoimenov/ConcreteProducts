@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.Services.Products.Dtos
+﻿namespace ConcreteProducts.Web.Services.Products.Models
 {
     public class ProductListingServiceModel : ProductBaseServiceModel
     {

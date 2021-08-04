@@ -1,7 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Services.Colors
 {
     using System.Collections.Generic;
-    using ConcreteProducts.Web.Services.Colors.Dtos;
+    using ConcreteProducts.Web.Services.Colors.Models;
 
     public interface IColorService
     {

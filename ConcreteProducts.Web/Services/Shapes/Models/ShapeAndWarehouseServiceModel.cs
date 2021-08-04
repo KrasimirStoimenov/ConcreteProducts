@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.Services.Shapes.Dtos
+﻿namespace ConcreteProducts.Web.Services.Shapes.Models
 {
     public class ShapeAndWarehouseServiceModel : ShapeServiceModel
     {

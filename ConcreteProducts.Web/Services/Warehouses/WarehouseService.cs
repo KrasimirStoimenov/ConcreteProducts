@@ -5,7 +5,7 @@
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using ConcreteProducts.Web.Data;
-    using ConcreteProducts.Web.Services.Warehouses.Dtos;
+    using ConcreteProducts.Web.Services.Warehouses.Models;
     using ConcreteProducts.Web.Data.Models;
 
     public class WarehouseService : IWarehouseService

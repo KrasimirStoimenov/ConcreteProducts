@@ -1,7 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Services.Warehouses
 {
     using System.Collections.Generic;
-    using ConcreteProducts.Web.Services.Warehouses.Dtos;
+    using ConcreteProducts.Web.Services.Warehouses.Models;
 
     public interface IWarehouseService
     {

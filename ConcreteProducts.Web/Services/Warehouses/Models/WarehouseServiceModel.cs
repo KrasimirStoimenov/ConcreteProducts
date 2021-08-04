@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.Services.Warehouses.Dtos
+﻿namespace ConcreteProducts.Web.Services.Warehouses.Models
 {
     public class WarehouseServiceModel
     {

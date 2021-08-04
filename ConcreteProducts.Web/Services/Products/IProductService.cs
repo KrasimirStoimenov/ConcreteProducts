@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 using ConcreteProducts.Web.Data.Models.Enumerations;
-    using ConcreteProducts.Web.Services.Products.Dtos;
+    using ConcreteProducts.Web.Services.Products.Models;
 
     public interface IProductService
     {

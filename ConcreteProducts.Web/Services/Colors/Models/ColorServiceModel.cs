@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.Services.Colors.Dtos
+﻿namespace ConcreteProducts.Web.Services.Colors.Models
 {
     public class ColorServiceModel
     {

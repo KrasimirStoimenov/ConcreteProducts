@@ -1,7 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Services.Shapes
 {
     using System.Collections.Generic;
-    using ConcreteProducts.Web.Services.Shapes.Dtos;
+    using ConcreteProducts.Web.Services.Shapes.Models;
 
     public interface IShapeService
     {
