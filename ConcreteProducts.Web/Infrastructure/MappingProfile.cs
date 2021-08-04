@@ -40,7 +40,6 @@
 
             this.CreateMap<Warehouse, WarehouseServiceModel>();
             this.CreateMap<Warehouse, WarehouseWithProductsAndShapesCount>()
-                .ForMember(w => w.TotalProductsCount, cfg => cfg.MapFrom(p => p.Products.Count))
                 .ForMember(w => w.TotalShapesCount, cfg => cfg.MapFrom(s => s.Shapes.Count));
         }
     }

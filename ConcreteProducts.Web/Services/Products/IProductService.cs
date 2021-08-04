@@ -21,7 +21,6 @@ using ConcreteProducts.Web.Data.Models.Enumerations;
             double weight,
             string imageUrl,
             int categoryId,
-            int warehouseId,
             int colorId);
 
         bool IsProductExist(int id);

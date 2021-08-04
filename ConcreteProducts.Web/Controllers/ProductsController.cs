@@ -21,14 +21,12 @@
         private readonly IProductService productService;
         private readonly IColorService colorService;
         private readonly ICategoryService categoryService;
-        private readonly IWarehouseService warehouseService;
 
         public ProductsController(IProductService productService, ConcreteProductsDbContext data, IColorService colorService, ICategoryService categoryService, IWarehouseService warehouseService)
         {
             this.productService = productService;
             this.colorService = colorService;
             this.categoryService = categoryService;
-            this.warehouseService = warehouseService;
         }
 
         public IActionResult All(string searchTerm, int page = 1)
@@ -58,7 +56,6 @@
             {
                 Categories = this.categoryService.GetAllCategories(),
                 Colors = this.colorService.GetAllColors(),
-                Warehouses = this.warehouseService.GetAllWarehouses()
             });
 
         [Authorize(Roles = AdminConstants.AdministratorRoleName)]
@@ -71,7 +68,6 @@
             {
                 product.Categories = this.categoryService.GetAllCategories();
                 product.Colors = this.colorService.GetAllColors();
-                product.Warehouses = this.warehouseService.GetAllWarehouses();
 
                 return View(product);
             }
@@ -86,7 +82,6 @@
                 product.Weight,
                 product.ImageUrl,
                 product.CategoryId,
-                product.WarehouseId,
                 product.ColorId);
 
             return RedirectToAction(nameof(All));
@@ -136,11 +131,6 @@
             if (!this.colorService.IsColorExist(product.ColorId))
             {
                 this.ModelState.AddModelError(nameof(product.ColorId), $"Color does not exist.");
-            }
-
-            if (!this.warehouseService.IsWarehouseExist(product.WarehouseId))
-            {
-                this.ModelState.AddModelError(nameof(product.WarehouseId), $"Warehouse does not exist.");
             }
 
             if (this.productService.HasProductWithSameNameAndDimensions(product.Name, product.Dimensions))

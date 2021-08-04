@@ -60,7 +60,6 @@
             double weight,
             string imageUrl,
             int categoryId,
-            int warehouseId,
             int colorId)
         {
             var product = new Product
@@ -74,7 +73,6 @@
                 Weight = weight,
                 ImageUrl = imageUrl,
                 CategoryId = categoryId,
-                WarehouseId = warehouseId
             };
 
             product.ProductColors.Add(new ProductColor

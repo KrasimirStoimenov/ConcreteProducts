@@ -13,7 +13,7 @@
         [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
-        public ICollection<Product> Products { get; init; } = new HashSet<Product>();
+        public ICollection<WarehouseProducts> WarehouseProducts { get; init; } = new HashSet<WarehouseProducts>();
 
         public ICollection<Shape> Shapes { get; init; } = new HashSet<Shape>();
     }

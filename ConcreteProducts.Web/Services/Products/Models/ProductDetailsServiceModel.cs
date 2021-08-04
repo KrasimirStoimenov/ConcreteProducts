@@ -4,8 +4,6 @@
 
     public class ProductDetailsServiceModel : ProductBaseServiceModel
     {
-        public string Dimensions { get; init; }
-
         public double QuantityInPalletInUnitOfMeasurement { get; init; }
 
         public double QuantityInPalletInPieces { get; init; }

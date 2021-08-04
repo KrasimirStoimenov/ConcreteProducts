@@ -6,5 +6,6 @@
 
         public string Name { get; init; }
 
+        public string Dimensions { get; init; }
     }
 }
