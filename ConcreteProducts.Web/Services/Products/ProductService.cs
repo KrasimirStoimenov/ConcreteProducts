@@ -38,6 +38,11 @@
             return products;
         }
 
+        public IEnumerable<ProductBaseServiceModel> GetAllProducts()
+            => this.data.Products
+                .ProjectTo<ProductBaseServiceModel>(this.mapper.ConfigurationProvider)
+                .ToList();
+
         public ProductDetailsServiceModel GetProductDetails(int id)
             => this.data.Products
                 .Where(p => p.Id == id)
@@ -104,7 +109,6 @@
             this.data.Products.Remove(product);
             this.data.SaveChanges();
         }
-
 
     }
 }

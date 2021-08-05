@@ -1,7 +1,7 @@
 ﻿@model ProductDetailsServiceModel
 
 @{
-    ViewData["Title"] = Model.Name;
+    ViewBag.Title = Model.Name;
 }
 
 <h2 class="headingMargin text-left offset-1">@ViewData["Title"]</h2>
@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 mb-4">
-            <img src=@Model.ImageUrl class="img-fluid" height="400" width="400" alt="@ViewData["Title"]">
+            <img src=@Model.ImageUrl class="img-fluid" height="400" width="400" alt="@ViewBag.Title">
         </div>
         <div class="col-md-6 mb-4">
             <p class="lead font-weight-bold">Specifiations</p>
@@ -43,7 +43,7 @@
                 </ul>
                 @if (this.User.IsAdmin())
                 {
-                    <a class="btn btn-success" asp-controller="ProductColors" asp-action="AddColorToProduct" asp-route-productId="@Model.Id"><i class="bi bi-plus-circle"></i> Add new color to product</a>
+                    <a class="btn btn-success" asp-controller="ProductColors" asp-action="Add" asp-route-productId="@Model.Id"><i class="bi bi-plus-circle"></i> Add new color to product</a>
                 }
             </div>
         </div>

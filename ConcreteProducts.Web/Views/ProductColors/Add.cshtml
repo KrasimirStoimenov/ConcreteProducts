@@ -21,7 +21,7 @@
                         </select>
                     </div>
                 </div>
-                <button class="btn btn-info" type="submit" asp-controller="ProductColors" asp-action="AddColorToProduct" asp-route-productId="@Model.ProductId">Save</button>
+                <button class="btn btn-info" type="submit" asp-controller="ProductColors" asp-action="Add" asp-route-productId="@Model.ProductId">Save</button>
                 <a class="btn btn-info" asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId">Back to List</a>
             </form>
         </div>

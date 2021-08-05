@@ -3,8 +3,9 @@
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using ConcreteProducts.Web.Services.Warehouses;
-    using ConcreteProducts.Web.Areas.Admin.Models.Warehouses;
-    public class WarehousesController : AdminController
+    using ConcreteProducts.Web.Models.Warehouses;
+
+    public class WarehousesController : Controller
     {
         private readonly string notExistingWarehouseErrorMessage = "Warehouse does not exist.";
         private readonly string takenWarehouseNameErrorMessage = "Warehouse name already taken.";

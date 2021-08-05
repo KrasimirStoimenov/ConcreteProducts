@@ -8,6 +8,8 @@ using ConcreteProducts.Web.Data.Models.Enumerations;
     {
         IEnumerable<ProductListingServiceModel> GetAllListingProducts(string searchTerm);
 
+        IEnumerable<ProductBaseServiceModel> GetAllProducts();
+
         ProductDetailsServiceModel GetProductDetails(int id);
 
         ProductBaseServiceModel GetProductToDeleteById(int id);

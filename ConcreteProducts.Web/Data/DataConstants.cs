@@ -59,5 +59,11 @@
             public const int NameMaxLength = 200;
         }
 
+        public class WarehouseProducts
+        {
+            public const int CountMinValue = 1;
+            public const int CountMaxValue = int.MaxValue;
+        }
+
     }
 }

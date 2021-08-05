@@ -19,7 +19,7 @@
             this.productColorsService = productColorsService;
         }
 
-        public IActionResult AddColorToProduct(int productId)
+        public IActionResult Add(int productId)
             => View(new AddColorToProductViewModel
             {
                 ProductId = productId,
@@ -27,7 +27,7 @@
             });
 
         [HttpPost]
-        public IActionResult AddColorToProduct(AddColorToProductViewModel model)
+        public IActionResult Add(AddColorToProductViewModel model)
         {
             if (!this.productService.IsProductExist(model.ProductId))
             {

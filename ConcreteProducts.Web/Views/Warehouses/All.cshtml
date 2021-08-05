@@ -30,6 +30,7 @@
                             <td class="text-center">@warehouse.TotalShapesCount</td>
                             <td class="text-center">
                                 <div class="input-group-append">
+                                    <a class="btn btn-success offset-3 col-3 text-center" title="Add Products" asp-controller="WarehouseProducts" asp-action="Add" asp-route-warehouseId="@warehouse.Id"><i class="bi bi-file-earmark-plus"></i></a>
                                     <a class="btn btn-info offset-3 col-3 text-center" title="Edit" asp-controller="Warehouses" asp-action="Edit" asp-route-id="@warehouse.Id"><i class="bi bi-pencil-square"></i></a>
                                     <a class="btn btn-danger offset-3 col-3 text-center" title="Delete" asp-controller="Warehouses" asp-action="Delete" asp-route-id="@warehouse.Id"><i class="bi bi-x-lg"></i></a>
                                 </div>
