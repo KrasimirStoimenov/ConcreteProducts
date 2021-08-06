@@ -2,27 +2,30 @@
 {
     using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
     using ConcreteProducts.Web.Models;
-    using ConcreteProducts.Web.Areas.Admin;
+    using ConcreteProducts.Web.Services.Products;
+
+    using static Areas.Admin.AdminConstants;
 
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IProductService productService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IProductService productService)
         {
-            _logger = logger;
+            this.productService = productService;
         }
 
         public IActionResult Index()
         {
-            if (this.User.IsInRole(AdminConstants.AdministratorRoleName))
+            if (this.User.IsInRole(AdministratorRoleName))
             {
                 return RedirectToAction("Index", "Admin");
             }
 
-            return View();
+            var latest = this.productService.GetLatestProducts();
+
+            return View(latest);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

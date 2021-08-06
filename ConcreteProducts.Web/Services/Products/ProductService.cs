@@ -43,6 +43,13 @@
                 .ProjectTo<ProductBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .ToList();
 
+        public IEnumerable<ProductListingServiceModel> GetLatestProducts()
+            => this.data.Products
+                .OrderByDescending(i => i.Id)
+                .ProjectTo<ProductListingServiceModel>(this.mapper.ConfigurationProvider)
+                .Take(6)
+                .ToList();
+
         public ProductDetailsServiceModel GetProductDetails(int id)
             => this.data.Products
                 .Where(p => p.Id == id)

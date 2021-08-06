@@ -1,7 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Services.Products
 {
     using System.Collections.Generic;
-using ConcreteProducts.Web.Data.Models.Enumerations;
+    using ConcreteProducts.Web.Data.Models.Enumerations;
     using ConcreteProducts.Web.Services.Products.Models;
 
     public interface IProductService
@@ -9,6 +9,8 @@ using ConcreteProducts.Web.Data.Models.Enumerations;
         IEnumerable<ProductListingServiceModel> GetAllListingProducts(string searchTerm);
 
         IEnumerable<ProductBaseServiceModel> GetAllProducts();
+
+        IEnumerable<ProductListingServiceModel> GetLatestProducts();
 
         ProductDetailsServiceModel GetProductDetails(int id);
 
