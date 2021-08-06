@@ -21,24 +21,24 @@
                 .ForMember(p => p.UnitOfMeasurement, cfg => cfg.MapFrom(p => p.UnitOfMeasurement.ToString()))
                 .ForMember(p => p.AvailableColorsName, cfg => cfg.MapFrom(c => c.ProductColors.Select(pc => pc.Color.Name).ToList()));
 
-            this.CreateMap<Category, CategoryServiceModel>();
+            this.CreateMap<Category, CategoryBaseServiceModel>();
             this.CreateMap<Category, CategoryWithProducts>()
                 .ForMember(c => c.ProductsCount, cfg => cfg.MapFrom(c => c.Products.Count));
 
-            this.CreateMap<Color, ColorServiceModel>();
+            this.CreateMap<Color, ColorBaseServiceModel>();
             this.CreateMap<Color, ColorDeleteServiceModel>()
                 .ForMember(c => c.ProductsRelatedToColor, cfg => cfg.MapFrom(c => c.ProductColors.Count));
 
-            this.CreateMap<ProductColor, ColorServiceModel>()
+            this.CreateMap<ProductColor, ColorBaseServiceModel>()
                 .ForMember(c => c.Id, cfg => cfg.MapFrom(pc => pc.ColorId))
                 .ForMember(c => c.Name, cfg => cfg.MapFrom(pc => pc.Color.Name));
 
-            this.CreateMap<Shape, ShapeServiceModel>();
+            this.CreateMap<Shape, ShapeBaseServiceModel>();
             this.CreateMap<Shape, ShapeDetailsServiceModel>();
             this.CreateMap<Shape, ShapeAndWarehouseServiceModel>()
                 .ForMember(s => s.WarehouseName, cfg => cfg.MapFrom(s => s.Warehouse.Name));
 
-            this.CreateMap<Warehouse, WarehouseServiceModel>();
+            this.CreateMap<Warehouse, WarehouseBaseServiceModel>();
             this.CreateMap<Warehouse, WarehouseWithProductsAndShapesCount>()
                 .ForMember(w => w.TotalProductsCount, cfg => cfg.MapFrom(pw => pw.WarehouseProducts.Count))
                 .ForMember(w => w.TotalShapesCount, cfg => cfg.MapFrom(s => s.Shapes.Count));

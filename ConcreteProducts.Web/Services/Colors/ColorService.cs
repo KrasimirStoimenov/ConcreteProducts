@@ -19,9 +19,9 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<ColorServiceModel> GetAllColors()
+        public IEnumerable<ColorBaseServiceModel> GetAllColors()
             => this.data.Colors
-                .ProjectTo<ColorServiceModel>(this.mapper.ConfigurationProvider)
+                .ProjectTo<ColorBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .OrderBy(c => c.Id)
                 .ToList();
 
@@ -53,10 +53,10 @@
             this.data.SaveChanges();
         }
 
-        public ColorServiceModel GetColorDetails(int id)
+        public ColorBaseServiceModel GetColorDetails(int id)
             => this.data.Colors
                 .Where(c => c.Id == id)
-                .ProjectTo<ColorServiceModel>(this.mapper.ConfigurationProvider)
+                .ProjectTo<ColorBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefault();
 
         public bool IsColorExist(int id)

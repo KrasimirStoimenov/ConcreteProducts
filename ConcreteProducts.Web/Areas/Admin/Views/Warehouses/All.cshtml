@@ -1,19 +1,19 @@
 ﻿@model ListAllWarehouseViewModel
 
 @{
-    ViewData["Title"] = "All Warehouses";
+    ViewBag.Title = "All Warehouses";
 }
 
 <div class="container">
     <div class="row">
-        <h2 class="headingMargin text-center offset-md-3 col-md-6 col-sm-12">@ViewData["Title"]</h2>
+        <h2 class="headingMargin text-center offset-md-3 col-md-6 col-sm-12">@ViewBag.Title</h2>
         <table class="table table-hover offset-md-1 col-md-10">
             <thead>
                 <tr>
                     <th class="col-md-1 text-center" scope="col">#</th>
                     <th class="col-md-2 text-center" scope="col">Warehouse name</th>
-                    <th class="col-md-2 text-center" scope="col">Total products count</th>
-                    <th class="col-md-2 text-center" scope="col">Total shapes count</th>
+                    <th class="col-md-2 text-center" scope="col">Products count</th>
+                    <th class="col-md-2 text-center" scope="col">Shapes count</th>
                     <th class="col-md-3 text-center" scope="col"><i class="fas fa-edit"></i> Edit/ <i class="fas fa-times"></i> Delete</th>
                 </tr>
             </thead>
@@ -30,7 +30,6 @@
                             <td class="text-center">@warehouse.TotalShapesCount</td>
                             <td class="text-center">
                                 <div class="input-group-append">
-                                    <a class="btn btn-success offset-3 col-3 text-center" title="Add Products" asp-controller="WarehouseProducts" asp-action="Add" asp-route-warehouseId="@warehouse.Id"><i class="bi bi-file-earmark-plus"></i></a>
                                     <a class="btn btn-info offset-3 col-3 text-center" title="Edit" asp-controller="Warehouses" asp-action="Edit" asp-route-id="@warehouse.Id"><i class="bi bi-pencil-square"></i></a>
                                     <a class="btn btn-danger offset-3 col-3 text-center" title="Delete" asp-controller="Warehouses" asp-action="Delete" asp-route-id="@warehouse.Id"><i class="bi bi-x-lg"></i></a>
                                 </div>

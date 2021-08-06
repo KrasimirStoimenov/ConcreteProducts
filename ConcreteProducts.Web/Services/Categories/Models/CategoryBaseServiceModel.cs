@@ -1,6 +1,6 @@
 ﻿namespace ConcreteProducts.Web.Services.Categories.Models
 {
-    public class CategoryServiceModel
+    public class CategoryBaseServiceModel
     {
         public int Id { get; init; }
 

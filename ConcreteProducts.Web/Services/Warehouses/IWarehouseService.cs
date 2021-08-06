@@ -5,7 +5,7 @@
 
     public interface IWarehouseService
     {
-        IEnumerable<WarehouseServiceModel> GetAllWarehouses();
+        IEnumerable<WarehouseBaseServiceModel> GetAllWarehouses();
 
         IEnumerable<WarehouseWithProductsAndShapesCount> GetWarehousesWithProductsAndShapesCount();
 
@@ -15,7 +15,7 @@
 
         void Edit(int id, string name);
 
-        WarehouseServiceModel GetWarehouseDetails(int id);
+        WarehouseBaseServiceModel GetWarehouseDetails(int id);
 
         bool IsWarehouseExist(int id);
 

@@ -27,6 +27,6 @@
         [Display(Name = "Warehouse")]
         public int WarehouseId { get; init; }
 
-        public IEnumerable<WarehouseServiceModel> Warehouses { get; set; }
+        public IEnumerable<WarehouseBaseServiceModel> Warehouses { get; set; }
     }
 }

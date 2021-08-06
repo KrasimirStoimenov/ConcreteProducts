@@ -1,6 +1,6 @@
 ﻿namespace ConcreteProducts.Web.Services.Shapes.Models
 {
-    public class ShapeServiceModel
+    public class ShapeBaseServiceModel
     {
         public int Id { get; init; }
 

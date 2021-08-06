@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.Models.Warehouses
+﻿namespace ConcreteProducts.Web.Areas.Admin.Models.Warehouses
 {
     using System.ComponentModel.DataAnnotations;
 

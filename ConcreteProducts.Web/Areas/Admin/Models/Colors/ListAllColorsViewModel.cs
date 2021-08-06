@@ -6,6 +6,6 @@
 
     public class ListAllColorsViewModel : PagingViewModel
     {
-        public IEnumerable<ColorServiceModel> AllColors { get; set; }
+        public IEnumerable<ColorBaseServiceModel> AllColors { get; set; }
     }
 }

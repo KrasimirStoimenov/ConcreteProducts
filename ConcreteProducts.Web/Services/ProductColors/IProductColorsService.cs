@@ -7,7 +7,7 @@
     {
         void AddColorToProduct(int productId, int colorId);
 
-        IEnumerable<ColorServiceModel> GetColorsNotRelatedToProduct(int productId);
+        IEnumerable<ColorBaseServiceModel> GetColorsNotRelatedToProduct(int productId);
 
         bool IsColorRelatedToProduct(int productId,int colorId);
     }

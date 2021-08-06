@@ -19,9 +19,9 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<WarehouseServiceModel> GetAllWarehouses()
+        public IEnumerable<WarehouseBaseServiceModel> GetAllWarehouses()
             => this.data.Warehouses
-                .ProjectTo<WarehouseServiceModel>(this.mapper.ConfigurationProvider)
+                .ProjectTo<WarehouseBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .OrderBy(w => w.Id)
                 .ToList();
 
@@ -33,6 +33,7 @@
 
         public WarehouseWithProductsAndShapesCount GetWarehouseToDeleteById(int id)
             => this.data.Warehouses
+                .Where(w => w.Id == id)
                 .ProjectTo<WarehouseWithProductsAndShapesCount>(this.mapper.ConfigurationProvider)
                 .FirstOrDefault();
 
@@ -58,10 +59,10 @@
             this.data.SaveChanges();
         }
 
-        public WarehouseServiceModel GetWarehouseDetails(int id)
+        public WarehouseBaseServiceModel GetWarehouseDetails(int id)
             => this.data.Warehouses
                 .Where(w => w.Id == id)
-                .ProjectTo<WarehouseServiceModel>(this.mapper.ConfigurationProvider)
+                .ProjectTo<WarehouseBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefault();
 
         public bool IsWarehouseExist(int id)

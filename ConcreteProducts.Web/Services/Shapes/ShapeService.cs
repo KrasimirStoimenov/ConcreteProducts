@@ -19,9 +19,9 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<ShapeServiceModel> GetAllShapes()
+        public IEnumerable<ShapeBaseServiceModel> GetAllShapes()
             => this.data.Shapes
-                .ProjectTo<ShapeServiceModel>(this.mapper.ConfigurationProvider)
+                .ProjectTo<ShapeBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .OrderBy(s => s.Id)
                 .ToList();
 
@@ -31,10 +31,10 @@
                 .OrderBy(s => s.Id)
                 .ToList();
 
-        public ShapeServiceModel GetShapeToDeleteById(int id)
+        public ShapeBaseServiceModel GetShapeToDeleteById(int id)
             => this.data.Shapes
                 .Where(s => s.Id == id)
-                .ProjectTo<ShapeServiceModel>(this.mapper.ConfigurationProvider)
+                .ProjectTo<ShapeBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefault();
         public int Create(string name, string dimensions, int warehouseId)
         {

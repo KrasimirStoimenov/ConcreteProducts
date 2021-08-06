@@ -11,6 +11,6 @@
         [Display(Name = "Color")]
         public int ColorId { get; init; }
 
-        public IEnumerable<ColorServiceModel> Colors { get; set; }
+        public IEnumerable<ColorBaseServiceModel> Colors { get; set; }
     }
 }

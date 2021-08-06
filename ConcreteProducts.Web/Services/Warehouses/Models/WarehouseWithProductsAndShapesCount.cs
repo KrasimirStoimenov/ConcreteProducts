@@ -1,6 +1,6 @@
 ﻿namespace ConcreteProducts.Web.Services.Warehouses.Models
 {
-    public class WarehouseWithProductsAndShapesCount : WarehouseServiceModel
+    public class WarehouseWithProductsAndShapesCount : WarehouseBaseServiceModel
     {
         public int TotalProductsCount { get; init; }
 

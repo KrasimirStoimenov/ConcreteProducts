@@ -16,6 +16,7 @@ namespace ConcreteProducts.Web
     using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Services.Shapes;
     using ConcreteProducts.Web.Services.ProductColors;
+    using ConcreteProducts.Web.Services.WarehouseProducts;
 
     public class Startup
     {
@@ -58,6 +59,7 @@ namespace ConcreteProducts.Web
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IWarehouseService, WarehouseService>();
             services.AddTransient<IProductColorsService, ProductColorsService>();
+            services.AddTransient<IWarehouseProductService, WarehouseProductService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

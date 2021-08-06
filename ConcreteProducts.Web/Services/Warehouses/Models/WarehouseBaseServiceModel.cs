@@ -1,6 +1,6 @@
 ﻿namespace ConcreteProducts.Web.Services.Warehouses.Models
 {
-    public class WarehouseServiceModel
+    public class WarehouseBaseServiceModel
     {
         public int Id { get; init; }
 

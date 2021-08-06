@@ -68,8 +68,8 @@
         [Display(Name = "Color")]
         public int ColorId { get; init; }
 
-        public IEnumerable<CategoryServiceModel> Categories { get; set; }
+        public IEnumerable<CategoryBaseServiceModel> Categories { get; set; }
 
-        public IEnumerable<ColorServiceModel> Colors { get; set; }
+        public IEnumerable<ColorBaseServiceModel> Colors { get; set; }
     }
 }

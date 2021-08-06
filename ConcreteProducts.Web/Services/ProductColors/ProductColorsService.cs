@@ -31,7 +31,7 @@
             this.data.SaveChanges();
         }
 
-        public IEnumerable<ColorServiceModel> GetColorsNotRelatedToProduct(int productId)
+        public IEnumerable<ColorBaseServiceModel> GetColorsNotRelatedToProduct(int productId)
         {
             var productColors = this.data.ProductColors
                 .Where(c => c.ProductId == productId)
@@ -42,7 +42,7 @@
 
             var notRelatedColor = this.data.Colors
                 .Where(c => !productColors.Contains(c.Id))
-                .ProjectTo<ColorServiceModel>(this.mapper.ConfigurationProvider)
+                .ProjectTo<ColorBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .ToList();
 
             return notRelatedColor;

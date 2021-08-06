@@ -1,6 +1,6 @@
 ﻿namespace ConcreteProducts.Web.Services.Colors.Models
 {
-    public class ColorServiceModel
+    public class ColorBaseServiceModel
     {
         public int Id { get; init; }
 

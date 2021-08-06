@@ -19,9 +19,9 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<CategoryServiceModel> GetAllCategories()
+        public IEnumerable<CategoryBaseServiceModel> GetAllCategories()
             => this.data.Categories
-                .ProjectTo<CategoryServiceModel>(this.mapper.ConfigurationProvider)
+                .ProjectTo<CategoryBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .ToList();
 
         public IEnumerable<CategoryWithProducts> GetAllCategoriesWithTheirProducts()
@@ -58,10 +58,10 @@
             this.data.SaveChanges();
         }
 
-        public CategoryServiceModel GetCategoryDetails(int id)
+        public CategoryBaseServiceModel GetCategoryDetails(int id)
             => this.data.Categories
                 .Where(c => c.Id == id)
-                .ProjectTo<CategoryServiceModel>(this.mapper.ConfigurationProvider)
+                .ProjectTo<CategoryBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefault();
 
         public bool IsCategoryExist(int id)

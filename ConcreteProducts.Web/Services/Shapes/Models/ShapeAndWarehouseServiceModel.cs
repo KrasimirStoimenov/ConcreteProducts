@@ -1,6 +1,6 @@
 ﻿namespace ConcreteProducts.Web.Services.Shapes.Models
 {
-    public class ShapeAndWarehouseServiceModel : ShapeServiceModel
+    public class ShapeAndWarehouseServiceModel : ShapeBaseServiceModel
     {
         public string WarehouseName { get; init; }
     }

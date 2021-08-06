@@ -7,7 +7,7 @@
     {
         IEnumerable<CategoryWithProducts> GetAllCategoriesWithTheirProducts();
 
-        IEnumerable<CategoryServiceModel> GetAllCategories();
+        IEnumerable<CategoryBaseServiceModel> GetAllCategories();
 
         CategoryWithProducts GetCategoryToDelete(int id);
 
@@ -15,7 +15,7 @@
 
         void Edit(int id, string name);
 
-        CategoryServiceModel GetCategoryDetails(int id);
+        CategoryBaseServiceModel GetCategoryDetails(int id);
 
         bool IsCategoryExist(int id);
 

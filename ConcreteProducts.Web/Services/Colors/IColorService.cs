@@ -5,7 +5,7 @@
 
     public interface IColorService
     {
-        IEnumerable<ColorServiceModel> GetAllColors();
+        IEnumerable<ColorBaseServiceModel> GetAllColors();
 
         ColorDeleteServiceModel GetColorToDeleteById(int id);
 
@@ -13,7 +13,7 @@
 
         void Edit(int id, string name);
 
-        ColorServiceModel GetColorDetails(int id);
+        ColorBaseServiceModel GetColorDetails(int id);
 
         bool IsColorExist(int id);
 

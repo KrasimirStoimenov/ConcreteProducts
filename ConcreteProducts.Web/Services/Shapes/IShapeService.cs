@@ -5,11 +5,11 @@
 
     public interface IShapeService
     {
-        IEnumerable<ShapeServiceModel> GetAllShapes();
+        IEnumerable<ShapeBaseServiceModel> GetAllShapes();
 
         IEnumerable<ShapeAndWarehouseServiceModel> GetAllShapesWithWarehouse();
 
-        ShapeServiceModel GetShapeToDeleteById(int id);
+        ShapeBaseServiceModel GetShapeToDeleteById(int id);
 
         int Create(string name, string dimensions, int warehouseId);
 
