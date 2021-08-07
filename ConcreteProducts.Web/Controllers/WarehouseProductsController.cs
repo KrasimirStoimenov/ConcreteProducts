@@ -3,20 +3,20 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
     using ConcreteProducts.Web.Models.WarehouseProducts;
-    using ConcreteProducts.Web.Services.Products;
     using ConcreteProducts.Web.Services.WarehouseProducts;
     using ConcreteProducts.Web.Services.Warehouses;
+    using ConcreteProducts.Web.Services.ProductColors;
 
     public class WarehouseProductsController : Controller
     {
-        private readonly IProductService productService;
         private readonly IWarehouseService warehouseService;
+        private readonly IProductColorsService productColorsService;
         private readonly IWarehouseProductService warehouseProductService;
 
-        public WarehouseProductsController(IProductService productService, IWarehouseService warehouseService, IWarehouseProductService warehouseProductService)
+        public WarehouseProductsController(IWarehouseService warehouseService, IProductColorsService productColorsService, IWarehouseProductService warehouseProductService)
         {
-            this.productService = productService;
             this.warehouseService = warehouseService;
+            this.productColorsService = productColorsService;
             this.warehouseProductService = warehouseProductService;
         }
 
@@ -30,17 +30,17 @@
         public IActionResult Add()
             => View(new AddProductToWarehouseFormModel
             {
+                ProductColors = this.productColorsService.GetAllProductColors(),
                 Warehouses = this.warehouseService.GetAllWarehouses(),
-                Products = this.productService.GetAllProducts()
             });
 
         [Authorize]
         [HttpPost]
         public IActionResult Add(AddProductToWarehouseFormModel model)
         {
-            if (!this.productService.IsProductExist(model.ProductId))
+            if (!this.productColorsService.IsProductColorExist(model.ProductColorId))
             {
-                this.ModelState.AddModelError(nameof(model.ProductId), $"Product does not exist.");
+                this.ModelState.AddModelError(nameof(model.ProductColorId), $"Product with this color does not exist.");
             }
 
             if (!this.warehouseService.IsWarehouseExist(model.WarehouseId))
@@ -51,12 +51,12 @@
             if (!ModelState.IsValid)
             {
                 model.Warehouses = this.warehouseService.GetAllWarehouses();
-                model.Products = this.productService.GetAllProducts();
+                model.ProductColors = this.productColorsService.GetAllProductColors();
 
                 return View(model);
             }
 
-            this.warehouseProductService.AddProductToWarehouse(model.ProductId, model.WarehouseId, model.Count);
+            this.warehouseProductService.AddProductToWarehouse(model.ProductColorId, model.WarehouseId, model.Count);
 
             return RedirectToAction(nameof(All));
         }

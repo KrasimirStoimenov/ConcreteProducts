@@ -9,7 +9,7 @@
         public void Configure(EntityTypeBuilder<ProductColor> builder)
         {
             builder
-                .HasKey(pc => new { pc.ColorId, pc.ProductId });
+                .HasKey(c=>c.ProductColorId);
 
             builder
                 .HasOne(c => c.Color)

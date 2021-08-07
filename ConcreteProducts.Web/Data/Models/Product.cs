@@ -35,8 +35,6 @@
 
         public Category Category { get; init; }
 
-        public ICollection<WarehouseProducts> ProductWarehouses { get; init; } = new HashSet<WarehouseProducts>();
-
         public ICollection<ProductColor> ProductColors { get; init; } = new HashSet<ProductColor>();
     }
 }

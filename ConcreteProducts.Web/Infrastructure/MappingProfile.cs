@@ -5,6 +5,7 @@
     using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Services.Categories.Models;
     using ConcreteProducts.Web.Services.Colors.Models;
+    using ConcreteProducts.Web.Services.ProductColors.Model;
     using ConcreteProducts.Web.Services.Products.Models;
     using ConcreteProducts.Web.Services.Shapes.Models;
     using ConcreteProducts.Web.Services.Warehouses.Models;
@@ -32,6 +33,8 @@
             this.CreateMap<ProductColor, ColorBaseServiceModel>()
                 .ForMember(c => c.Id, cfg => cfg.MapFrom(pc => pc.ColorId))
                 .ForMember(c => c.Name, cfg => cfg.MapFrom(pc => pc.Color.Name));
+            this.CreateMap<ProductColor, ProductColorBaseServiceModel>()
+                .ForMember(c => c.Name, cfg => cfg.MapFrom(pc => $"{pc.Product.Name} - {pc.Color.Name}"));
 
             this.CreateMap<Shape, ShapeBaseServiceModel>();
             this.CreateMap<Shape, ShapeDetailsServiceModel>();

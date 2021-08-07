@@ -14,23 +14,23 @@
             this.data = data;
         }
 
-        public void AddProductToWarehouse(int productId, int warehouseId, int count)
+        public void AddProductToWarehouse(int productColorId, int warehouseId, int count)
         {
-            if (!this.data.WarehouseProducts.Any(c => c.ProductId == productId && c.WarehouseId == warehouseId))
+            if (!this.data.WarehouseProductColors.Any(c => c.ProductColorId == productColorId && c.WarehouseId == warehouseId))
             {
-                var warehouseProduct = new WarehouseProducts
+                var warehouseProduct = new WarehouseProductColors
                 {
-                    ProductId = productId,
+                    ProductColorId = productColorId,
                     WarehouseId = warehouseId,
                     Count = count
                 };
 
-                this.data.WarehouseProducts.Add(warehouseProduct);
+                this.data.WarehouseProductColors.Add(warehouseProduct);
             }
             else
             {
-                var warehouseProducts = this.data.WarehouseProducts
-                        .FirstOrDefault(wp => wp.ProductId == productId && wp.WarehouseId == warehouseId);
+                var warehouseProducts = this.data.WarehouseProductColors
+                        .FirstOrDefault(wp => wp.ProductColorId == productColorId && wp.WarehouseId == warehouseId);
 
                 warehouseProducts.Count += count;
             }

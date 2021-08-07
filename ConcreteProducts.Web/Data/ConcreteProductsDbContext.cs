@@ -18,7 +18,7 @@
         public DbSet<ProductColor> ProductColors { get; init; }
         public DbSet<Shape> Shapes { get; init; }
         public DbSet<Warehouse> Warehouses { get; init; }
-        public DbSet<WarehouseProducts> WarehouseProducts { get; init; }
+        public DbSet<WarehouseProductColors> WarehouseProductColors { get; init; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

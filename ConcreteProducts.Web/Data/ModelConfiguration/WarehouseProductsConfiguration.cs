@@ -4,12 +4,12 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using ConcreteProducts.Web.Data.Models;
 
-    public class WarehouseProductsConfiguration : IEntityTypeConfiguration<WarehouseProducts>
+    public class WarehouseProductsConfiguration : IEntityTypeConfiguration<WarehouseProductColors>
     {
-        public void Configure(EntityTypeBuilder<WarehouseProducts> builder)
+        public void Configure(EntityTypeBuilder<WarehouseProductColors> builder)
         {
             builder
-                .HasKey(wp => new { wp.WarehouseId, wp.ProductId });
+                .HasKey(wp => new { wp.WarehouseId, wp.ProductColorId });
 
             builder
                 .HasOne(w => w.Warehouse)
@@ -18,9 +18,9 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasOne(p => p.Product)
-                .WithMany(pw => pw.ProductWarehouses)
-                .HasForeignKey(p => p.ProductId)
+                .HasOne(p => p.ProductColor)
+                .WithMany(pw => pw.Warehouses)
+                .HasForeignKey(p => p.ProductColorId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

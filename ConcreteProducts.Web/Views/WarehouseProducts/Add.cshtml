@@ -10,12 +10,12 @@
             <h2 class="headingMargin text-center">@ViewBag.Title</h2>
             <form method="post">
                 <div class="form-group">
-                    <label asp-for="ProductId"></label>
+                    <label asp-for="ProductColorId"></label>
                     <div class="input-group">
-                        <select asp-for="ProductId" class="form-control">
-                            @foreach (var product in Model.Products)
+                        <select asp-for="ProductColorId" class="form-control">
+                            @foreach (var productColor in Model.ProductColors)
                             {
-                                <option value="@product.Id">@product.Name</option>
+                                <option value="@productColor.ProductColorId">@productColor.Name</option>
                             }
                         </select>
                     </div>
@@ -37,7 +37,7 @@
                     <span asp-validation-for="Count" class="small text-danger"></span>
                 </div>
 
-                <button class="btn btn-primary" type="submit" asp-controller="WarehouseProducts" asp-action="Add" asp-route-warehouseId="@Model.WarehouseId">Save</button>
+                <button class="btn btn-primary" type="submit" asp-controller="WarehouseProducts" asp-action="Add" asp-route-warehouseId="@Model.WarehouseId" asp-route-productColorId="@Model.ProductColorId">Save</button>
                 <a class="btn btn-info" asp-action="All">Back to List</a>
             </form>
         </div>

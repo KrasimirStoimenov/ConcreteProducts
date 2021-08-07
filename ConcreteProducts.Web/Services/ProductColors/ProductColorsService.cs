@@ -7,6 +7,7 @@
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Services.Colors.Models;
+    using ConcreteProducts.Web.Services.ProductColors.Model;
 
     public class ProductColorsService : IProductColorsService
     {
@@ -19,6 +20,11 @@
             this.mapper = mapper;
         }
 
+        public IEnumerable<ProductColorBaseServiceModel> GetAllProductColors()
+            => this.data.ProductColors
+                .ProjectTo<ProductColorBaseServiceModel>(this.mapper.ConfigurationProvider)
+                .ToList();
+
         public void AddColorToProduct(int productId, int colorId)
         {
             var product = this.data.Products.Find(productId);
@@ -30,6 +36,7 @@
 
             this.data.SaveChanges();
         }
+
 
         public IEnumerable<ColorBaseServiceModel> GetColorsNotRelatedToProduct(int productId)
         {
@@ -53,5 +60,9 @@
             => this.data.ProductColors
                 .Where(p => p.ProductId == productId)
                 .Any(c => c.ColorId == colorId);
+
+        public bool IsProductColorExist(int productColorId)
+            => this.data.ProductColors
+                .Any(pc => pc.ProductColorId == productColorId);
     }
 }

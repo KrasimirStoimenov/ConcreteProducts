@@ -101,13 +101,20 @@ namespace ConcreteProducts.Web.Data.Migrations
 
             modelBuilder.Entity("ConcreteProducts.Web.Data.Models.ProductColor", b =>
                 {
+                    b.Property<int>("ProductColorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("ColorId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("ColorId", "ProductId");
+                    b.HasKey("ProductColorId");
+
+                    b.HasIndex("ColorId");
 
                     b.HasIndex("ProductId");
 
@@ -158,22 +165,22 @@ namespace ConcreteProducts.Web.Data.Migrations
                     b.ToTable("Warehouses");
                 });
 
-            modelBuilder.Entity("ConcreteProducts.Web.Data.Models.WarehouseProducts", b =>
+            modelBuilder.Entity("ConcreteProducts.Web.Data.Models.WarehouseProductColors", b =>
                 {
                     b.Property<int>("WarehouseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("ProductColorId")
                         .HasColumnType("int");
 
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.HasKey("WarehouseId", "ProductId");
+                    b.HasKey("WarehouseId", "ProductColorId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductColorId");
 
-                    b.ToTable("WarehouseProducts");
+                    b.ToTable("WarehouseProductColors");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -417,11 +424,11 @@ namespace ConcreteProducts.Web.Data.Migrations
                     b.Navigation("Warehouse");
                 });
 
-            modelBuilder.Entity("ConcreteProducts.Web.Data.Models.WarehouseProducts", b =>
+            modelBuilder.Entity("ConcreteProducts.Web.Data.Models.WarehouseProductColors", b =>
                 {
-                    b.HasOne("ConcreteProducts.Web.Data.Models.Product", "Product")
-                        .WithMany("ProductWarehouses")
-                        .HasForeignKey("ProductId")
+                    b.HasOne("ConcreteProducts.Web.Data.Models.ProductColor", "ProductColor")
+                        .WithMany("Warehouses")
+                        .HasForeignKey("ProductColorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -431,7 +438,7 @@ namespace ConcreteProducts.Web.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("ProductColor");
 
                     b.Navigation("Warehouse");
                 });
@@ -500,8 +507,11 @@ namespace ConcreteProducts.Web.Data.Migrations
             modelBuilder.Entity("ConcreteProducts.Web.Data.Models.Product", b =>
                 {
                     b.Navigation("ProductColors");
+                });
 
-                    b.Navigation("ProductWarehouses");
+            modelBuilder.Entity("ConcreteProducts.Web.Data.Models.ProductColor", b =>
+                {
+                    b.Navigation("Warehouses");
                 });
 
             modelBuilder.Entity("ConcreteProducts.Web.Data.Models.Warehouse", b =>
