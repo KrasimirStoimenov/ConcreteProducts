@@ -33,7 +33,7 @@
                                     <td class="text-center">@product.WarehouseName</td>
                                     <td class="text-center">
                                         <div class="input-group-append">
-                                            <a class="btn btn-danger offset-3 col-3 text-center" title="Delete" asp-controller="Warehouses" asp-action="Delete" asp-route-id="@product.ProductColorId"><i class="bi bi-x-lg"></i></a>
+                                            <a class="btn btn-danger offset-3 col-3 text-center" title="Decrease" asp-controller="WarehouseProducts" asp-action="DecreaseQuantity" asp-route-productColorId="@product.ProductColorId" asp-route-warehouseId="@product.WarehouseId" asp-route-productName="@product.ProductColorName"><i class="bi bi-x-lg"></i></a>
                                         </div>
                                     </td>
                                 </tr>

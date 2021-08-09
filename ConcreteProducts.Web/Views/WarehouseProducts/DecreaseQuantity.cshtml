@@ -1,0 +1,23 @@
+﻿@model DecreaseQuantityViewModel
+
+@{
+    ViewBag.Title = $"Decrease quantity to \r\n'{Model.ProductName}'";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="offset-md-2 col-md-8">
+            <h2 class="headingMargin text-center">@ViewBag.Title</h2>
+            <form method="post" class="offset-3 col-md-6">
+                <div class="form-group">
+                    <label asp-for="Count"></label>
+                    <input asp-for="Count" class="form-control">
+                    <span asp-validation-for="Count" class="small text-danger"></span>
+                </div>
+
+                <input class="btn btn-primary" type="submit" value="Decrease" />
+                <a class="btn btn-info" asp-action="All">Back to List</a>
+            </form>
+        </div>
+    </div>
+</div>

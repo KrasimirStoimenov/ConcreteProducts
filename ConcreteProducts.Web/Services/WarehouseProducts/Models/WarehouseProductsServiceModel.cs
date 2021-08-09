@@ -6,6 +6,8 @@
 
         public string ProductColorName { get; init; }
 
+        public int WarehouseId { get; init; }
+
         public string WarehouseName { get; init; }
 
         public int Count { get; init; }

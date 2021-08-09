@@ -6,7 +6,7 @@
     using ConcreteProducts.Web.Services.WarehouseProducts;
     using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Services.ProductColors;
-using System.Linq;
+    using System.Linq;
 
     public class WarehouseProductsController : Controller
     {
@@ -51,15 +51,7 @@ using System.Linq;
         [HttpPost]
         public IActionResult Add(AddProductToWarehouseFormModel model)
         {
-            if (!this.productColorsService.IsProductColorExist(model.ProductColorId))
-            {
-                this.ModelState.AddModelError(nameof(model.ProductColorId), $"Product with this color does not exist.");
-            }
-
-            if (!this.warehouseService.IsWarehouseExist(model.WarehouseId))
-            {
-                this.ModelState.AddModelError(nameof(model.WarehouseId), $"Warehouse does not exist.");
-            }
+            this.Validator(model.ProductColorId, model.WarehouseId);
 
             if (!ModelState.IsValid)
             {
@@ -72,6 +64,48 @@ using System.Linq;
             this.warehouseProductService.AddProductToWarehouse(model.ProductColorId, model.WarehouseId, model.Count);
 
             return RedirectToAction(nameof(All));
+        }
+
+        public IActionResult DecreaseQuantity(string productName)
+            => View(new DecreaseQuantityViewModel
+            {
+                ProductName = productName
+            });
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult DecreaseQuantity(DecreaseQuantityViewModel model)
+        {
+            this.Validator(model.ProductColorId, model.WarehouseId);
+
+            var availableQuantity = this.warehouseProductService.AvailableQuantity(model.ProductColorId, model.WarehouseId);
+
+            if (model.Count > availableQuantity)
+            {
+                ModelState.AddModelError(nameof(model.Count), "Unavailable quantity.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            this.warehouseProductService.DecreaseQuantityFromProductsInWarehouse(model.ProductColorId, model.WarehouseId, model.Count);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        private void Validator(int productColorId, int warehouseId)
+        {
+            if (!this.productColorsService.IsProductColorExist(productColorId))
+            {
+                this.ModelState.AddModelError(nameof(productColorId), $"Product with this color does not exist.");
+            }
+
+            if (!this.warehouseService.IsWarehouseExist(warehouseId))
+            {
+                this.ModelState.AddModelError(nameof(warehouseId), $"Warehouse does not exist.");
+            }
         }
     }
 }
