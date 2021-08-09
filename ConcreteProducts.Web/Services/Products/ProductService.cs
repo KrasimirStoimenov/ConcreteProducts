@@ -112,6 +112,17 @@
                 .Include(p => p.ProductColors)
                 .FirstOrDefault(p => p.Id == id);
 
+            var colorsRelatedToProduct = this.data.ProductColors
+                .Where(c => c.Product == product)
+                .Select(c=>c.ProductColorId)
+                .ToList();
+
+            var warehouseProductColors = this.data.WarehouseProductColors
+                .Where(c => colorsRelatedToProduct.Contains(c.ProductColorId))
+                .ToList();
+
+
+            this.data.WarehouseProductColors.RemoveRange(warehouseProductColors);
             this.data.ProductColors.RemoveRange(product.ProductColors);
             this.data.Products.Remove(product);
             this.data.SaveChanges();

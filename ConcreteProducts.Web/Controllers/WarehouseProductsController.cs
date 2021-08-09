@@ -6,6 +6,7 @@
     using ConcreteProducts.Web.Services.WarehouseProducts;
     using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Services.ProductColors;
+using System.Linq;
 
     public class WarehouseProductsController : Controller
     {
@@ -21,9 +22,21 @@
         }
 
         [Authorize]
-        public IActionResult All()
+        public IActionResult All(int page = 1)
         {
-            return View();
+            const int itemsPerPage = 8;
+
+            var products = this.warehouseProductService.GetAllProductsInWarehouse();
+
+            var listingProducts = new ListAllProductsInWarehouseViewModel
+            {
+                ProductsInWarehouse = products.Skip((page - 1) * itemsPerPage).Take(itemsPerPage),
+                PageNumber = page,
+                Count = products.Count(),
+                ItemsPerPage = itemsPerPage
+            };
+
+            return View(listingProducts);
         }
 
         [Authorize]

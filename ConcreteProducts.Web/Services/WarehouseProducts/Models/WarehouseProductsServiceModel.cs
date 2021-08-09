@@ -2,12 +2,16 @@
 {
     public class WarehouseProductsServiceModel
     {
-        public string ProductName { get; init; }
+        public int ProductColorId { get; init; }
 
-        public int ProductId { get; init; }
+        public string ProductColorName { get; init; }
 
-        public string ProductColor { get; init; }
+        public string WarehouseName { get; init; }
 
         public int Count { get; init; }
+
+        public string TotalUnitOfMeasurement { get; init; }
+
+        public int Pallets { get; init; }
     }
 }

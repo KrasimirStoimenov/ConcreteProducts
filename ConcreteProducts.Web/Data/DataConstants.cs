@@ -21,7 +21,7 @@
         {
             public const int DimensionsMinLength = 3;
             public const int DimensionsMaxLength = 12;
-            public const int NameMinLength = 5;
+            public const int NameMinLength = 4;
             public const int NameMaxLength = 200;
             public const int WeightMinValue = 1;
             public const int WeightMaxValue = 100;

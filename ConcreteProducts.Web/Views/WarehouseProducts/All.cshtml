@@ -1,4 +1,51 @@
-﻿
-<h2>Products in warehouses</h2>
+﻿@model ListAllProductsInWarehouseViewModel
 
-<a class="btn btn-success text-center offset-md-3 col-md-6 col-sm-12" asp-controller="WarehouseProducts" asp-action="Add"><i class="bi bi-plus-circle"></i> Add new</a>
+@{
+    ViewBag.Title = "Available products";
+}
+
+<div class="container">
+    <div class="row">
+        <h2 class="headingMargin text-center offset-md-3 col-md-6 col-sm-12">@ViewBag.Title</h2>
+        <a class="btn btn-success text-center offset-md-3 col-md-6 col-sm-12 mb-3" title="Add new" asp-controller="WarehouseProducts" asp-action="Add"><i class="bi bi-plus-circle"></i> Add new</a>
+        <table class="table table-hover offset-md-1 col-md-12">
+            <thead>
+                <tr>
+                    <th class="col-md-1 text-center" scope="col">#</th>
+                    <th class="col-md-2 text-center" scope="col">Product</th>
+                    <th class="col-md-3 text-center" scope="col">Available quantity</th>
+                    <th class="col-md-2 text-center" scope="col">Pallets</th>
+                    <th class="col-md-2 text-center" scope="col">Warehouse</th>
+                    <th class="col-md-2 text-center" scope="col"><i class="fas fa-edit"></i> Edit/ <i class="fas fa-times"></i> Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var lineCounter = 1;
+
+                    foreach (var product in Model.ProductsInWarehouse)
+                    {
+                                <tr>
+                                    <th scope="row" class="text-center">@lineCounter</th>
+                                    <td class="text-center">@product.ProductColorName</td>
+                                    <td class="text-center">@product.Count / @product.TotalUnitOfMeasurement</td>
+                                    <td class="text-center">@product.Pallets</td>
+                                    <td class="text-center">@product.WarehouseName</td>
+                                    <td class="text-center">
+                                        <div class="input-group-append">
+                                            <a class="btn btn-danger offset-3 col-3 text-center" title="Delete" asp-controller="Warehouses" asp-action="Delete" asp-route-id="@product.ProductColorId"><i class="bi bi-x-lg"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                        lineCounter++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr />
+<partial name="_PagingPartial" model="this.Model" />
+
+

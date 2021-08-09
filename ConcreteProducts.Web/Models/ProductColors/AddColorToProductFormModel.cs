@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using ConcreteProducts.Web.Services.Colors.Models;
 
-    public class AddColorToProductViewModel
+    public class AddColorToProductFormModel
     {
         public int ProductId { get; init; }
 
