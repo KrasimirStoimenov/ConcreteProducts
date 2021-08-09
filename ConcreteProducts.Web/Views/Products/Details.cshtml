@@ -43,7 +43,7 @@
                 </ul>
                 @if (this.User.IsAdmin())
                 {
-                    <a class="btn btn-success" asp-controller="ProductColors" asp-action="Add" asp-route-productId="@Model.Id"><i class="bi bi-plus-circle"></i> Add new color to product</a>
+                    <a class="btn btn-success" asp-area="Admin" asp-controller="ProductColors" asp-action="Add" asp-route-productId="@Model.Id"><i class="bi bi-plus-circle"></i> Add new color to product</a>
                 }
             </div>
         </div>

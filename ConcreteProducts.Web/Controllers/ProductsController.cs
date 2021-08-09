@@ -1,11 +1,9 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
     using System.Linq;
-    using System.Data;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
     using ConcreteProducts.Web.Data;
-    using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Models.Products;
     using ConcreteProducts.Web.Services.Products;
     using ConcreteProducts.Web.Services.Colors;
@@ -42,7 +40,9 @@
 
             var productsViewModel = new ListAllProductsViewModel
             {
-                AllProducts = products.Skip((page - 1) * itemsPerPage).Take(itemsPerPage),
+                AllProducts = products
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(itemsPerPage),
                 PageNumber = page,
                 Count = products.Count(),
                 ItemsPerPage = itemsPerPage

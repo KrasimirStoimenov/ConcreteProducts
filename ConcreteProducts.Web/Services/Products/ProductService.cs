@@ -38,11 +38,6 @@
             return products;
         }
 
-        public IEnumerable<ProductBaseServiceModel> GetAllProducts()
-            => this.data.Products
-                .ProjectTo<ProductBaseServiceModel>(this.mapper.ConfigurationProvider)
-                .ToList();
-
         public IEnumerable<ProductListingServiceModel> GetLatestProducts()
             => this.data.Products
                 .OrderByDescending(i => i.Id)

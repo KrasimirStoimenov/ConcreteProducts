@@ -25,6 +25,7 @@
             var categoriesViewModel = new ListAllCategoriesViewModel
             {
                 AllCategories = categoriesWithProducts
+                    .OrderBy(c=>c.Name)
                     .Skip((page - 1) * itemsPerPage)
                     .Take(itemsPerPage),
                 PageNumber = page,

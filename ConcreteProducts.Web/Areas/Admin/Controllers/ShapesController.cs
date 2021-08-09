@@ -28,7 +28,10 @@
 
             var shapesViewModel = new ListAllShapesViewModel
             {
-                AllShapes = shapes.Skip((page - 1) * itemsPerPage).Take(itemsPerPage),
+                AllShapes = shapes
+                    .OrderBy(s=>s.Name)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(itemsPerPage),
                 PageNumber = page,
                 Count = shapes.Count(),
                 ItemsPerPage = itemsPerPage

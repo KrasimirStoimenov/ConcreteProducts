@@ -22,7 +22,7 @@
         public IEnumerable<ColorBaseServiceModel> GetAllColors()
             => this.data.Colors
                 .ProjectTo<ColorBaseServiceModel>(this.mapper.ConfigurationProvider)
-                .OrderBy(c => c.Id)
+                .OrderBy(c => c.Name)
                 .ToList();
 
         public ColorDeleteServiceModel GetColorToDeleteById(int id)

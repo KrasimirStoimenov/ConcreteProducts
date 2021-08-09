@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.Models.ProductColors
+﻿namespace ConcreteProducts.Web.Areas.Admin.Models.ProductColors
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

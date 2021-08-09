@@ -24,7 +24,10 @@
 
             var warehousesViewModel = new ListAllWarehouseViewModel
             {
-                AllWarehouses = warehouses.Skip((page - 1) * itemsPerPage).Take(itemsPerPage),
+                AllWarehouses = warehouses
+                    .OrderBy(w=>w.Name)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(itemsPerPage),
                 PageNumber = page,
                 Count = warehouses.Count(),
                 ItemsPerPage = itemsPerPage

@@ -22,6 +22,7 @@
         public IEnumerable<CategoryBaseServiceModel> GetAllCategories()
             => this.data.Categories
                 .ProjectTo<CategoryBaseServiceModel>(this.mapper.ConfigurationProvider)
+                .OrderBy(c=>c.Name)
                 .ToList();
 
         public IEnumerable<CategoryWithProducts> GetAllCategoriesWithTheirProducts()

@@ -24,7 +24,10 @@
 
             var colorsViewModel = new ListAllColorsViewModel
             {
-                AllColors = colors.Skip((page - 1) * itemsPerPage).Take(itemsPerPage),
+                AllColors = colors
+                    .OrderBy(c=>c.Name)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(itemsPerPage),
                 PageNumber = page,
                 Count = colors.Count(),
                 ItemsPerPage = itemsPerPage
