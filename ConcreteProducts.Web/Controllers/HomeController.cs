@@ -1,19 +1,25 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
+    using System;
     using System.Diagnostics;
+    using System.Collections.Generic;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Memory;
     using ConcreteProducts.Web.Models;
     using ConcreteProducts.Web.Services.Products;
+    using ConcreteProducts.Web.Services.Products.Models;
 
     using static Areas.Admin.AdminConstants;
 
     public class HomeController : Controller
     {
         private readonly IProductService productService;
+        private readonly IMemoryCache cache;
 
-        public HomeController(IProductService productService)
+        public HomeController(IProductService productService, IMemoryCache cache)
         {
             this.productService = productService;
+            this.cache = cache;
         }
 
         public IActionResult Index()
@@ -23,9 +29,21 @@
                 return RedirectToAction("Index", "Admin");
             }
 
-            var latest = this.productService.GetLatestProducts();
+            var latestConcreteProductsKey = "LatestConcreteProductsCacheKey";
+            var latestProducts = this.cache.Get<IEnumerable<ProductListingServiceModel>>(latestConcreteProductsKey);
 
-            return View(latest);
+            if (latestProducts == null)
+            {
+                latestProducts = this.productService.GetLatestProducts();
+
+                var cacheOptions = new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(10));
+
+                this.cache.Set(latestConcreteProductsKey, latestProducts, cacheOptions);
+            }
+
+
+            return View(latestProducts);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
