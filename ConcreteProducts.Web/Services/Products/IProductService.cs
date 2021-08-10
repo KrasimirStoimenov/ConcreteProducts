@@ -8,7 +8,7 @@
     {
         IEnumerable<ProductListingServiceModel> GetAllListingProducts(string searchTerm);
 
-        IEnumerable<ProductListingServiceModel> GetLatestProducts();
+        List<ProductListingServiceModel> GetLatestProducts();
 
         ProductDetailsServiceModel GetProductDetails(int id);
 

@@ -1,6 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
     using System;
+    using System.Linq;
     using System.Diagnostics;
     using System.Collections.Generic;
     using Microsoft.AspNetCore.Mvc;
@@ -30,11 +31,13 @@
             }
 
             var latestConcreteProductsKey = "LatestConcreteProductsCacheKey";
-            var latestProducts = this.cache.Get<IEnumerable<ProductListingServiceModel>>(latestConcreteProductsKey);
+            var latestProducts = this.cache.Get<List<ProductListingServiceModel>>(latestConcreteProductsKey);
 
             if (latestProducts == null)
             {
-                latestProducts = this.productService.GetLatestProducts();
+                latestProducts = this.productService
+                    .GetLatestProducts()
+                    .ToList();
 
                 var cacheOptions = new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(TimeSpan.FromMinutes(10));

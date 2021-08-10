@@ -1,12 +1,12 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
+    using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
     using ConcreteProducts.Web.Models.WarehouseProducts;
     using ConcreteProducts.Web.Services.WarehouseProducts;
     using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Services.ProductColors;
-    using System.Linq;
 
     public class WarehouseProductsController : Controller
     {
@@ -66,6 +66,7 @@
             return RedirectToAction(nameof(All));
         }
 
+        [Authorize]
         public IActionResult DecreaseQuantity(string productName)
             => View(new DecreaseQuantityViewModel
             {

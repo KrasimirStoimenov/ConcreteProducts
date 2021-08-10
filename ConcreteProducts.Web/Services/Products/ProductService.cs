@@ -38,7 +38,7 @@
             return products;
         }
 
-        public IEnumerable<ProductListingServiceModel> GetLatestProducts()
+        public List<ProductListingServiceModel> GetLatestProducts()
             => this.data.Products
                 .OrderByDescending(i => i.Id)
                 .ProjectTo<ProductListingServiceModel>(this.mapper.ConfigurationProvider)
