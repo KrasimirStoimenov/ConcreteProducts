@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
+
     using ConcreteProducts.Web.Services.Categories;
     using ConcreteProducts.Web.Areas.Admin.Models.Categories;
 
@@ -9,6 +10,7 @@
     {
         private readonly string notExistingCategoryErrorMessage = "Category does not exist.";
         private readonly string takenCategoryNameErrorMessage = "Category name already taken.";
+
         private readonly ICategoryService categoryService;
 
         public CategoriesController(ICategoryService categoryService)

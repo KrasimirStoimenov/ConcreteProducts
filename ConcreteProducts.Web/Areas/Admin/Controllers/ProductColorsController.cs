@@ -1,6 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+
     using ConcreteProducts.Web.Services.Colors;
     using ConcreteProducts.Web.Services.Products;
     using ConcreteProducts.Web.Services.ProductColors;

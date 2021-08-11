@@ -5,39 +5,39 @@
     using MyTested.AspNetCore.Mvc;
 
     using ConcreteProducts.Web.Data.Models;
-    using ConcreteProducts.Web.Services.Categories.Models;
-    using ConcreteProducts.Web.Areas.Admin.Models.Categories;
+    using ConcreteProducts.Web.Services.Colors.Models;
+    using ConcreteProducts.Web.Areas.Admin.Models.Colors;
 
-    using CategoriesController = Web.Areas.Admin.Controllers.CategoriesController;
+    using ColorController = Web.Areas.Admin.Controllers.ColorsController;
 
-    public class CategoriesControllerTest
+    public class ColorsControllerTest
     {
         [Test]
-        public void AllShouldReturnAllCategories()
-            => MyController<CategoriesController>
+        public void AllShouldReturnAllColors()
+            => MyController<ColorController>
                 .Instance()
                 .Calling(c => c.All(1))
                 .ShouldReturn()
-                .View(view => view.WithModelOfType<ListAllCategoriesViewModel>()
+                .View(view => view.WithModelOfType<ListAllColorsViewModel>()
                     .Should()
                     .NotBeNull());
 
         [Test]
         public void GetAddShouldReturnView()
-            => MyController<CategoriesController>
+            => MyController<ColorController>
                 .Instance()
                 .Calling(c => c.Add())
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>()
+                    .WithModelOfType<ColorFormModel>()
                         .Should()
                         .NotBeNull());
 
         [Test]
         public void PostAddShouldRedirectToActionWhenModelStateIsValid()
-            => MyController<CategoriesController>
+            => MyController<ColorController>
                 .Instance()
-                .Calling(c => c.Add(new CategoryFormModel
+                .Calling(c => c.Add(new ColorFormModel
                 {
                     Name = "Test"
                 }))
@@ -50,44 +50,44 @@
 
         [Test]
         public void PostAddShouldReturnViewWhenModelStateIsInvalid()
-            => MyController<CategoriesController>
+            => MyController<ColorController>
                 .Instance()
-                .Calling(c => c.Add(With.Default<CategoryFormModel>()))
+                .Calling(c => c.Add(With.Default<ColorFormModel>()))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
                     .RestrictingForHttpMethod(HttpMethod.Post))
                 .AndAlso()
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>().Should().NotBeNull());
+                    .WithModelOfType<ColorFormModel>().Should().NotBeNull());
 
         [Test]
-        public void PostAddShouldReturnViewWhenExistingCategoryNameIsPassed()
-            => MyController<CategoriesController>
+        public void PostAddShouldReturnViewWhenExistingColorNameIsPassed()
+            => MyController<ColorController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Name = "Exist" }))
-                .Calling(c => c.Add(new CategoryFormModel { Name = "Exist" }))
+                    .WithEntities(new Color { Name = "Exist" }))
+                .Calling(c => c.Add(new ColorFormModel { Name = "Exist" }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
                     .RestrictingForHttpMethod(HttpMethod.Post))
                 .AndAlso()
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>().Should().NotBeNull());
+                    .WithModelOfType<ColorFormModel>().Should().NotBeNull());
 
         [Test]
         [TestCase(1, "Test")]
         [TestCase(1, "AnotherTest")]
         public void GetEditShouldReturnViewIfValidIdIsPassed(int id, string name)
-            => MyController<CategoriesController>
+            => MyController<ColorController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = id, Name = name }))
+                    .WithEntities(new Color { Id = id, Name = name }))
                 .Calling(c => c.Edit(1))
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>()
+                    .WithModelOfType<ColorFormModel>()
                     .Passing(model =>
                     {
                         model.Name.Should().BeSameAs(name);
@@ -95,7 +95,7 @@
 
         [Test]
         public void GetEditShouldReturnBadRequestIfInvalidIdIsPassed()
-            => MyController<CategoriesController>
+            => MyController<ColorController>
                 .Instance()
                 .Calling(c => c.Edit(2))
                 .ShouldReturn()
@@ -103,11 +103,11 @@
 
         [Test]
         public void PostEditShouldReturnRedirectToActionIfModelStateIsValid()
-            => MyController<CategoriesController>
+            => MyController<ColorController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(1, new CategoryFormModel
+                    .WithEntities(new Color { Id = 1, Name = "Test" }))
+                .Calling(c => c.Edit(1, new ColorFormModel
                 {
                     Name = "Something"
                 }))
@@ -119,12 +119,12 @@
                 .RedirectToAction("All");
 
         [Test]
-        public void PostEditShouldReturnViewIfHasCategoryWithSameName()
-            => MyController<CategoriesController>
+        public void PostEditShouldReturnViewIfHasColorWithSameName()
+            => MyController<ColorController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(1, new CategoryFormModel
+                    .WithEntities(new Color { Id = 1, Name = "Test" }))
+                .Calling(c => c.Edit(1, new ColorFormModel
                 {
                     Name = "Test"
                 }))
@@ -134,45 +134,45 @@
                 .AndAlso()
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>().Should().NotBeNull());
+                    .WithModelOfType<ColorFormModel>().Should().NotBeNull());
 
         [Test]
         public void PostEditShouldReturnViewIfInvalidIdIsPassed()
-            => MyController<CategoriesController>
+            => MyController<ColorController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(2, With.Default<CategoryFormModel>()))
+                    .WithEntities(new Color { Id = 1, Name = "Test" }))
+                .Calling(c => c.Edit(2, With.Default<ColorFormModel>()))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
                     .RestrictingForHttpMethod(HttpMethod.Post))
                 .AndAlso()
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>().Should().NotBeNull());
+                    .WithModelOfType<ColorFormModel>().Should().NotBeNull());
 
         [Test]
         [TestCase(1)]
         [TestCase(2)]
         public void GetDeleteShouldReturnViewIfModelStateIsValid(int id)
-            => MyController<CategoriesController>
+            => MyController<ColorController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = id }))
+                    .WithEntities(new Color { Id = id }))
                 .Calling(c => c.Delete(id))
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryWithProducts>()
+                    .WithModelOfType<ColorDeleteServiceModel>()
                     .Passing(model => model.Id.Should().BeGreaterOrEqualTo(id)));
 
         [Test]
         [TestCase(5)]
         [TestCase(-1)]
         public void GetDeleteShouldReturnBadRequestIfInvalidIdIsPassed(int id)
-            => MyController<CategoriesController>
+            => MyController<ColorController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = 1 }))
+                    .WithEntities(new Color { Id = 1 }))
                 .Calling(c => c.Delete(id))
                 .ShouldReturn()
                 .BadRequest();
@@ -181,10 +181,10 @@
         [TestCase(1)]
         [TestCase(2)]
         public void PostDeleteConfirmShouldRedirectToActionIfModelStateIsValid(int id)
-            => MyController<CategoriesController>
+            => MyController<ColorController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = id }))
+                    .WithEntities(new Color { Id = id }))
                 .Calling(c => c.DeleteConfirmed(id))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute

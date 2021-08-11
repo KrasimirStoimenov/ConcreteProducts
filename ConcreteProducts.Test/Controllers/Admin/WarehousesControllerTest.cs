@@ -5,39 +5,39 @@
     using MyTested.AspNetCore.Mvc;
 
     using ConcreteProducts.Web.Data.Models;
-    using ConcreteProducts.Web.Services.Categories.Models;
-    using ConcreteProducts.Web.Areas.Admin.Models.Categories;
+    using ConcreteProducts.Web.Services.Warehouses.Models;
+    using ConcreteProducts.Web.Areas.Admin.Models.Warehouses;
 
-    using CategoriesController = Web.Areas.Admin.Controllers.CategoriesController;
+    using WarehouseController = Web.Areas.Admin.Controllers.WarehousesController;
 
-    public class CategoriesControllerTest
+    public class WarehousesControllerTest
     {
         [Test]
-        public void AllShouldReturnAllCategories()
-            => MyController<CategoriesController>
-                .Instance()
-                .Calling(c => c.All(1))
-                .ShouldReturn()
-                .View(view => view.WithModelOfType<ListAllCategoriesViewModel>()
-                    .Should()
-                    .NotBeNull());
+        public void AllShouldReturnAllWarehouses()
+           => MyController<WarehouseController>
+               .Instance()
+               .Calling(c => c.All(1))
+               .ShouldReturn()
+               .View(view => view.WithModelOfType<ListAllWarehouseViewModel>()
+                   .Should()
+                   .NotBeNull());
 
         [Test]
         public void GetAddShouldReturnView()
-            => MyController<CategoriesController>
+            => MyController<WarehouseController>
                 .Instance()
                 .Calling(c => c.Add())
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>()
+                    .WithModelOfType<WarehouseFormModel>()
                         .Should()
                         .NotBeNull());
 
         [Test]
         public void PostAddShouldRedirectToActionWhenModelStateIsValid()
-            => MyController<CategoriesController>
+            => MyController<WarehouseController>
                 .Instance()
-                .Calling(c => c.Add(new CategoryFormModel
+                .Calling(c => c.Add(new WarehouseFormModel
                 {
                     Name = "Test"
                 }))
@@ -50,64 +50,65 @@
 
         [Test]
         public void PostAddShouldReturnViewWhenModelStateIsInvalid()
-            => MyController<CategoriesController>
+            => MyController<WarehouseController>
                 .Instance()
-                .Calling(c => c.Add(With.Default<CategoryFormModel>()))
+                .Calling(c => c.Add(With.Default<WarehouseFormModel>()))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
                     .RestrictingForHttpMethod(HttpMethod.Post))
                 .AndAlso()
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>().Should().NotBeNull());
+                    .WithModelOfType<WarehouseFormModel>()
+                        .Should()
+                        .NotBeNull());
 
         [Test]
-        public void PostAddShouldReturnViewWhenExistingCategoryNameIsPassed()
-            => MyController<CategoriesController>
-                .Instance()
-                .WithData(data => data
-                    .WithEntities(new Category { Name = "Exist" }))
-                .Calling(c => c.Add(new CategoryFormModel { Name = "Exist" }))
-                .ShouldHave()
-                .ActionAttributes(attribute => attribute
-                    .RestrictingForHttpMethod(HttpMethod.Post))
-                .AndAlso()
-                .ShouldReturn()
-                .View(view => view
-                    .WithModelOfType<CategoryFormModel>().Should().NotBeNull());
+        public void PostAddShouldReturnViewWhenExistingWarehouseNameIsPassed()
+                    => MyController<WarehouseController>
+                        .Instance()
+                        .WithData(data => data
+                            .WithEntities(new Warehouse { Name = "Exist" }))
+                        .Calling(c => c.Add(new WarehouseFormModel { Name = "Exist" }))
+                        .ShouldHave()
+                        .ActionAttributes(attribute => attribute
+                            .RestrictingForHttpMethod(HttpMethod.Post))
+                        .AndAlso()
+                        .ShouldReturn()
+                        .View(view => view
+                            .WithModelOfType<WarehouseFormModel>().Should().NotBeNull());
 
         [Test]
         [TestCase(1, "Test")]
         [TestCase(1, "AnotherTest")]
         public void GetEditShouldReturnViewIfValidIdIsPassed(int id, string name)
-            => MyController<CategoriesController>
+            => MyController<WarehouseController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = id, Name = name }))
+                    .WithEntities(new Warehouse { Id = id, Name = name }))
                 .Calling(c => c.Edit(1))
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>()
+                    .WithModelOfType<WarehouseFormModel>()
                     .Passing(model =>
                     {
                         model.Name.Should().BeSameAs(name);
                     }));
-
         [Test]
         public void GetEditShouldReturnBadRequestIfInvalidIdIsPassed()
-            => MyController<CategoriesController>
-                .Instance()
-                .Calling(c => c.Edit(2))
-                .ShouldReturn()
-                .BadRequest();
+                    => MyController<WarehouseController>
+                        .Instance()
+                        .Calling(c => c.Edit(2))
+                        .ShouldReturn()
+                        .BadRequest();
 
         [Test]
         public void PostEditShouldReturnRedirectToActionIfModelStateIsValid()
-            => MyController<CategoriesController>
+            => MyController<WarehouseController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(1, new CategoryFormModel
+                    .WithEntities(new Warehouse { Id = 1, Name = "Test" }))
+                .Calling(c => c.Edit(1, new WarehouseFormModel
                 {
                     Name = "Something"
                 }))
@@ -117,62 +118,61 @@
                 .AndAlso()
                 .ShouldReturn()
                 .RedirectToAction("All");
-
         [Test]
-        public void PostEditShouldReturnViewIfHasCategoryWithSameName()
-            => MyController<CategoriesController>
-                .Instance()
-                .WithData(data => data
-                    .WithEntities(new Category { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(1, new CategoryFormModel
-                {
-                    Name = "Test"
-                }))
-                .ShouldHave()
-                .ActionAttributes(attribute => attribute
-                    .RestrictingForHttpMethod(HttpMethod.Post))
-                .AndAlso()
-                .ShouldReturn()
-                .View(view => view
-                    .WithModelOfType<CategoryFormModel>().Should().NotBeNull());
+        public void PostEditShouldReturnViewIfHasWarehouseWithSameName()
+                    => MyController<WarehouseController>
+                        .Instance()
+                        .WithData(data => data
+                            .WithEntities(new Warehouse { Id = 1, Name = "Test" }))
+                        .Calling(c => c.Edit(1, new WarehouseFormModel
+                        {
+                            Name = "Test"
+                        }))
+                        .ShouldHave()
+                        .ActionAttributes(attribute => attribute
+                            .RestrictingForHttpMethod(HttpMethod.Post))
+                        .AndAlso()
+                        .ShouldReturn()
+                        .View(view => view
+                            .WithModelOfType<WarehouseFormModel>().Should().NotBeNull());
 
         [Test]
         public void PostEditShouldReturnViewIfInvalidIdIsPassed()
-            => MyController<CategoriesController>
+            => MyController<WarehouseController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(2, With.Default<CategoryFormModel>()))
+                    .WithEntities(new Warehouse { Id = 1, Name = "Test" }))
+                .Calling(c => c.Edit(2, With.Default<WarehouseFormModel>()))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
                     .RestrictingForHttpMethod(HttpMethod.Post))
                 .AndAlso()
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>().Should().NotBeNull());
+                    .WithModelOfType<WarehouseFormModel>().Should().NotBeNull());
 
         [Test]
         [TestCase(1)]
         [TestCase(2)]
         public void GetDeleteShouldReturnViewIfModelStateIsValid(int id)
-            => MyController<CategoriesController>
+            => MyController<WarehouseController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = id }))
+                    .WithEntities(new Warehouse { Id = id }))
                 .Calling(c => c.Delete(id))
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryWithProducts>()
+                    .WithModelOfType<WarehouseWithProductsAndShapesCount>()
                     .Passing(model => model.Id.Should().BeGreaterOrEqualTo(id)));
 
         [Test]
         [TestCase(5)]
         [TestCase(-1)]
         public void GetDeleteShouldReturnBadRequestIfInvalidIdIsPassed(int id)
-            => MyController<CategoriesController>
+            => MyController<WarehouseController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = 1 }))
+                    .WithEntities(new Warehouse { Id = 1 }))
                 .Calling(c => c.Delete(id))
                 .ShouldReturn()
                 .BadRequest();
@@ -181,10 +181,10 @@
         [TestCase(1)]
         [TestCase(2)]
         public void PostDeleteConfirmShouldRedirectToActionIfModelStateIsValid(int id)
-            => MyController<CategoriesController>
+            => MyController<WarehouseController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = id }))
+                    .WithEntities(new Warehouse { Id = id }))
                 .Calling(c => c.DeleteConfirmed(id))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute

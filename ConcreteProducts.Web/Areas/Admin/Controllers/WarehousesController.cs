@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
+
     using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Areas.Admin.Models.Warehouses;
 
@@ -78,6 +79,11 @@
             if (!this.warehouseService.IsWarehouseExist(id))
             {
                 this.ModelState.AddModelError(nameof(warehouse.Name), notExistingWarehouseErrorMessage);
+            }
+
+            if (this.warehouseService.HasWarehouseWithSameName(warehouse.Name))
+            {
+                this.ModelState.AddModelError(nameof(warehouse.Name), takenWarehouseNameErrorMessage);
             }
 
             if (!ModelState.IsValid)

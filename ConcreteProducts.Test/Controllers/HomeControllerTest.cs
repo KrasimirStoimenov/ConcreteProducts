@@ -8,6 +8,8 @@
     using ConcreteProducts.Web.Controllers;
     using ConcreteProducts.Web.Services.Products.Models;
 
+    using static Web.Areas.Admin.AdminConstants;
+
     public class HomeControllerTest
     {
         [Test]
@@ -25,6 +27,15 @@
                 .ShouldReturn()
                 .View(view => view
                     .WithModelOfType<List<ProductListingServiceModel>>());
+
+        [Test]
+        public void AdministratorUserShouldBeRedirectedToAnotherHomePage()
+            => MyController<HomeController>
+                .Instance()
+                .WithUser(user => user.InRole(AdministratorRoleName))
+                .Calling(c => c.Index())
+                .ShouldReturn()
+                .RedirectToAction("Index", "Admin");
 
         [Test]
         public void ErrorMessageShouldReturnView()

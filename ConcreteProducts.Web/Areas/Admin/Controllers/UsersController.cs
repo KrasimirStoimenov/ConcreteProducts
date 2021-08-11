@@ -1,12 +1,14 @@
 ﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers
 {
     using System.Linq;
+    using System.Data;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+
     using ConcreteProducts.Web.Areas.Admin.Models.Users;
-    using System.Data;
 
     public class UsersController : AdminController
     {

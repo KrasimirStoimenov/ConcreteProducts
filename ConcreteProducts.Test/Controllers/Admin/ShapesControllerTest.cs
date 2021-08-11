@@ -5,41 +5,45 @@
     using MyTested.AspNetCore.Mvc;
 
     using ConcreteProducts.Web.Data.Models;
-    using ConcreteProducts.Web.Services.Categories.Models;
-    using ConcreteProducts.Web.Areas.Admin.Models.Categories;
+    using ConcreteProducts.Web.Services.Shapes.Models;
+    using ConcreteProducts.Web.Areas.Admin.Models.Shapes;
 
-    using CategoriesController = Web.Areas.Admin.Controllers.CategoriesController;
+    using ShapeController = Web.Areas.Admin.Controllers.ShapesController;
 
-    public class CategoriesControllerTest
+    public class ShapesControllerTest
     {
         [Test]
-        public void AllShouldReturnAllCategories()
-            => MyController<CategoriesController>
-                .Instance()
-                .Calling(c => c.All(1))
-                .ShouldReturn()
-                .View(view => view.WithModelOfType<ListAllCategoriesViewModel>()
-                    .Should()
-                    .NotBeNull());
+        public void AllShouldReturnAllShapes()
+           => MyController<ShapeController>
+               .Instance()
+               .Calling(c => c.All(1))
+               .ShouldReturn()
+               .View(view => view.WithModelOfType<ListAllShapesViewModel>()
+                   .Should()
+                   .NotBeNull());
 
         [Test]
         public void GetAddShouldReturnView()
-            => MyController<CategoriesController>
+            => MyController<ShapeController>
                 .Instance()
                 .Calling(c => c.Add())
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>()
+                    .WithModelOfType<ShapeFormModel>()
                         .Should()
                         .NotBeNull());
 
         [Test]
         public void PostAddShouldRedirectToActionWhenModelStateIsValid()
-            => MyController<CategoriesController>
+            => MyController<ShapeController>
                 .Instance()
-                .Calling(c => c.Add(new CategoryFormModel
+                .WithData(data => data
+                    .WithEntities(new Warehouse() { Id = 1 }))
+                .Calling(c => c.Add(new ShapeFormModel
                 {
-                    Name = "Test"
+                    Name = "Test",
+                    Dimensions = "Test",
+                    WarehouseId = 1
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -50,44 +54,44 @@
 
         [Test]
         public void PostAddShouldReturnViewWhenModelStateIsInvalid()
-            => MyController<CategoriesController>
+            => MyController<ShapeController>
                 .Instance()
-                .Calling(c => c.Add(With.Default<CategoryFormModel>()))
+                .Calling(c => c.Add(With.Default<ShapeFormModel>()))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
                     .RestrictingForHttpMethod(HttpMethod.Post))
                 .AndAlso()
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>().Should().NotBeNull());
+                    .WithModelOfType<ShapeFormModel>().Should().NotBeNull());
 
         [Test]
-        public void PostAddShouldReturnViewWhenExistingCategoryNameIsPassed()
-            => MyController<CategoriesController>
+        public void PostAddShouldReturnViewWhenExistingShapeNameIsPassed()
+            => MyController<ShapeController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Name = "Exist" }))
-                .Calling(c => c.Add(new CategoryFormModel { Name = "Exist" }))
+                    .WithEntities(new Shape { Name = "Exist" }))
+                .Calling(c => c.Add(new ShapeFormModel { Name = "Exist" }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
                     .RestrictingForHttpMethod(HttpMethod.Post))
                 .AndAlso()
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>().Should().NotBeNull());
+                    .WithModelOfType<ShapeFormModel>().Should().NotBeNull());
 
         [Test]
         [TestCase(1, "Test")]
         [TestCase(1, "AnotherTest")]
         public void GetEditShouldReturnViewIfValidIdIsPassed(int id, string name)
-            => MyController<CategoriesController>
+            => MyController<ShapeController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = id, Name = name }))
+                    .WithEntities(new Shape { Id = id, Name = name }))
                 .Calling(c => c.Edit(1))
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>()
+                    .WithModelOfType<ShapeFormModel>()
                     .Passing(model =>
                     {
                         model.Name.Should().BeSameAs(name);
@@ -95,7 +99,7 @@
 
         [Test]
         public void GetEditShouldReturnBadRequestIfInvalidIdIsPassed()
-            => MyController<CategoriesController>
+            => MyController<ShapeController>
                 .Instance()
                 .Calling(c => c.Edit(2))
                 .ShouldReturn()
@@ -103,13 +107,14 @@
 
         [Test]
         public void PostEditShouldReturnRedirectToActionIfModelStateIsValid()
-            => MyController<CategoriesController>
+            => MyController<ShapeController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(1, new CategoryFormModel
+                    .WithEntities(new Shape { Id = 1, Name = "Test" }))
+                .Calling(c => c.Edit(1, new ShapeFormModel
                 {
-                    Name = "Something"
+                    Name = "Something",
+                    Dimensions = "Test"
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -119,12 +124,12 @@
                 .RedirectToAction("All");
 
         [Test]
-        public void PostEditShouldReturnViewIfHasCategoryWithSameName()
-            => MyController<CategoriesController>
+        public void PostEditShouldReturnViewIfHasShapeWithSameName()
+            => MyController<ShapeController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(1, new CategoryFormModel
+                    .WithEntities(new Shape { Id = 1, Name = "Test" }))
+                .Calling(c => c.Edit(1, new ShapeFormModel
                 {
                     Name = "Test"
                 }))
@@ -134,45 +139,45 @@
                 .AndAlso()
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>().Should().NotBeNull());
+                    .WithModelOfType<ShapeFormModel>().Should().NotBeNull());
 
         [Test]
         public void PostEditShouldReturnViewIfInvalidIdIsPassed()
-            => MyController<CategoriesController>
+            => MyController<ShapeController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(2, With.Default<CategoryFormModel>()))
+                    .WithEntities(new Shape { Id = 1, Name = "Test" }))
+                .Calling(c => c.Edit(2, With.Default<ShapeFormModel>()))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
                     .RestrictingForHttpMethod(HttpMethod.Post))
                 .AndAlso()
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>().Should().NotBeNull());
+                    .WithModelOfType<ShapeFormModel>().Should().NotBeNull());
 
         [Test]
         [TestCase(1)]
         [TestCase(2)]
         public void GetDeleteShouldReturnViewIfModelStateIsValid(int id)
-            => MyController<CategoriesController>
+            => MyController<ShapeController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = id }))
+                    .WithEntities(new Shape { Id = id }))
                 .Calling(c => c.Delete(id))
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryWithProducts>()
+                    .WithModelOfType<ShapeBaseServiceModel>()
                     .Passing(model => model.Id.Should().BeGreaterOrEqualTo(id)));
 
         [Test]
         [TestCase(5)]
         [TestCase(-1)]
         public void GetDeleteShouldReturnBadRequestIfInvalidIdIsPassed(int id)
-            => MyController<CategoriesController>
+            => MyController<ShapeController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = 1 }))
+                    .WithEntities(new Shape { Id = 1 }))
                 .Calling(c => c.Delete(id))
                 .ShouldReturn()
                 .BadRequest();
@@ -181,10 +186,10 @@
         [TestCase(1)]
         [TestCase(2)]
         public void PostDeleteConfirmShouldRedirectToActionIfModelStateIsValid(int id)
-            => MyController<CategoriesController>
+            => MyController<ShapeController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = id }))
+                    .WithEntities(new Shape { Id = id }))
                 .Calling(c => c.DeleteConfirmed(id))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute

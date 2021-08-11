@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
+
     using ConcreteProducts.Web.Services.Colors;
     using ConcreteProducts.Web.Areas.Admin.Models.Colors;
 
@@ -9,6 +10,7 @@
     {
         private readonly string notExistingColorErrorMessage = "Color does not exist.";
         private readonly string takenColorNameErrorMessage = "Color name already taken.";
+
         private readonly IColorService colorService;
 
         public ColorsController(IColorService colorService)
