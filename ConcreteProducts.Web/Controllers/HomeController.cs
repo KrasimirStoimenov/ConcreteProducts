@@ -4,13 +4,15 @@
     using System.Linq;
     using System.Diagnostics;
     using System.Collections.Generic;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
+
     using ConcreteProducts.Web.Models;
     using ConcreteProducts.Web.Services.Products;
     using ConcreteProducts.Web.Services.Products.Models;
 
-    using static Areas.Admin.AdminConstants;
+    using static GlobalConstants;
 
     public class HomeController : Controller
     {

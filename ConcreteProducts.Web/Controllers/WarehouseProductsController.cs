@@ -8,6 +8,8 @@
     using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Services.ProductColors;
 
+    using static GlobalConstants;
+
     public class WarehouseProductsController : Controller
     {
         private readonly IWarehouseService warehouseService;
@@ -24,16 +26,16 @@
         [Authorize]
         public IActionResult All(int page = 1)
         {
-            const int itemsPerPage = 8;
-
             var products = this.warehouseProductService.GetAllProductsInWarehouse();
 
             var listingProducts = new ListAllProductsInWarehouseViewModel
             {
-                ProductsInWarehouse = products.Skip((page - 1) * itemsPerPage).Take(itemsPerPage),
+                ProductsInWarehouse = products
+                    .Skip((page - 1) * ItemsPerPage)
+                    .Take(ItemsPerPage),
                 PageNumber = page,
                 Count = products.Count(),
-                ItemsPerPage = itemsPerPage
+                ItemsPerPage = ItemsPerPage
             };
 
             return View(listingProducts);
@@ -66,14 +68,14 @@
             return RedirectToAction(nameof(All));
         }
 
-        [Authorize]
+        [Authorize(Roles = AdministratorRoleName)]
         public IActionResult DecreaseQuantity(string productName)
             => View(new DecreaseQuantityViewModel
             {
                 ProductName = productName
             });
 
-        [Authorize]
+        [Authorize(Roles = AdministratorRoleName)]
         [HttpPost]
         public IActionResult DecreaseQuantity(DecreaseQuantityViewModel model)
         {
@@ -83,7 +85,7 @@
 
             if (model.Count > availableQuantity)
             {
-                ModelState.AddModelError(nameof(model.Count), "Unavailable quantity.");
+                ModelState.AddModelError(nameof(model.Count), $"Unavailable quantity. Has only {availableQuantity} in stock.");
             }
 
             if (!ModelState.IsValid)

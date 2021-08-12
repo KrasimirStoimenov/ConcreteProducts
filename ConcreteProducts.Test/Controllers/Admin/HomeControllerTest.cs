@@ -5,7 +5,7 @@
 
     using ConcreteProducts.Web.Areas.Admin.Controllers;
 
-    class HomeControllerTest
+    public class HomeControllerTest
     {
         [Test]
         public void IndexShouldReturnCorrectViewWithModel()
@@ -13,7 +13,7 @@
                 .Instance()
                 .Calling(c => c.Index())
                 .ShouldReturn()
-                .View();
+                .Redirect("/WarehouseProducts/All");
 
         [Test]
         public void ErrorMessageShouldReturnView()

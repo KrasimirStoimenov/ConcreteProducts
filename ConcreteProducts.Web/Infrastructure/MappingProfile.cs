@@ -2,15 +2,17 @@
 {
     using System;
     using System.Linq;
+
     using AutoMapper;
+
     using ConcreteProducts.Web.Data.Models;
-    using ConcreteProducts.Web.Services.Categories.Models;
     using ConcreteProducts.Web.Services.Colors.Models;
-    using ConcreteProducts.Web.Services.ProductColors.Model;
-    using ConcreteProducts.Web.Services.Products.Models;
     using ConcreteProducts.Web.Services.Shapes.Models;
-    using ConcreteProducts.Web.Services.WarehouseProducts.Models;
+    using ConcreteProducts.Web.Services.Products.Models;
+    using ConcreteProducts.Web.Services.Categories.Models;
     using ConcreteProducts.Web.Services.Warehouses.Models;
+    using ConcreteProducts.Web.Services.ProductColors.Model;
+    using ConcreteProducts.Web.Services.WarehouseProducts.Models;
 
     public class MappingProfile : Profile
     {
@@ -18,7 +20,7 @@
         {
             this.CreateMap<Product, ProductBaseServiceModel>();
             this.CreateMap<Product, ProductListingServiceModel>()
-                .ForMember(p => p.InPallet, cfg => cfg.MapFrom(p => $"{p.QuantityInPalletInPieces} pieces / {p.QuantityInPalletInUnitOfMeasurement}{p.UnitOfMeasurement}"));
+                .ForMember(p => p.InPallet, cfg => cfg.MapFrom(p => $"{p.QuantityInPalletInPieces:F2} pieces / {p.QuantityInPalletInUnitOfMeasurement:F2}{p.UnitOfMeasurement}"));
             this.CreateMap<Product, ProductDetailsServiceModel>()
                 .ForMember(p => p.CategoryName, cfg => cfg.MapFrom(c => c.Category.Name))
                 .ForMember(p => p.UnitOfMeasurement, cfg => cfg.MapFrom(p => p.UnitOfMeasurement.ToString()))
@@ -50,7 +52,7 @@
 
             this.CreateMap<WarehouseProductColors, WarehouseProductsServiceModel>()
                 .ForMember(wp => wp.ProductColorName, cfg => cfg.MapFrom(wp => $"{wp.ProductColor.Product.Name} - {wp.ProductColor.Color.Name}"))
-                .ForMember(wp => wp.TotalUnitOfMeasurement, cfg => cfg.MapFrom(wp => $"{wp.Count / wp.ProductColor.Product.CountInUnitOfMeasurement} {wp.ProductColor.Product.UnitOfMeasurement.ToString()}"))
+                .ForMember(wp => wp.TotalUnitOfMeasurement, cfg => cfg.MapFrom(wp => $"{wp.Count / wp.ProductColor.Product.CountInUnitOfMeasurement:F2} {wp.ProductColor.Product.UnitOfMeasurement.ToString()}"))
                 .ForMember(wp => wp.Pallets, cfg => cfg.MapFrom(wp => (int)Math.Ceiling(wp.Count / wp.ProductColor.Product.QuantityInPalletInPieces)));
         }
     }

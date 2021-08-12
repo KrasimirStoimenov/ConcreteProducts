@@ -6,6 +6,8 @@
     using ConcreteProducts.Web.Services.Colors;
     using ConcreteProducts.Web.Areas.Admin.Models.Colors;
 
+    using static GlobalConstants;
+
     public class ColorsController : AdminController
     {
         private readonly string notExistingColorErrorMessage = "Color does not exist.";
@@ -20,19 +22,17 @@
 
         public IActionResult All(int page = 1)
         {
-            const int itemsPerPage = 8;
-
             var colors = colorService.GetAllColors();
 
             var colorsViewModel = new ListAllColorsViewModel
             {
                 AllColors = colors
-                    .OrderBy(c=>c.Name)
-                    .Skip((page - 1) * itemsPerPage)
-                    .Take(itemsPerPage),
+                    .OrderBy(c => c.Name)
+                    .Skip((page - 1) * ItemsPerPage)
+                    .Take(ItemsPerPage),
                 PageNumber = page,
                 Count = colors.Count(),
-                ItemsPerPage = itemsPerPage
+                ItemsPerPage = ItemsPerPage
             };
 
             return View(colorsViewModel);

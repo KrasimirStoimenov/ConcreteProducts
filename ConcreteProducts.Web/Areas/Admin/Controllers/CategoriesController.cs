@@ -6,6 +6,8 @@
     using ConcreteProducts.Web.Services.Categories;
     using ConcreteProducts.Web.Areas.Admin.Models.Categories;
 
+    using static GlobalConstants;
+
     public class CategoriesController : AdminController
     {
         private readonly string notExistingCategoryErrorMessage = "Category does not exist.";
@@ -20,19 +22,17 @@
 
         public IActionResult All(int page = 1)
         {
-            const int itemsPerPage = 8;
-
             var categoriesWithProducts = this.categoryService.GetAllCategoriesWithTheirProducts();
 
             var categoriesViewModel = new ListAllCategoriesViewModel
             {
                 AllCategories = categoriesWithProducts
-                    .OrderBy(c=>c.Name)
-                    .Skip((page - 1) * itemsPerPage)
-                    .Take(itemsPerPage),
+                    .OrderBy(c => c.Name)
+                    .Skip((page - 1) * ItemsPerPage)
+                    .Take(ItemsPerPage),
                 PageNumber = page,
                 Count = categoriesWithProducts.Count(),
-                ItemsPerPage = itemsPerPage
+                ItemsPerPage = ItemsPerPage
             };
 
             return View(categoriesViewModel);

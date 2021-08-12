@@ -1,15 +1,18 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
     using System.Linq;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
+
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Models.Products;
     using ConcreteProducts.Web.Services.Products;
     using ConcreteProducts.Web.Services.Colors;
     using ConcreteProducts.Web.Services.Categories;
     using ConcreteProducts.Web.Services.Warehouses;
-    using ConcreteProducts.Web.Areas.Admin;
+
+    using static GlobalConstants;
 
     public class ProductsController : Controller
     {
@@ -29,8 +32,6 @@
 
         public IActionResult All(string searchTerm, int page = 1)
         {
-            const int itemsPerPage = 8;
-
             if (searchTerm != null)
             {
                 page = 1;
@@ -41,16 +42,16 @@
             var productsViewModel = new ListAllProductsViewModel
             {
                 AllProducts = products
-                    .Skip((page - 1) * itemsPerPage)
-                    .Take(itemsPerPage),
+                    .Skip((page - 1) * ItemsPerPage)
+                    .Take(ItemsPerPage),
                 PageNumber = page,
                 Count = products.Count(),
-                ItemsPerPage = itemsPerPage
+                ItemsPerPage = ItemsPerPage
             };
             return View(productsViewModel);
         }
 
-        [Authorize(Roles = AdminConstants.AdministratorRoleName)]
+        [Authorize(Roles = AdministratorRoleName)]
         public IActionResult Add()
             => View(new AddProductFormModel
             {
@@ -58,7 +59,7 @@
                 Colors = this.colorService.GetAllColors(),
             });
 
-        [Authorize(Roles = AdminConstants.AdministratorRoleName)]
+        [Authorize(Roles = AdministratorRoleName)]
         [HttpPost]
         public IActionResult Add(AddProductFormModel product)
         {
@@ -99,7 +100,7 @@
             return View(productDetails);
         }
 
-        [Authorize(Roles = AdminConstants.AdministratorRoleName)]
+        [Authorize(Roles = AdministratorRoleName)]
         public IActionResult Delete(int id)
         {
             if (!this.productService.IsProductExist(id))
@@ -112,7 +113,7 @@
             return View(product);
         }
 
-        [Authorize(Roles = AdminConstants.AdministratorRoleName)]
+        [Authorize(Roles = AdministratorRoleName)]
         [HttpPost]
         public IActionResult DeleteConfirmed(int id)
         {

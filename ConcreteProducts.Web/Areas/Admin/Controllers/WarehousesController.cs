@@ -6,6 +6,8 @@
     using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Areas.Admin.Models.Warehouses;
 
+    using static GlobalConstants;
+
     public class WarehousesController : AdminController
     {
         private readonly string notExistingWarehouseErrorMessage = "Warehouse does not exist.";
@@ -19,19 +21,17 @@
 
         public IActionResult All(int page = 1)
         {
-            const int itemsPerPage = 8;
-
             var warehouses = this.warehouseService.GetWarehousesWithProductsAndShapesCount();
 
             var warehousesViewModel = new ListAllWarehouseViewModel
             {
                 AllWarehouses = warehouses
-                    .OrderBy(w=>w.Name)
-                    .Skip((page - 1) * itemsPerPage)
-                    .Take(itemsPerPage),
+                    .OrderBy(w => w.Name)
+                    .Skip((page - 1) * ItemsPerPage)
+                    .Take(ItemsPerPage),
                 PageNumber = page,
                 Count = warehouses.Count(),
-                ItemsPerPage = itemsPerPage
+                ItemsPerPage = ItemsPerPage
             };
 
             return View(warehousesViewModel);

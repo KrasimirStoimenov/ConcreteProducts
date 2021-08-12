@@ -2,7 +2,7 @@
 {
     using System.Security.Claims;
 
-    using static ConcreteProducts.Web.Areas.Admin.AdminConstants;
+    using static GlobalConstants;
 
     public static class ClaimsPrincipalExtensions
     {
@@ -11,5 +11,8 @@
 
         public static bool IsAdmin(this ClaimsPrincipal user)
             => user.IsInRole(AdministratorRoleName);
+
+        public static bool IsWorker(this ClaimsPrincipal user)
+            => user.IsInRole(EmployeeRoleName);
     }
 }

@@ -8,6 +8,8 @@
     using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Models.WarehouseProducts;
 
+    using static Web.GlobalConstants;
+
     public class WarehouseProductsControllerTest
     {
         [Test]
@@ -79,17 +81,88 @@
 
         [Test]
         [TestCase("Something")]
-        public void GetDecreaseQuantityShouldBeForAuthorizedUsersAndReturnViewIfExistingProductNameIsProvided(string productName)
+        public void GetDecreaseQuantityShouldBeForAdminsAndReturnView(string productName)
             => MyController<WarehouseProductsController>
                 .Instance()
                 .Calling(c => c.DecreaseQuantity(productName))
                 .ShouldHave()
                 .ActionAttributes(a => a
-                     .RestrictingForAuthorizedRequests())
+                     .RestrictingForAuthorizedRequests(AdministratorRoleName))
                 .AndAlso()
                 .ShouldReturn()
                 .View(view => view
                     .WithModelOfType<DecreaseQuantityViewModel>()
                     .Passing(data => data.ProductName.Should().BeSameAs(productName)));
+
+        [Test]
+        public void PostDecreaseQuantityShouldBeForAdminsOnlyAndShouldReturnRedirectToActionIfModelStateIsValid()
+            => MyController<WarehouseProductsController>
+                .Instance()
+                .WithData(data => data
+                    .WithEntities(new Warehouse())
+                    .WithEntities(new ProductColor())
+                    .WithEntities(new WarehouseProductColors { ProductColorId = 1, WarehouseId = 1, Count = 15 }))
+                .Calling(c => c.DecreaseQuantity(new DecreaseQuantityViewModel
+                {
+                    ProductColorId = 1,
+                    WarehouseId = 1,
+                    Count = 10
+                }))
+                .ShouldHave()
+                .ActionAttributes(a => a
+                     .RestrictingForAuthorizedRequests(AdministratorRoleName))
+                .AndAlso()
+                .ShouldReturn()
+                .RedirectToAction("All");
+
+        [Test]
+        public void PostDecreaseQuantityShouldBeForAdminsOnlyAndShouldReturnViewIfModelStateIsInvalid()
+            => MyController<WarehouseProductsController>
+                .Instance()
+                .WithData(data => data
+                    .WithEntities(new WarehouseProductColors { ProductColorId = 1, WarehouseId = 1, Count = 15 }))
+                .Calling(c => c.DecreaseQuantity(new DecreaseQuantityViewModel
+                {
+                    ProductColorId = 1,
+                    WarehouseId = 1,
+                    Count = 10
+                }))
+                .ShouldHave()
+                .ActionAttributes(a => a
+                     .RestrictingForAuthorizedRequests(AdministratorRoleName))
+                .AndAlso()
+                .ShouldReturn()
+                .View(view => view
+                    .WithModelOfType<DecreaseQuantityViewModel>()
+                    .Passing(model => model.Count.Should().Be(10)));
+
+        [Test]
+        public void PostDecreaseQuantityShouldBeForAdminsOnlyAndShouldReturnViewIfDoesntHaveQuantityInStock()
+            => MyController<WarehouseProductsController>
+                .Instance()
+                .WithData(data => data
+                    .WithEntities(new Warehouse())
+                    .WithEntities(new ProductColor())
+                    .WithEntities(new WarehouseProductColors { ProductColorId = 1, WarehouseId = 1, Count = 15 }))
+                .Calling(c => c.DecreaseQuantity(new DecreaseQuantityViewModel
+                {
+                    ProductColorId = 1,
+                    WarehouseId = 1,
+                    Count = 20
+                }))
+                .ShouldHave()
+                .ActionAttributes(a => a
+                     .RestrictingForAuthorizedRequests(AdministratorRoleName))
+                .AndAlso()
+                .ShouldReturn()
+                .View(view => view
+                    .WithModelOfType<DecreaseQuantityViewModel>()
+                    .Passing(model =>
+                    {
+                        model.Count.Should().Be(20);
+                        model.ProductColorId.Should().Be(1);
+                        model.WarehouseId.Should().Be(1);
+
+                    }));
     }
 }

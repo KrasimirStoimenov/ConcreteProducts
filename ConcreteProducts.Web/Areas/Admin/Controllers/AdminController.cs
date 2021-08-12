@@ -3,10 +3,10 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
 
-    using static AdminConstants;
+    using static GlobalConstants;
 
     [Authorize(Roles = AdministratorRoleName)]
-    [Area(AreaName)]
+    [Area(AdminAreaName)]
     public class AdminController : Controller
     {
     }

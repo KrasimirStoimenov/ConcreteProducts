@@ -3,16 +3,17 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
+
     using ConcreteProducts.Web.Data;
     using ConcreteProducts.Web.Data.Models;
     using ConcreteProducts.Web.Data.Models.Enumerations;
-    using Microsoft.AspNetCore.Identity;
 
-    using static Areas.Admin.AdminConstants;
-    using static System.Net.WebRequestMethods;
+    using static GlobalConstants;
 
     public static class ApplicationBuilderExtensions
     {

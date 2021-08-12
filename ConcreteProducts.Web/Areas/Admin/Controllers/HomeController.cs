@@ -8,7 +8,7 @@
     {
         public IActionResult Index()
         {
-            return View();
+            return Redirect("/WarehouseProducts/All");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

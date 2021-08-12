@@ -44,7 +44,11 @@
         }
 
         public int AvailableQuantity(int productColorId, int warehouseId)
-            => this.GetProductInWarehouse(productColorId, warehouseId).Count;
+        {
+            var warehouse = this.GetProductInWarehouse(productColorId, warehouseId);
+
+            return warehouse.Count;
+        }
 
         public void DecreaseQuantityFromProductsInWarehouse(int productColorId, int warehouseId, int count)
         {
@@ -56,6 +60,7 @@
 
         public IEnumerable<WarehouseProductsServiceModel> GetAllProductsInWarehouse()
             => this.data.WarehouseProductColors
+                .Where(wp => wp.Count > 0)
                 .OrderBy(wp => wp.ProductColor.Product.Name)
                 .ThenBy(w => w.Warehouse.Name)
                 .ProjectTo<WarehouseProductsServiceModel>(this.mapper.ConfigurationProvider)

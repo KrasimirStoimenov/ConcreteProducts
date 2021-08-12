@@ -3,7 +3,7 @@
     using NUnit.Framework;
     using MyTested.AspNetCore.Mvc;
 
-    using ConcreteProducts.Web.Areas.Admin;
+    using static Web.GlobalConstants;
 
     using AdminController = Web.Areas.Admin.Controllers.AdminController;
 
@@ -14,7 +14,7 @@
             => MyController<AdminController>
                 .ShouldHave()
                 .Attributes(attribute => attribute
-                    .SpecifyingArea(AdminConstants.AreaName)
-                    .RestrictingForAuthorizedRequests(AdminConstants.AdministratorRoleName));
+                    .SpecifyingArea(AdminAreaName)
+                    .RestrictingForAuthorizedRequests(AdministratorRoleName));
     }
 }

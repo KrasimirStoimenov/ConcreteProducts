@@ -7,6 +7,8 @@
     using ConcreteProducts.Web.Services.Warehouses;
     using ConcreteProducts.Web.Areas.Admin.Models.Shapes;
 
+    using static GlobalConstants;
+
     public class ShapesController : AdminController
     {
         private readonly string notExistingShapeErrorMessage = "Shape does not exist.";
@@ -24,19 +26,17 @@
 
         public IActionResult All(int page = 1)
         {
-            const int itemsPerPage = 8;
-
             var shapes = this.shapeService.GetAllShapesWithWarehouse();
 
             var shapesViewModel = new ListAllShapesViewModel
             {
                 AllShapes = shapes
-                    .OrderBy(s=>s.Name)
-                    .Skip((page - 1) * itemsPerPage)
-                    .Take(itemsPerPage),
+                    .OrderBy(s => s.Name)
+                    .Skip((page - 1) * ItemsPerPage)
+                    .Take(ItemsPerPage),
                 PageNumber = page,
                 Count = shapes.Count(),
-                ItemsPerPage = itemsPerPage
+                ItemsPerPage = ItemsPerPage
             };
 
             return View(shapesViewModel);
