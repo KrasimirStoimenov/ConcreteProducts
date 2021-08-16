@@ -1,13 +1,13 @@
 namespace ConcreteProducts.Web
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-    using Microsoft.AspNetCore.Mvc;
 
     using ConcreteProducts.Data;
     using ConcreteProducts.Web.Infrastructure;
@@ -53,8 +53,8 @@ namespace ConcreteProducts.Web
                 });
 
             services.AddMemoryCache();
-
             services.AddAutoMapper(typeof(Startup));
+            services.AddSignalR();
 
             services.AddTransient<IShapeService, ShapeService>();
             services.AddTransient<IColorService, ColorService>();
@@ -88,6 +88,7 @@ namespace ConcreteProducts.Web
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {
+                    endpoints.MapChatHubRoute();
                     endpoints.MapAreaControllerRoute();
                     endpoints.MapDefaultControllerRoute();
                     endpoints.MapRazorPages();
