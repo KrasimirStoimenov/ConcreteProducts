@@ -10,6 +10,8 @@
 
     using ConcreteProducts.Web.Areas.Admin.Models.Users;
 
+    using static GlobalConstants;
+
     public class UsersController : AdminController
     {
         private readonly UserManager<IdentityUser> userManager;
@@ -54,7 +56,7 @@
             var role = await this.userManager.GetRolesAsync(user);
 
             await this.userManager.RemoveFromRolesAsync(user, role);
-            await this.userManager.AddToRoleAsync(user, "Employee");
+            await this.userManager.AddToRoleAsync(user, EmployeeRoleName);
 
             return RedirectToAction(nameof(All));
         }

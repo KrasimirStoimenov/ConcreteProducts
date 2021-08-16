@@ -123,7 +123,7 @@
             => MyController<CategoriesController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = 1, Name = "Test" }))
+                    .WithEntities(new Category { Id = 1, Name = "Test", Products = null }))
                 .Calling(c => c.Edit(1, new CategoryFormModel
                 {
                     Name = "Test"
@@ -134,7 +134,12 @@
                 .AndAlso()
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<CategoryFormModel>().Should().NotBeNull());
+                    .WithModelOfType<CategoryFormModel>()
+                    .Passing(model =>
+                    {
+                        model.Name.Should().BeSameAs("Test");
+                        model.Should().NotBeNull();
+                    }));
 
         [Test]
         public void PostEditShouldReturnViewIfInvalidIdIsPassed()
@@ -158,12 +163,17 @@
             => MyController<CategoriesController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Category { Id = id }))
+                    .WithEntities(new Category { Id = id, Products = null }))
                 .Calling(c => c.Delete(id))
                 .ShouldReturn()
                 .View(view => view
                     .WithModelOfType<CategoryWithProducts>()
-                    .Passing(model => model.Id.Should().BeGreaterOrEqualTo(id)));
+                    .Passing(model =>
+                    {
+                        model.Id.Should().BeGreaterOrEqualTo(id);
+                        model.ProductsCount.Should().Be(0);
+                    }));
+
 
         [Test]
         [TestCase(5)]

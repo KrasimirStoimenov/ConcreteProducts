@@ -123,7 +123,7 @@
                     => MyController<WarehouseController>
                         .Instance()
                         .WithData(data => data
-                            .WithEntities(new Warehouse { Id = 1, Name = "Test" }))
+                            .WithEntities(new Warehouse { Id = 1, Name = "Test", Shapes = null }))
                         .Calling(c => c.Edit(1, new WarehouseFormModel
                         {
                             Name = "Test"
@@ -134,7 +134,8 @@
                         .AndAlso()
                         .ShouldReturn()
                         .View(view => view
-                            .WithModelOfType<WarehouseFormModel>().Should().NotBeNull());
+                            .WithModelOfType<WarehouseFormModel>()
+                            .Passing(model => model.Name.Should().BeSameAs("Test")));
 
         [Test]
         public void PostEditShouldReturnViewIfInvalidIdIsPassed()
@@ -158,12 +159,18 @@
             => MyController<WarehouseController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Warehouse { Id = id }))
+                    .WithEntities(new Warehouse { Id = id, Name = "test", Shapes = null, WarehouseProducts = null }))
                 .Calling(c => c.Delete(id))
                 .ShouldReturn()
                 .View(view => view
                     .WithModelOfType<WarehouseWithProductsAndShapesCount>()
-                    .Passing(model => model.Id.Should().BeGreaterOrEqualTo(id)));
+                    .Passing(model =>
+                    {
+                        model.Id.Should().BeGreaterOrEqualTo(id);
+                        model.Name.Should().BeSameAs("test");
+                        model.TotalShapesCount.Should().Be(0);
+                        model.TotalProductsCount.Should().Be(0);
+                    }));
 
         [Test]
         [TestCase(5)]

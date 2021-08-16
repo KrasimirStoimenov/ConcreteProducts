@@ -20,7 +20,5 @@
                 .Configuration()
                 .ShouldMap("/Home/Error")
                 .To<HomeController>(c => c.Error());
-
-
     }
 }

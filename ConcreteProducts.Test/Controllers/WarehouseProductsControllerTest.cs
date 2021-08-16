@@ -99,9 +99,14 @@
             => MyController<WarehouseProductsController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Warehouse())
-                    .WithEntities(new ProductColor())
-                    .WithEntities(new WarehouseProductColors { ProductColorId = 1, WarehouseId = 1, Count = 15 }))
+                    .WithEntities(new WarehouseProductColors
+                    {
+                        ProductColor = new ProductColor(),
+                        ProductColorId = 1,
+                        Warehouse = new Warehouse(),
+                        WarehouseId = 1,
+                        Count = 15
+                    }))
                 .Calling(c => c.DecreaseQuantity(new DecreaseQuantityViewModel
                 {
                     ProductColorId = 1,
@@ -120,12 +125,12 @@
             => MyController<WarehouseProductsController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new WarehouseProductColors { ProductColorId = 1, WarehouseId = 1, Count = 15 }))
+                    .WithEntities(new WarehouseProductColors {ProductColor=new ProductColor(), ProductColorId = 1,Warehouse=new Warehouse(), WarehouseId = 1, Count = 15 }))
                 .Calling(c => c.DecreaseQuantity(new DecreaseQuantityViewModel
                 {
                     ProductColorId = 1,
                     WarehouseId = 1,
-                    Count = 10
+                    Count = 20
                 }))
                 .ShouldHave()
                 .ActionAttributes(a => a
@@ -134,7 +139,12 @@
                 .ShouldReturn()
                 .View(view => view
                     .WithModelOfType<DecreaseQuantityViewModel>()
-                    .Passing(model => model.Count.Should().Be(10)));
+                    .Passing(model =>
+                    {
+                        model.Count.Should().Be(20);
+                        model.WarehouseId.Should().Be(1);
+                        model.ProductColorId.Should().Be(1);
+                    }));
 
         [Test]
         public void PostDecreaseQuantityShouldBeForAdminsOnlyAndShouldReturnViewIfDoesntHaveQuantityInStock()

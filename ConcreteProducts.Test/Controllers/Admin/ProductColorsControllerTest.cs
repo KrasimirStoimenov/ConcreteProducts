@@ -52,9 +52,7 @@
             => MyController<ProductColorsController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Color())
-                    .WithEntities(new Product())
-                    .WithEntities(new ProductColor { ColorId = 1, ProductId = 1 }))
+                    .WithEntities(new ProductColor { ProductColorId = 1,Color=new Color(), ColorId = 1, Product = new Product(),ProductId = 1 }))
                 .Calling(c => c.Add(new AddColorToProductFormModel
                 {
                     ColorId = 1,
@@ -66,6 +64,7 @@
                     .Passing(model =>
                     {
                         model.ColorId.Should().Be(1);
+                        model.Colors.Should().HaveCount(0);
                         model.ProductId.Should().Be(1);
                     }));
     }

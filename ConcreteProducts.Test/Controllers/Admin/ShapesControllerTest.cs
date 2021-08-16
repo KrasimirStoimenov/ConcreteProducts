@@ -43,7 +43,7 @@
                 {
                     Name = "Test",
                     Dimensions = "Test",
-                    WarehouseId = 1
+                    WarehouseId = 1,
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -70,7 +70,7 @@
             => MyController<ShapeController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Shape { Name = "Exist" }))
+                    .WithEntities(new Shape { Name = "Exist", Warehouse = new Warehouse() }))
                 .Calling(c => c.Add(new ShapeFormModel { Name = "Exist" }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -87,13 +87,14 @@
             => MyController<ShapeController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Shape { Id = id, Name = name }))
+                    .WithEntities(new Shape { Id = id, Name = name, Warehouse = new Warehouse() }))
                 .Calling(c => c.Edit(1))
                 .ShouldReturn()
                 .View(view => view
                     .WithModelOfType<ShapeFormModel>()
                     .Passing(model =>
                     {
+                        model.Warehouses.Should().HaveCount(1);
                         model.Name.Should().BeSameAs(name);
                     }));
 

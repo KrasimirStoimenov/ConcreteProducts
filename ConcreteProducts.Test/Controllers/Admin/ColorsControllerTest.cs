@@ -123,7 +123,7 @@
             => MyController<ColorController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Color { Id = 1, Name = "Test" }))
+                    .WithEntities(new Color { Id = 1, Name = "Test", ProductColors = null }))
                 .Calling(c => c.Edit(1, new ColorFormModel
                 {
                     Name = "Test"
@@ -134,7 +134,8 @@
                 .AndAlso()
                 .ShouldReturn()
                 .View(view => view
-                    .WithModelOfType<ColorFormModel>().Should().NotBeNull());
+                    .WithModelOfType<ColorFormModel>()
+                    .Passing(model => model.Name.Should().BeSameAs("Test")));
 
         [Test]
         public void PostEditShouldReturnViewIfInvalidIdIsPassed()
@@ -158,12 +159,17 @@
             => MyController<ColorController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new Color { Id = id }))
+                    .WithEntities(new Color { Id = id })
+                    .WithEntities())
                 .Calling(c => c.Delete(id))
                 .ShouldReturn()
                 .View(view => view
                     .WithModelOfType<ColorDeleteServiceModel>()
-                    .Passing(model => model.Id.Should().BeGreaterOrEqualTo(id)));
+                    .Passing(model =>
+                    {
+                        model.Id.Should().BeGreaterOrEqualTo(id);
+                        model.ProductsRelatedToColor.Should().Be(0);
+                    }));
 
         [Test]
         [TestCase(5)]

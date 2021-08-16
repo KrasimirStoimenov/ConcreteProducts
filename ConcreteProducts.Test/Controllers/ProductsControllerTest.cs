@@ -153,13 +153,24 @@
                         Weight = 15,
                         ImageUrl = "https://chilli.codes/wp-content/uploads/2020/10/git.jpg",
                         UnitOfMeasurement = UnitOfMeasurement.Meters,
-                        Category = new Category { Name = "Test" }
+                        Category = new Category { Id = 1, Name = "Test" }
                     }))
                 .Calling(c => c.Details(id))
                 .ShouldReturn()
                 .View(view => view
                     .WithModelOfType<ProductDetailsServiceModel>()
-                    .Passing(model => model.Id.Should().Be(id)));
+                    .Passing(model =>
+                    {
+                        model.Id.Should().Be(id);
+                        model.Name.Should().BeSameAs("test");
+                        model.CategoryName.Should().BeSameAs("Test");
+                        model.CountInUnitOfMeasurement.Should().Be(15);
+                        model.Dimensions.Should().BeSameAs("Dimensions");
+                        model.Weight.Should().Be(15);
+                        model.QuantityInPalletInPieces.Should().Be(15);
+                        model.QuantityInPalletInUnitOfMeasurement.Should().Be(15);
+                    }));
+
 
         [Test]
         [TestCase(5)]
