@@ -8,7 +8,8 @@ namespace ConcreteProducts.Web
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Mvc;
-    using ConcreteProducts.Web.Data;
+
+    using ConcreteProducts.Data;
     using ConcreteProducts.Web.Infrastructure;
     using ConcreteProducts.Web.Services.Categories;
     using ConcreteProducts.Web.Services.Colors;

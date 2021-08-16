@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.Data.Models.Enumerations
+﻿namespace ConcreteProducts.Data.Models.Enumerations
 {
     public enum UnitOfMeasurement
     {

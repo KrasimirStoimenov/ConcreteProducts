@@ -1,7 +1,8 @@
 ﻿namespace ConcreteProducts.Web.Services.Products
 {
     using System.Collections.Generic;
-    using ConcreteProducts.Web.Data.Models.Enumerations;
+
+    using ConcreteProducts.Data.Models.Enumerations;
     using ConcreteProducts.Web.Services.Products.Models;
 
     public interface IProductService

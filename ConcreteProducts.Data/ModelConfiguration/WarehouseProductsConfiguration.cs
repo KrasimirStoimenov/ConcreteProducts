@@ -1,8 +1,8 @@
-﻿namespace ConcreteProducts.Web.Data.ModelConfiguration
+﻿namespace ConcreteProducts.Data.ModelConfiguration
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using ConcreteProducts.Web.Data.Models;
+    using ConcreteProducts.Data.Models;
 
     public class WarehouseProductsConfiguration : IEntityTypeConfiguration<WarehouseProductColors>
     {

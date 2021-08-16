@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConcreteProducts.Web", "ConcreteProducts.Web\ConcreteProducts.Web.csproj", "{A553C900-5C15-49D7-865B-E5C1393E0DF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcreteProducts.Test", "ConcreteProducts.Test\ConcreteProducts.Test.csproj", "{E00E5EBA-6B0A-4685-9FA2-198095BA4363}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConcreteProducts.Test", "ConcreteProducts.Test\ConcreteProducts.Test.csproj", "{E00E5EBA-6B0A-4685-9FA2-198095BA4363}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcreteProducts.Data", "ConcreteProducts.Data\ConcreteProducts.Data.csproj", "{BF5017CC-FD86-4A8C-B625-21A27DE038EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E00E5EBA-6B0A-4685-9FA2-198095BA4363}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E00E5EBA-6B0A-4685-9FA2-198095BA4363}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E00E5EBA-6B0A-4685-9FA2-198095BA4363}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF5017CC-FD86-4A8C-B625-21A27DE038EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF5017CC-FD86-4A8C-B625-21A27DE038EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF5017CC-FD86-4A8C-B625-21A27DE038EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF5017CC-FD86-4A8C-B625-21A27DE038EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

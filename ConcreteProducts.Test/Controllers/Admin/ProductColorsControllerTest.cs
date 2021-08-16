@@ -4,7 +4,7 @@
     using FluentAssertions;
     using MyTested.AspNetCore.Mvc;
 
-    using ConcreteProducts.Web.Data.Models;
+    using ConcreteProducts.Data.Models;
     using ConcreteProducts.Web.Areas.Admin.Models.ProductColors;
 
     using ProductColorsController = Web.Areas.Admin.Controllers.ProductColorsController;

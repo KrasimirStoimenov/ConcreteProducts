@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using ConcreteProducts.Web.Data;
-    using ConcreteProducts.Web.Data.Models;
+    using ConcreteProducts.Data;
+    using ConcreteProducts.Data.Models;
     using ConcreteProducts.Web.Services.Colors.Models;
     using ConcreteProducts.Web.Services.ProductColors.Model;
 

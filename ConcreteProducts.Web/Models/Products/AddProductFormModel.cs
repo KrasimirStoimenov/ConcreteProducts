@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using ConcreteProducts.Web.Data.Models.Enumerations;
+    using ConcreteProducts.Data.Models.Enumerations;
     using ConcreteProducts.Web.Services.Colors.Models;
     using ConcreteProducts.Web.Services.Categories.Models;
     using ConcreteProducts.Web.Services.Warehouses.Models;

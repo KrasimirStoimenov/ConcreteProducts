@@ -2,13 +2,16 @@
 {
     using System.Linq;
     using System.Collections.Generic;
-    using ConcreteProducts.Web.Data.Models;
-    using ConcreteProducts.Web.Data;
-    using ConcreteProducts.Web.Services.Products;
+
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    
+    using ConcreteProducts.Data;
+    using ConcreteProducts.Data.Models;
+    using ConcreteProducts.Web.Services.Products;
     using ConcreteProducts.Web.Services.WarehouseProducts.Models;
-    using static ConcreteProducts.Web.Data.DataConstants;
+
+    using static ConcreteProducts.Data.DataConstants;
 
     public class WarehouseProductService : IWarehouseProductService
     {

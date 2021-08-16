@@ -5,7 +5,7 @@
 
     using AutoMapper;
 
-    using ConcreteProducts.Web.Data.Models;
+    using ConcreteProducts.Data.Models;
     using ConcreteProducts.Web.Services.Colors.Models;
     using ConcreteProducts.Web.Services.Shapes.Models;
     using ConcreteProducts.Web.Services.Products.Models;

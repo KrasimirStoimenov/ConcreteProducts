@@ -5,10 +5,10 @@
     using MyTested.AspNetCore.Mvc;
 
     using ConcreteProducts.Web.Controllers;
-    using ConcreteProducts.Web.Data.Models;
+    using ConcreteProducts.Data.Models;
     using ConcreteProducts.Web.Models.Products;
+    using ConcreteProducts.Data.Models.Enumerations;
     using ConcreteProducts.Web.Services.Products.Models;
-    using ConcreteProducts.Web.Data.Models.Enumerations;
 
     using static Web.GlobalConstants;
 

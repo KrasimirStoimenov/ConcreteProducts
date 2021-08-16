@@ -1,9 +1,10 @@
-﻿namespace ConcreteProducts.Web.Data
+﻿namespace ConcreteProducts.Data
 {
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using ConcreteProducts.Web.Data.ModelConfiguration;
-    using ConcreteProducts.Web.Data.Models;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
+    using ConcreteProducts.Data.ModelConfiguration;
+    using ConcreteProducts.Data.Models;
 
     public class ConcreteProductsDbContext : IdentityDbContext
     {

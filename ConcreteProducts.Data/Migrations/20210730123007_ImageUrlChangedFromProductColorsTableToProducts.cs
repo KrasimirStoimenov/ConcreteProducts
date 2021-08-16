@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace ConcreteProducts.Web.Data.Migrations
+﻿namespace ConcreteProducts.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class ImageUrlChangedFromProductColorsTableToProducts : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

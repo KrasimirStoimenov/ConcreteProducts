@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace ConcreteProducts.Web.Data.Migrations
+﻿namespace ConcreteProducts.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class CategoryProductsAndColorsTablesAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

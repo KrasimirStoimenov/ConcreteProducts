@@ -1,8 +1,9 @@
-﻿namespace ConcreteProducts.Web.Data.Models
+﻿namespace ConcreteProducts.Data.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using ConcreteProducts.Web.Data.Models.Enumerations;
+
+    using ConcreteProducts.Data.Models.Enumerations;
 
     using static DataConstants.Product;
 

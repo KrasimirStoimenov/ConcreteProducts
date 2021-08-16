@@ -9,9 +9,9 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
 
-    using ConcreteProducts.Web.Data;
-    using ConcreteProducts.Web.Data.Models;
-    using ConcreteProducts.Web.Data.Models.Enumerations;
+    using ConcreteProducts.Data;
+    using ConcreteProducts.Data.Models;
+    using ConcreteProducts.Data.Models.Enumerations;
 
     using static GlobalConstants;
 

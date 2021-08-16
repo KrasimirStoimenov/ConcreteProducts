@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.Data.Migrations
+﻿namespace ConcreteProducts.Data.Migrations
 {
     using System;
     using Microsoft.EntityFrameworkCore.Metadata;

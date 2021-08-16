@@ -2,13 +2,14 @@
 {
     using System.Linq;
     using System.Collections.Generic;
-    using Microsoft.EntityFrameworkCore;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using ConcreteProducts.Web.Data;
-    using ConcreteProducts.Web.Data.Models;
+    using Microsoft.EntityFrameworkCore;
+
+    using ConcreteProducts.Data;
+    using ConcreteProducts.Data.Models;
+    using ConcreteProducts.Data.Models.Enumerations;
     using ConcreteProducts.Web.Services.Products.Models;
-    using ConcreteProducts.Web.Data.Models.Enumerations;
 
     public class ProductService : IProductService
     {

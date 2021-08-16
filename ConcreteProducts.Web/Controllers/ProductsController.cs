@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
 
-    using ConcreteProducts.Web.Data;
+    using ConcreteProducts.Data;
     using ConcreteProducts.Web.Models.Products;
     using ConcreteProducts.Web.Services.Products;
     using ConcreteProducts.Web.Services.Colors;

@@ -2,11 +2,13 @@
 {
     using System.Linq;
     using System.Collections.Generic;
+
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using ConcreteProducts.Web.Data;
+
+    using ConcreteProducts.Data;
+    using ConcreteProducts.Data.Models;
     using ConcreteProducts.Web.Services.Shapes.Models;
-    using ConcreteProducts.Web.Data.Models;
 
     public class ShapeService : IShapeService
     {

@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.Data
+﻿namespace ConcreteProducts.Data
 {
     public class DataConstants
     {

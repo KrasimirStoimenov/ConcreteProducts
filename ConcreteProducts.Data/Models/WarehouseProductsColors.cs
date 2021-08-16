@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.Data.Models
+﻿namespace ConcreteProducts.Data.Models
 {
     public class WarehouseProductColors
     {
