@@ -1,43 +1,20 @@
-﻿@{ ViewBag.Title = "Chat Room"; }
+﻿@{
+    ViewBag.Title = "Chat Room";
+}
 
+<h2 class="headingMargin text-center">@ViewBag.Title</h2>
 <div class="container">
     <div id="message-holder" class="mt-3 d-flex justify-content-start">
-        <h4>Message</h4>
+        <h2>Message</h2>
         <input class="w-75 ml-4 pl-3" type="text" id="messageInput" placeholder="Message..." />
-        <button id="sendButton" class="ml-4 btn btn-dark btn-lg">Send</button>
+        <button id="sendButton" class="ml-4 btn btn-info btn-lg">Send</button>
     </div>
-    <hr style="height: 5px;" class="bg-dark" />
+    <hr style="height: 5px;" class="bg-info" />
     <div id="messagesList" style="font-size: 28px;">
     </div>
 </div>
 
 @section Scripts{
-    <script>
-
-
-        var connection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
-
-        connection.on("NewMessage", function (message) {
-            var msg = message.text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-            var encodedMsg = "[" + message.user + "]: " + msg;
-
-            var messageElement = document.createElement("h3");
-            messageElement.textContent = encodedMsg;
-            document.getElementById("messagesList")
-                .appendChild(messageElement);
-        });
-
-        connection.start().catch(function (err) {
-            return console.error(err.toString());
-        });
-
-        document.getElementById("sendButton").addEventListener("click", function (event) {
-            var message = document.getElementById("messageInput").value;
-            connection.invoke("Send", message).catch(function (err) {
-                return console.error(err.toString());
-            });
-            event.preventDefault();
-        });
-    </script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js" asp-append-version="true"></script>
+    <script src="~/js/chat.js" asp-append-version="true"></script>
 }

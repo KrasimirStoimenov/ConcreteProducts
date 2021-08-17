@@ -12,7 +12,7 @@
         public async Task Send(string message)
         {
             await this.Clients.All.SendAsync(
-                "NewMessage",
+                "ReceiveMessage",
                 new MessageViewModel
                 {
                     Text = message,
