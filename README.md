@@ -1,6 +1,8 @@
 # ConcreteProducts
 Softuni ASP.NET Core MVC course final project which uses best practices and architecture for web application.
 
+Project is deployed in Azure on address: https://concreteproducts.azurewebsites.net/
+
 # Used tehnologies:
 <ul>
   <li>1..NET 5</li>
