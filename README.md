@@ -7,9 +7,10 @@ Softuni ASP.NET Core course final project which uses best practices for and arch
   <li>2.ASP.NET Core 5 MVC</li>
   <li>3.Entity Framework Core</li>
   <li>4.MSSQL Server</li>
-  <li>5.Auto-Mapper</li>
-  <li>6.Bootstrap</li>
-  <li>7.NUnit</li>
-  <li>8.MyTested.AspNetCore.Mvc</li>
-  <li>9.FluentAssertions</li>
+  <li>5.SignalR</li>
+  <li>6.Auto-Mapper</li>
+  <li>7.Bootstrap</li>
+  <li>8.NUnit</li>
+  <li>9.MyTested.AspNetCore.Mvc</li>
+  <li>10.FluentAssertions</li>
 </ul>
