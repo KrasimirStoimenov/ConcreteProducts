@@ -1,10 +1,12 @@
-﻿namespace ConcreteProducts.Web.Models.Chat
+﻿namespace ConcreteProducts.Web.Services.Chats.Models
 {
     using System;
 
-    public class MessageViewModel
+    public class MessageServiceModel
     {
         public string Text { get; init; }
+
+        public string UserId { get; init; }
 
         public string Username { get; init; }
 

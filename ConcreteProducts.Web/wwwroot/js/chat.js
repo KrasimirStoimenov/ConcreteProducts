@@ -3,10 +3,17 @@
     .withUrl("/chat")
     .build();
 
+$('.scroll').scrollTop($('.scroll')[0].scrollHeight);
+
 connection.on("ReceiveMessage",
     function (message) {
-        var chatInfo = `<div>[${(message.username)}] ${escapeSpecialCharacters(message.text)}</div>`;
+        var date = new Date(message.publishedOn);
+        var chatInfo = `<div id="messagesList" style="font-size: 20px;" class="chatContainer">
+                    <p><span class="font-weight-bold">[${message.username}]</span> - ${message.text}</p>
+                    <span class="time-left">${date.toLocaleString()}</span>
+                </div>`;
         $('#messagesList').append(chatInfo);
+        $('.scroll').scrollTop($('.scroll')[0].scrollHeight);
     });
 
 $('#sendButton').click(function () {

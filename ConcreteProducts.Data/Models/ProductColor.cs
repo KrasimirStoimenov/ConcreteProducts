@@ -4,7 +4,7 @@
 
     public class ProductColor
     {
-        public int ProductColorId { get; set; }
+        public int ProductColorId { get; init; }
 
         public int ProductId { get; set; }
         public Product Product { get; init; }

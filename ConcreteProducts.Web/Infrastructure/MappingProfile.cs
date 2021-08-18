@@ -13,6 +13,7 @@
     using ConcreteProducts.Web.Services.Warehouses.Models;
     using ConcreteProducts.Web.Services.ProductColors.Model;
     using ConcreteProducts.Web.Services.WarehouseProducts.Models;
+    using ConcreteProducts.Web.Services.Chats.Models;
 
     public class MappingProfile : Profile
     {
@@ -54,6 +55,8 @@
                 .ForMember(wp => wp.ProductColorName, cfg => cfg.MapFrom(wp => $"{wp.ProductColor.Product.Name} - {wp.ProductColor.Color.Name}"))
                 .ForMember(wp => wp.TotalUnitOfMeasurement, cfg => cfg.MapFrom(wp => $"{wp.Count / wp.ProductColor.Product.CountInUnitOfMeasurement:F2} {wp.ProductColor.Product.UnitOfMeasurement.ToString()}"))
                 .ForMember(wp => wp.Pallets, cfg => cfg.MapFrom(wp => (int)Math.Ceiling(wp.Count / wp.ProductColor.Product.QuantityInPalletInPieces)));
+
+            this.CreateMap<ChatMessage, MessageServiceModel>();
         }
     }
 }

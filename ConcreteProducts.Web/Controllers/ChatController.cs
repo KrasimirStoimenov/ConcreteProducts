@@ -3,10 +3,18 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using ConcreteProducts.Web.Services.Chats;
+    using System.Linq;
+
     [Authorize]
     public class ChatController : Controller
     {
+        private readonly IChatService chatService;
+
+        public ChatController(IChatService chatService)
+            => this.chatService = chatService;
+
         public IActionResult Chat()
-            => View();
+            => View(this.chatService.GetAllMessages());
     }
 }

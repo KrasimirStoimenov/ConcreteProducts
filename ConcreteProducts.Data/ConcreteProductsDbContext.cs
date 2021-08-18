@@ -20,6 +20,7 @@
         public DbSet<Shape> Shapes { get; init; }
         public DbSet<Warehouse> Warehouses { get; init; }
         public DbSet<WarehouseProductColors> WarehouseProductColors { get; init; }
+        public DbSet<ChatMessage> ChatMessages { get; init; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

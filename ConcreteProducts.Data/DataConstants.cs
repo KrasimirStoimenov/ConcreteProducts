@@ -65,5 +65,10 @@
             public const int CountMaxValue = int.MaxValue;
         }
 
+        public class ChatMessages
+        {
+            public const int MessageTextMinLength = 2;
+            public const int MessageTextMaxLength = 250;
+        }
     }
 }

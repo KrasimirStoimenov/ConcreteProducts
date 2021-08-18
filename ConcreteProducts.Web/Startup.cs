@@ -18,6 +18,7 @@ namespace ConcreteProducts.Web
     using ConcreteProducts.Web.Services.Shapes;
     using ConcreteProducts.Web.Services.ProductColors;
     using ConcreteProducts.Web.Services.WarehouseProducts;
+    using ConcreteProducts.Web.Services.Chats;
 
     public class Startup
     {
@@ -56,6 +57,7 @@ namespace ConcreteProducts.Web
             services.AddAutoMapper(typeof(Startup));
             services.AddSignalR();
 
+            services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IShapeService, ShapeService>();
             services.AddTransient<IColorService, ColorService>();
             services.AddTransient<IProductService, ProductService>();
