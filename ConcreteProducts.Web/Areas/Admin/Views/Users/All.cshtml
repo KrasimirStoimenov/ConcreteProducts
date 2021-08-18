@@ -22,10 +22,6 @@
             <tbody>
                 @{
                     var lineCounter = 1;
-                    if (Model.PageNumber != 1)
-                    {
-                        lineCounter = Model.PreviousPageNumber * Model.ItemsPerPage + 1;
-                    }
 
                     foreach (var user in Model)
                     {
