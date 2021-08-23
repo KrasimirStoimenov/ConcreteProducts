@@ -1,6 +1,7 @@
 namespace ConcreteProducts.Web
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -53,6 +54,13 @@ namespace ConcreteProducts.Web
                     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 });
 
+            services
+                .Configure<CookiePolicyOptions>(options =>
+                {
+                    options.CheckConsentNeeded = context => true;
+                    options.MinimumSameSitePolicy = SameSiteMode.None;
+                });
+
             services.AddMemoryCache();
             services.AddAutoMapper(typeof(Startup));
             services.AddSignalR();
@@ -85,6 +93,7 @@ namespace ConcreteProducts.Web
             app
                 .UseHttpsRedirection()
                 .UseStaticFiles()
+                .UseCookiePolicy()
                 .UseRouting()
                 .UseAuthentication()
                 .UseAuthorization()

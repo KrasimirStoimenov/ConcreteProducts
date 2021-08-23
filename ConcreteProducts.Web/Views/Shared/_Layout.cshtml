@@ -32,6 +32,7 @@
         </nav>
     </header>
     <div class="container">
+        <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -39,8 +40,10 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
+            <a class="mr-2" asp-controller="Home" asp-action="Privacy">Privacy</a>
             &copy; @DateTime.UtcNow.Year - Concrete Products
         </div>
+
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

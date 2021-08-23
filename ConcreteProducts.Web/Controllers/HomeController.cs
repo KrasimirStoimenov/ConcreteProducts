@@ -25,6 +25,11 @@
             this.cache = cache;
         }
 
+        public IActionResult Privacy()
+        {
+            return this.View();
+        }
+
         public IActionResult Index()
         {
             if (this.User.IsInRole(AdministratorRoleName))
