@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using ConcreteProducts.Web.Models;
-    using ConcreteProducts.Web.Services.Colors.Models;
+    using ConcreteProducts.Services.Colors.Models;
 
     public class ListAllColorsViewModel : PagingViewModel
     {

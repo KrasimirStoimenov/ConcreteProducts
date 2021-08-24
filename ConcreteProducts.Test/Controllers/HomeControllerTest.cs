@@ -6,7 +6,7 @@
     using MyTested.AspNetCore.Mvc;
 
     using ConcreteProducts.Web.Controllers;
-    using ConcreteProducts.Web.Services.Products.Models;
+    using ConcreteProducts.Services.Products.Models;
 
     using static Web.GlobalConstants;
 

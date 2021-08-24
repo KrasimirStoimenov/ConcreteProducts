@@ -3,7 +3,7 @@
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
 
-    using ConcreteProducts.Web.Services.Warehouses;
+    using ConcreteProducts.Services.Warehouses;
     using ConcreteProducts.Web.Areas.Admin.Models.Warehouses;
 
     using static GlobalConstants;

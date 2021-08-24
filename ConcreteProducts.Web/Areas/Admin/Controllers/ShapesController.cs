@@ -3,8 +3,8 @@
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
 
-    using ConcreteProducts.Web.Services.Shapes;
-    using ConcreteProducts.Web.Services.Warehouses;
+    using ConcreteProducts.Services.Shapes;
+    using ConcreteProducts.Services.Warehouses;
     using ConcreteProducts.Web.Areas.Admin.Models.Shapes;
 
     using static GlobalConstants;

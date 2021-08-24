@@ -9,8 +9,8 @@
     using Microsoft.Extensions.Caching.Memory;
 
     using ConcreteProducts.Web.Models;
-    using ConcreteProducts.Web.Services.Products;
-    using ConcreteProducts.Web.Services.Products.Models;
+    using ConcreteProducts.Services.Products;
+    using ConcreteProducts.Services.Products.Models;
 
     using static GlobalConstants;
 

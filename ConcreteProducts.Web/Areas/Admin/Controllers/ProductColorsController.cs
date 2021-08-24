@@ -2,9 +2,9 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    using ConcreteProducts.Web.Services.Colors;
-    using ConcreteProducts.Web.Services.Products;
-    using ConcreteProducts.Web.Services.ProductColors;
+    using ConcreteProducts.Services.Colors;
+    using ConcreteProducts.Services.Products;
+    using ConcreteProducts.Services.ProductColors;
     using ConcreteProducts.Web.Areas.Admin.Models.ProductColors;
 
     public class ProductColorsController : AdminController

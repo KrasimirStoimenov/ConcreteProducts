@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using ConcreteProducts.Web.Models;
-    using ConcreteProducts.Web.Services.Shapes.Models;
+    using ConcreteProducts.Services.Shapes.Models;
 
     public class ListAllShapesViewModel : PagingViewModel
     {

@@ -12,14 +12,14 @@ namespace ConcreteProducts.Web
 
     using ConcreteProducts.Data;
     using ConcreteProducts.Web.Infrastructure;
-    using ConcreteProducts.Web.Services.Categories;
-    using ConcreteProducts.Web.Services.Colors;
-    using ConcreteProducts.Web.Services.Products;
-    using ConcreteProducts.Web.Services.Warehouses;
-    using ConcreteProducts.Web.Services.Shapes;
-    using ConcreteProducts.Web.Services.ProductColors;
-    using ConcreteProducts.Web.Services.WarehouseProducts;
-    using ConcreteProducts.Web.Services.Chats;
+    using ConcreteProducts.Services.Categories;
+    using ConcreteProducts.Services.Colors;
+    using ConcreteProducts.Services.Products;
+    using ConcreteProducts.Services.Warehouses;
+    using ConcreteProducts.Services.Shapes;
+    using ConcreteProducts.Services.ProductColors;
+    using ConcreteProducts.Services.WarehouseProducts;
+    using ConcreteProducts.Services.Chats;
 
     public class Startup
     {

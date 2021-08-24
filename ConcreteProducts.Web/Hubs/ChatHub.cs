@@ -6,8 +6,8 @@
     using Microsoft.AspNetCore.SignalR;
     using Microsoft.AspNetCore.Identity;
 
-    using ConcreteProducts.Web.Services.Chats.Models;
-    using ConcreteProducts.Web.Services.Chats;
+    using ConcreteProducts.Services.Chats.Models;
+    using ConcreteProducts.Services.Chats;
 
     using static Data.DataConstants.ChatMessages;
 

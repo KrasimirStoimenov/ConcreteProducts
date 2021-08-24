@@ -3,7 +3,7 @@
     using System.Linq;
     using Microsoft.AspNetCore.Mvc;
 
-    using ConcreteProducts.Web.Services.Categories;
+    using ConcreteProducts.Services.Categories;
     using ConcreteProducts.Web.Areas.Admin.Models.Categories;
 
     using static GlobalConstants;

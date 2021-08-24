@@ -8,7 +8,7 @@
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Web.Models.Products;
     using ConcreteProducts.Data.Models.Enumerations;
-    using ConcreteProducts.Web.Services.Products.Models;
+    using ConcreteProducts.Services.Products.Models;
 
     using static Web.GlobalConstants;
 

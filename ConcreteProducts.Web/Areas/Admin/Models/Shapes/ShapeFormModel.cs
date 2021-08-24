@@ -2,7 +2,8 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using ConcreteProducts.Web.Services.Warehouses.Models;
+
+    using ConcreteProducts.Services.Warehouses.Models;
 
     using static Data.DataConstants.Shape;
     using static Data.DataConstants.ErrorMessages;

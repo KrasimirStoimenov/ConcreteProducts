@@ -5,7 +5,7 @@
     using MyTested.AspNetCore.Mvc;
 
     using ConcreteProducts.Data.Models;
-    using ConcreteProducts.Web.Services.Categories.Models;
+    using ConcreteProducts.Services.Categories.Models;
     using ConcreteProducts.Web.Areas.Admin.Models.Categories;
 
     using CategoriesController = Web.Areas.Admin.Controllers.CategoriesController;

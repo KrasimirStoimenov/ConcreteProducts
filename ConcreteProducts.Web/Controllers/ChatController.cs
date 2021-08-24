@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using ConcreteProducts.Web.Services.Chats;
+    using ConcreteProducts.Services.Chats;
     using System.Linq;
 
     [Authorize]
