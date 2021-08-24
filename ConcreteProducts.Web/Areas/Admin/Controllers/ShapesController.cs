@@ -100,11 +100,6 @@
                 this.ModelState.AddModelError(nameof(shape.Name), notExistingShapeErrorMessage);
             }
 
-            if (this.shapeService.HasShapeWithSameName(shape.Name))
-            {
-                this.ModelState.AddModelError(nameof(shape.Name), takenShapeNameErrorMessage);
-            }
-
             if (!ModelState.IsValid)
             {
                 shape.Warehouses = this.warehouseService.GetAllWarehouses();

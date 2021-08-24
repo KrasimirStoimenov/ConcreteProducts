@@ -20,6 +20,7 @@ namespace ConcreteProducts.Web
     using ConcreteProducts.Services.ProductColors;
     using ConcreteProducts.Services.WarehouseProducts;
     using ConcreteProducts.Services.Chats;
+    using ConcreteProducts.Services.AutoMappingProfile;
 
     public class Startup
     {
@@ -49,20 +50,25 @@ namespace ConcreteProducts.Web
                 .AddEntityFrameworkStores<ConcreteProductsDbContext>();
 
             services
-                .AddControllersWithViews(options =>
-                {
-                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                });
-
-            services
                 .Configure<CookiePolicyOptions>(options =>
                 {
                     options.CheckConsentNeeded = context => true;
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 });
 
+            services
+                .AddControllersWithViews(options =>
+                {
+                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                });
+
+            services
+                .AddAutoMapper(options =>
+                {
+                    options.AddProfile<MappingProfile>();
+                });
+
             services.AddMemoryCache();
-            services.AddAutoMapper(typeof(Startup));
             services.AddSignalR();
 
             services.AddTransient<IChatService, ChatService>();
