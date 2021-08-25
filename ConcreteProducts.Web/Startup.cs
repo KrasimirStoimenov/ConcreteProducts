@@ -92,11 +92,12 @@ namespace ConcreteProducts.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/StatusCodeErrorPage");
                 app.UseHsts();
             }
 
             app
+                .UseStatusCodePagesWithReExecute("/Home/StatusCodeErrorPage")
                 .UseHttpsRedirection()
                 .UseStaticFiles()
                 .UseCookiePolicy()

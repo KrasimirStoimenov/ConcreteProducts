@@ -25,11 +25,6 @@
             this.cache = cache;
         }
 
-        public IActionResult Privacy()
-        {
-            return this.View();
-        }
-
         public IActionResult Index()
         {
             if (this.User.IsInRole(AdministratorRoleName))
@@ -54,6 +49,16 @@
 
 
             return View(latestProducts);
+        }
+
+        public IActionResult Privacy()
+        {
+            return this.View();
+        }
+
+        public IActionResult StatusCodeErrorPage(int errorCode)
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
