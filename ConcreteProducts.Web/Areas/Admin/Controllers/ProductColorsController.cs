@@ -6,6 +6,7 @@
     using ConcreteProducts.Web.Services.Products;
     using ConcreteProducts.Web.Services.ProductColors;
     using ConcreteProducts.Web.Areas.Admin.Models.ProductColors;
+    using System.Threading.Tasks;
 
     public class ProductColorsController : AdminController
     {
@@ -28,9 +29,9 @@
             });
 
         [HttpPost]
-        public IActionResult Add(AddColorToProductFormModel model)
+        public async Task<IActionResult> Add(AddColorToProductFormModel model)
         {
-            if (!productService.IsProductExist(model.ProductId))
+            if (!await productService.IsProductExistAsync(model.ProductId))
             {
                 ModelState.AddModelError(nameof(model.ProductId), $"Product does not exist.");
             }

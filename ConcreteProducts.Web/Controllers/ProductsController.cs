@@ -1,6 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
     using System.Linq;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
@@ -30,14 +31,14 @@
             this.categoryService = categoryService;
         }
 
-        public IActionResult All(string searchTerm, int page = 1)
+        public async Task<IActionResult> All(string searchTerm, int page = 1)
         {
             if (searchTerm != null)
             {
                 page = 1;
             }
 
-            var products = this.productService.GetAllListingProducts(searchTerm);
+            var products = await this.productService.GetAllListingProductsAsync(searchTerm);
 
             var productsViewModel = new ListAllProductsViewModel
             {
@@ -61,9 +62,9 @@
 
         [Authorize(Roles = AdministratorRoleName)]
         [HttpPost]
-        public IActionResult Add(AddProductFormModel product)
+        public async Task<IActionResult> Add(AddProductFormModel product)
         {
-            this.ValidateCollections(product);
+            await this.ValidateCollections(product);
 
             if (!ModelState.IsValid)
             {
@@ -73,7 +74,7 @@
                 return View(product);
             }
 
-            this.productService.Create(
+            await this.productService.CreateAsync(
                 product.Name,
                 product.Dimensions,
                 product.QuantityInPalletInUnitOfMeasurement,
@@ -88,41 +89,41 @@
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (!this.productService.IsProductExist(id))
+            if (!await this.productService.IsProductExistAsync(id))
             {
                 return BadRequest(notExistingProduct);
             }
 
-            var productDetails = this.productService.GetProductDetails(id);
+            var productDetails = await this.productService.GetProductDetailsAsync(id);
 
             return View(productDetails);
         }
 
         [Authorize(Roles = AdministratorRoleName)]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (!this.productService.IsProductExist(id))
+            if (!await this.productService.IsProductExistAsync(id))
             {
                 return BadRequest(notExistingProduct);
             }
 
-            var product = this.productService.GetProductToDeleteById(id);
+            var product = await this.productService.GetProductToDeleteByIdAsync(id);
 
             return View(product);
         }
 
         [Authorize(Roles = AdministratorRoleName)]
         [HttpPost]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            this.productService.DeleteProduct(id);
+            await this.productService.DeleteProductAsync(id);
 
             return RedirectToAction(nameof(All));
         }
 
-        private void ValidateCollections(AddProductFormModel product)
+        private async Task ValidateCollections(AddProductFormModel product)
         {
             if (!this.categoryService.IsCategoryExist(product.CategoryId))
             {
@@ -134,7 +135,7 @@
                 this.ModelState.AddModelError(nameof(product.ColorId), $"Color does not exist.");
             }
 
-            if (this.productService.HasProductWithSameNameAndDimensions(product.Name, product.Dimensions))
+            if (await this.productService.HasProductWithSameNameAndDimensionsAsync(product.Name, product.Dimensions))
             {
                 this.ModelState.AddModelError(nameof(product.Name), existProductWithSameParameters);
             }

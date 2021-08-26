@@ -29,7 +29,7 @@
 
             var user = await this.userManager.GetUserAsync(this.Context.User);
 
-            this.chatService.Create(message, user.UserName, user.Id);
+            await this.chatService.CreateAsync(message, user.UserName, user.Id);
 
             await this.Clients.All.SendAsync(
                 "ReceiveMessage",

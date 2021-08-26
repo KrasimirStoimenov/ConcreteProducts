@@ -1,7 +1,9 @@
 ﻿namespace ConcreteProducts.Web.Services.Products
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Collections.Generic;
+
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
@@ -22,7 +24,7 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<ProductListingServiceModel> GetAllListingProducts(string searchTerm)
+        public async Task<IEnumerable<ProductListingServiceModel>> GetAllListingProductsAsync(string searchTerm)
         {
             var productQuery = this.data.Products.AsQueryable();
 
@@ -31,34 +33,34 @@
                 productQuery = productQuery.Where(p => p.Name.Contains(searchTerm) || p.Dimensions.Contains(searchTerm));
             }
 
-            var products = productQuery
+            var products = await productQuery
                 .OrderByDescending(p => p.Id)
                 .ProjectTo<ProductListingServiceModel>(this.mapper.ConfigurationProvider)
-                .ToList();
+                .ToListAsync();
 
             return products;
         }
 
-        public List<ProductListingServiceModel> GetLatestProducts()
-            => this.data.Products
+        public async Task<List<ProductListingServiceModel>> GetLatestProductsAsync()
+            => await this.data.Products
                 .OrderByDescending(i => i.Id)
                 .ProjectTo<ProductListingServiceModel>(this.mapper.ConfigurationProvider)
                 .Take(6)
-                .ToList();
+                .ToListAsync();
 
-        public ProductDetailsServiceModel GetProductDetails(int id)
-            => this.data.Products
+        public async Task<ProductDetailsServiceModel> GetProductDetailsAsync(int id)
+            => await this.data.Products
                 .Where(p => p.Id == id)
                 .ProjectTo<ProductDetailsServiceModel>(this.mapper.ConfigurationProvider)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
-        public ProductBaseServiceModel GetProductToDeleteById(int id)
-            => this.data.Products
+        public async Task<ProductBaseServiceModel> GetProductToDeleteByIdAsync(int id)
+            => await this.data.Products
                 .Where(p => p.Id == id)
                 .ProjectTo<ProductBaseServiceModel>(this.mapper.ConfigurationProvider)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
-        public int Create(
+        public async Task<int> CreateAsync(
             string name,
             string dimensions,
             double quantityInPalletInUnitOfMeasurement,
@@ -89,39 +91,39 @@
             });
 
 
-            this.data.Products.Add(product);
-            this.data.SaveChanges();
+            await this.data.Products.AddAsync(product);
+            await this.data.SaveChangesAsync();
 
             return product.Id;
         }
 
-        public bool IsProductExist(int id)
-            => this.data.Products.Any(p => p.Id == id);
+        public async Task<bool> IsProductExistAsync(int id)
+            => await this.data.Products.AnyAsync(p => p.Id == id);
 
-        public bool HasProductWithSameNameAndDimensions(string name, string dimensions)
-            => this.data.Products
-                .Any(p => p.Name == name && p.Dimensions == dimensions);
+        public async Task<bool> HasProductWithSameNameAndDimensionsAsync(string name, string dimensions)
+            => await this.data.Products
+                .AnyAsync(p => p.Name == name && p.Dimensions == dimensions);
 
-        public void DeleteProduct(int id)
+        public async Task DeleteProductAsync(int id)
         {
-            var product = this.data.Products
+            var product = await this.data.Products
                 .Include(p => p.ProductColors)
-                .FirstOrDefault(p => p.Id == id);
+                .FirstOrDefaultAsync(p => p.Id == id);
 
-            var colorsRelatedToProduct = this.data.ProductColors
+            var colorsRelatedToProduct = await this.data.ProductColors
                 .Where(c => c.Product == product)
-                .Select(c=>c.ProductColorId)
-                .ToList();
+                .Select(c => c.ProductColorId)
+                .ToListAsync();
 
-            var warehouseProductColors = this.data.WarehouseProductColors
+            var warehouseProductColors = await this.data.WarehouseProductColors
                 .Where(c => colorsRelatedToProduct.Contains(c.ProductColorId))
-                .ToList();
+                .ToListAsync();
 
 
             this.data.WarehouseProductColors.RemoveRange(warehouseProductColors);
             this.data.ProductColors.RemoveRange(product.ProductColors);
             this.data.Products.Remove(product);
-            this.data.SaveChanges();
+            await this.data.SaveChangesAsync();
         }
 
     }

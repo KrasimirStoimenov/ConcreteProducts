@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Diagnostics;
+    using System.Threading.Tasks;
     using System.Collections.Generic;
 
     using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,7 @@
             return this.View();
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             if (this.User.IsInRole(AdministratorRoleName))
             {
@@ -42,9 +43,8 @@
 
             if (latestProducts == null)
             {
-                latestProducts = this.productService
-                    .GetLatestProducts()
-                    .ToList();
+                latestProducts = await this.productService
+                    .GetLatestProductsAsync();
 
                 var cacheOptions = new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(TimeSpan.FromMinutes(10));

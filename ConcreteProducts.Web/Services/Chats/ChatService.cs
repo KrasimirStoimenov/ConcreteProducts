@@ -1,11 +1,12 @@
 ﻿namespace ConcreteProducts.Web.Services.Chats
 {
     using System;
-    using System.Linq;
+    using System.Threading.Tasks;
     using System.Collections.Generic;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Microsoft.EntityFrameworkCore;
 
     using ConcreteProducts.Data;
     using ConcreteProducts.Data.Models;
@@ -22,7 +23,7 @@
             this.mapper = mapper;
         }
 
-        public void Create(string text, string username, string userId)
+        public async Task CreateAsync(string text, string username, string userId)
         {
             var message = new ChatMessage
             {
@@ -32,13 +33,13 @@
                 PublishedOn = DateTime.UtcNow,
             };
 
-            this.data.ChatMessages.Add(message);
-            this.data.SaveChanges();
+            await this.data.ChatMessages.AddAsync(message);
+            await this.data.SaveChangesAsync();
         }
 
-        public IEnumerable<MessageServiceModel> GetAllMessages()
-            => this.data.ChatMessages
+        public async Task<IEnumerable<MessageServiceModel>> GetAllMessagesAsync()
+            => await this.data.ChatMessages
                 .ProjectTo<MessageServiceModel>(this.mapper.ConfigurationProvider)
-                .ToList();
+                .ToListAsync();
     }
 }

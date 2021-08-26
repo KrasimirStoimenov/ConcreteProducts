@@ -1,10 +1,11 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using ConcreteProducts.Web.Services.Chats;
-    using System.Linq;
 
     [Authorize]
     public class ChatController : Controller
@@ -14,7 +15,7 @@
         public ChatController(IChatService chatService)
             => this.chatService = chatService;
 
-        public IActionResult Chat()
-            => View(this.chatService.GetAllMessages());
+        public async Task<IActionResult> Chat()
+            => View(await this.chatService.GetAllMessagesAsync());
     }
 }

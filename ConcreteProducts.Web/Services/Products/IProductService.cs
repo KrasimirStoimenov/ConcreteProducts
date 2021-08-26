@@ -1,21 +1,21 @@
 ﻿namespace ConcreteProducts.Web.Services.Products
 {
     using System.Collections.Generic;
-
+    using System.Threading.Tasks;
     using ConcreteProducts.Data.Models.Enumerations;
     using ConcreteProducts.Web.Services.Products.Models;
 
     public interface IProductService
     {
-        IEnumerable<ProductListingServiceModel> GetAllListingProducts(string searchTerm);
+        Task<IEnumerable<ProductListingServiceModel>> GetAllListingProductsAsync(string searchTerm);
 
-        List<ProductListingServiceModel> GetLatestProducts();
+        Task<List<ProductListingServiceModel>> GetLatestProductsAsync();
 
-        ProductDetailsServiceModel GetProductDetails(int id);
+        Task<ProductDetailsServiceModel> GetProductDetailsAsync(int id);
 
-        ProductBaseServiceModel GetProductToDeleteById(int id);
+        Task<ProductBaseServiceModel> GetProductToDeleteByIdAsync(int id);
 
-        int Create(string name,
+        Task<int> CreateAsync(string name,
             string dimensions,
             double quantityInPalletInUnitOfMeasurement,
             double quantityInPalletInPieces,
@@ -26,10 +26,10 @@
             int categoryId,
             int colorId);
 
-        bool IsProductExist(int id);
+        Task<bool> IsProductExistAsync(int id);
 
-        bool HasProductWithSameNameAndDimensions(string name, string dimensions);
+        Task<bool> HasProductWithSameNameAndDimensionsAsync(string name, string dimensions);
 
-        void DeleteProduct(int id);
+        Task DeleteProductAsync(int id);
     }
 }
