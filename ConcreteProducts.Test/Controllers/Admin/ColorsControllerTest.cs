@@ -5,7 +5,7 @@
     using MyTested.AspNetCore.Mvc;
 
     using ConcreteProducts.Data.Models;
-    using ConcreteProducts.Web.Services.Colors.Models;
+    using ConcreteProducts.Services.Colors.Models;
     using ConcreteProducts.Web.Areas.Admin.Models.Colors;
 
     using ColorController = Web.Areas.Admin.Controllers.ColorsController;

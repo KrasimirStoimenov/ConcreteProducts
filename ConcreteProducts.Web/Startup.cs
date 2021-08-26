@@ -12,14 +12,15 @@ namespace ConcreteProducts.Web
 
     using ConcreteProducts.Data;
     using ConcreteProducts.Web.Infrastructure;
-    using ConcreteProducts.Web.Services.Categories;
-    using ConcreteProducts.Web.Services.Colors;
-    using ConcreteProducts.Web.Services.Products;
-    using ConcreteProducts.Web.Services.Warehouses;
-    using ConcreteProducts.Web.Services.Shapes;
-    using ConcreteProducts.Web.Services.ProductColors;
-    using ConcreteProducts.Web.Services.WarehouseProducts;
-    using ConcreteProducts.Web.Services.Chats;
+    using ConcreteProducts.Services.Categories;
+    using ConcreteProducts.Services.Colors;
+    using ConcreteProducts.Services.Products;
+    using ConcreteProducts.Services.Warehouses;
+    using ConcreteProducts.Services.Shapes;
+    using ConcreteProducts.Services.ProductColors;
+    using ConcreteProducts.Services.WarehouseProducts;
+    using ConcreteProducts.Services.Chats;
+    using ConcreteProducts.Services.AutoMappingProfile;
 
     public class Startup
     {
@@ -49,20 +50,25 @@ namespace ConcreteProducts.Web
                 .AddEntityFrameworkStores<ConcreteProductsDbContext>();
 
             services
-                .AddControllersWithViews(options =>
-                {
-                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                });
-
-            services
                 .Configure<CookiePolicyOptions>(options =>
                 {
                     options.CheckConsentNeeded = context => true;
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 });
 
+            services
+                .AddControllersWithViews(options =>
+                {
+                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                });
+
+            services
+                .AddAutoMapper(options =>
+                {
+                    options.AddProfile<MappingProfile>();
+                });
+
             services.AddMemoryCache();
-            services.AddAutoMapper(typeof(Startup));
             services.AddSignalR();
 
             services.AddTransient<IChatService, ChatService>();
@@ -86,11 +92,12 @@ namespace ConcreteProducts.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/StatusCodeErrorPage");
                 app.UseHsts();
             }
 
             app
+                .UseStatusCodePagesWithReExecute("/Home/StatusCodeErrorPage")
                 .UseHttpsRedirection()
                 .UseStaticFiles()
                 .UseCookiePolicy()

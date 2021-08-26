@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using ConcreteProducts.Web.Services.ProductColors.Model;
-    using ConcreteProducts.Web.Services.Warehouses.Models;
+    using ConcreteProducts.Services.ProductColors.Model;
+    using ConcreteProducts.Services.Warehouses.Models;
 
     using static Data.DataConstants.WarehouseProducts;
 

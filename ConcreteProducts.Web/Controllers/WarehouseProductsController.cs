@@ -4,9 +4,9 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
     using ConcreteProducts.Web.Models.WarehouseProducts;
-    using ConcreteProducts.Web.Services.WarehouseProducts;
-    using ConcreteProducts.Web.Services.Warehouses;
-    using ConcreteProducts.Web.Services.ProductColors;
+    using ConcreteProducts.Services.WarehouseProducts;
+    using ConcreteProducts.Services.Warehouses;
+    using ConcreteProducts.Services.ProductColors;
 
     using static GlobalConstants;
 

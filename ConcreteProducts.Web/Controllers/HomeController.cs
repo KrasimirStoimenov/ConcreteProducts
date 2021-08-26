@@ -10,8 +10,8 @@
     using Microsoft.Extensions.Caching.Memory;
 
     using ConcreteProducts.Web.Models;
-    using ConcreteProducts.Web.Services.Products;
-    using ConcreteProducts.Web.Services.Products.Models;
+    using ConcreteProducts.Services.Products;
+    using ConcreteProducts.Services.Products.Models;
 
     using static GlobalConstants;
 
@@ -54,6 +54,16 @@
 
 
             return View(latestProducts);
+        }
+
+        public IActionResult Privacy()
+        {
+            return this.View();
+        }
+
+        public IActionResult StatusCodeErrorPage(int errorCode)
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

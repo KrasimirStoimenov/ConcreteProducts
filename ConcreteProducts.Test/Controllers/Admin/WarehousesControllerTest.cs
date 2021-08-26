@@ -5,7 +5,7 @@
     using MyTested.AspNetCore.Mvc;
 
     using ConcreteProducts.Data.Models;
-    using ConcreteProducts.Web.Services.Warehouses.Models;
+    using ConcreteProducts.Services.Warehouses.Models;
     using ConcreteProducts.Web.Areas.Admin.Models.Warehouses;
 
     using WarehouseController = Web.Areas.Admin.Controllers.WarehousesController;

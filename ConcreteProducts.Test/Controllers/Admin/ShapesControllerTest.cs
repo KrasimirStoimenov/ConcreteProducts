@@ -5,7 +5,7 @@
     using MyTested.AspNetCore.Mvc;
 
     using ConcreteProducts.Data.Models;
-    using ConcreteProducts.Web.Services.Shapes.Models;
+    using ConcreteProducts.Services.Shapes.Models;
     using ConcreteProducts.Web.Areas.Admin.Models.Shapes;
 
     using ShapeController = Web.Areas.Admin.Controllers.ShapesController;

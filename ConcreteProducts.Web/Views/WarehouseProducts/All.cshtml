@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="row">
-        <h2 class="headingMargin text-center offset-md-3 col-md-6 col-sm-12">@ViewBag.Title</h2>
+        <h2 heading-tag>@ViewBag.Title</h2>
         @if (this.User.IsAdmin() || this.User.IsWorker())
         {
             <a class="btn btn-success text-center offset-md-3 col-md-6 col-sm-12 mb-3" title="Add new" asp-controller="WarehouseProducts" asp-action="Add"><i class="bi bi-plus-circle"></i> Add new</a>

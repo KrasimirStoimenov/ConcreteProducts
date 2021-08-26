@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using ConcreteProducts.Web.Services.Colors.Models;
+    using ConcreteProducts.Services.Colors.Models;
 
     public class AddColorToProductFormModel
     {

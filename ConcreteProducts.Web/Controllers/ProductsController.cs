@@ -8,10 +8,10 @@
 
     using ConcreteProducts.Data;
     using ConcreteProducts.Web.Models.Products;
-    using ConcreteProducts.Web.Services.Products;
-    using ConcreteProducts.Web.Services.Colors;
-    using ConcreteProducts.Web.Services.Categories;
-    using ConcreteProducts.Web.Services.Warehouses;
+    using ConcreteProducts.Services.Products;
+    using ConcreteProducts.Services.Colors;
+    using ConcreteProducts.Services.Categories;
+    using ConcreteProducts.Services.Warehouses;
 
     using static GlobalConstants;
 

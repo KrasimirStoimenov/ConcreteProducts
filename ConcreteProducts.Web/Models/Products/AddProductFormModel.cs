@@ -2,10 +2,11 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
     using ConcreteProducts.Data.Models.Enumerations;
-    using ConcreteProducts.Web.Services.Colors.Models;
-    using ConcreteProducts.Web.Services.Categories.Models;
-    using ConcreteProducts.Web.Services.Warehouses.Models;
+    using ConcreteProducts.Services.Colors.Models;
+    using ConcreteProducts.Services.Categories.Models;
+    using ConcreteProducts.Services.Warehouses.Models;
 
     using static Data.DataConstants.Product;
     using static Data.DataConstants.ErrorMessages;
