@@ -1,8 +1,11 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
     using System.Linq;
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
+
     using ConcreteProducts.Web.Models.WarehouseProducts;
     using ConcreteProducts.Services.WarehouseProducts;
     using ConcreteProducts.Services.Warehouses;
@@ -24,9 +27,9 @@
         }
 
         [Authorize]
-        public IActionResult All(int page = 1)
+        public async Task<IActionResult> All(int page = 1)
         {
-            var products = this.warehouseProductService.GetAllProductsInWarehouse();
+            var products = await this.warehouseProductService.GetAllProductsInWarehouseAsync();
 
             var listingProducts = new ListAllProductsInWarehouseViewModel
             {
@@ -42,28 +45,28 @@
         }
 
         [Authorize]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
             => View(new AddProductToWarehouseFormModel
             {
-                ProductColors = this.productColorsService.GetAllProductColors(),
+                ProductColors = await this.productColorsService.GetAllProductColorsAsync(),
                 Warehouses = this.warehouseService.GetAllWarehouses(),
             });
 
         [Authorize]
         [HttpPost]
-        public IActionResult Add(AddProductToWarehouseFormModel model)
+        public async Task<IActionResult> Add(AddProductToWarehouseFormModel model)
         {
-            this.Validator(model.ProductColorId, model.WarehouseId);
+            await this.Validator(model.ProductColorId, model.WarehouseId);
 
             if (!ModelState.IsValid)
             {
                 model.Warehouses = this.warehouseService.GetAllWarehouses();
-                model.ProductColors = this.productColorsService.GetAllProductColors();
+                model.ProductColors = await this.productColorsService.GetAllProductColorsAsync();
 
                 return View(model);
             }
 
-            this.warehouseProductService.AddProductToWarehouse(model.ProductColorId, model.WarehouseId, model.Count);
+            await this.warehouseProductService.AddProductToWarehouseAsync(model.ProductColorId, model.WarehouseId, model.Count);
 
             return RedirectToAction(nameof(All));
         }
@@ -77,11 +80,11 @@
 
         [Authorize(Roles = AdministratorRoleName)]
         [HttpPost]
-        public IActionResult DecreaseQuantity(DecreaseQuantityViewModel model)
+        public async Task<IActionResult> DecreaseQuantity(DecreaseQuantityViewModel model)
         {
-            this.Validator(model.ProductColorId, model.WarehouseId);
+            await this.Validator(model.ProductColorId, model.WarehouseId);
 
-            var availableQuantity = this.warehouseProductService.AvailableQuantity(model.ProductColorId, model.WarehouseId);
+            var availableQuantity = await this.warehouseProductService.AvailableQuantityAsync(model.ProductColorId, model.WarehouseId);
 
             if (model.Count > availableQuantity)
             {
@@ -93,14 +96,14 @@
                 return View(model);
             }
 
-            this.warehouseProductService.DecreaseQuantityFromProductsInWarehouse(model.ProductColorId, model.WarehouseId, model.Count);
+            await this.warehouseProductService.DecreaseQuantityFromProductsInWarehouseAsync(model.ProductColorId, model.WarehouseId, model.Count);
 
             return RedirectToAction(nameof(All));
         }
 
-        private void Validator(int productColorId, int warehouseId)
+        private async Task Validator(int productColorId, int warehouseId)
         {
-            if (!this.productColorsService.IsProductColorExist(productColorId))
+            if (!await this.productColorsService.IsProductColorExistAsync(productColorId))
             {
                 this.ModelState.AddModelError(nameof(productColorId), $"Product with this color does not exist.");
             }

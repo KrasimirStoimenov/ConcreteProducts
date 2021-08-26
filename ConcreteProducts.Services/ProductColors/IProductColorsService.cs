@@ -1,19 +1,21 @@
 ﻿namespace ConcreteProducts.Services.ProductColors
 {
+    using System.Threading.Tasks;
     using System.Collections.Generic;
+
     using ConcreteProducts.Services.Colors.Models;
     using ConcreteProducts.Services.ProductColors.Model;
 
     public interface IProductColorsService
     {
-        IEnumerable<ProductColorBaseServiceModel> GetAllProductColors();
+        Task<IEnumerable<ProductColorBaseServiceModel>> GetAllProductColorsAsync();
 
-        void AddColorToProduct(int productId, int colorId);
+        Task AddColorToProductAsync(int productId, int colorId);
 
-        IEnumerable<ColorBaseServiceModel> GetColorsNotRelatedToProduct(int productId);
+        Task<IEnumerable<ColorBaseServiceModel>> GetColorsNotRelatedToProductAsync(int productId);
 
-        bool IsColorRelatedToProduct(int productId, int colorId);
+        Task<bool> IsColorRelatedToProductAsync(int productId, int colorId);
 
-        bool IsProductColorExist(int productColorId);
+        Task<bool> IsProductColorExistAsync(int productColorId);
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
     using System;
-    using System.Linq;
     using System.Diagnostics;
     using System.Threading.Tasks;
     using System.Collections.Generic;
@@ -25,12 +24,6 @@
             this.productService = productService;
             this.cache = cache;
         }
-
-        public IActionResult Privacy()
-        {
-            return this.View();
-        }
-
         public async Task<IActionResult> Index()
         {
             if (this.User.IsInRole(AdministratorRoleName))
@@ -55,7 +48,7 @@
 
             return View(latestProducts);
         }
-
+        
         public IActionResult Privacy()
         {
             return this.View();

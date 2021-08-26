@@ -1,17 +1,18 @@
 ﻿namespace ConcreteProducts.Services.WarehouseProducts
 {
-    using System.Collections.Generic; 
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     using ConcreteProducts.Services.WarehouseProducts.Models;
 
     public interface IWarehouseProductService
     {
-        void AddProductToWarehouse(int productColorId, int warehouseId, int count);
+        Task AddProductToWarehouseAsync(int productColorId, int warehouseId, int count);
 
-        int AvailableQuantity(int productColorId, int warehouseId);
+        Task<int> AvailableQuantityAsync(int productColorId, int warehouseId);
 
-        void DecreaseQuantityFromProductsInWarehouse(int productColorId, int warehouseId, int count);
+        Task DecreaseQuantityFromProductsInWarehouseAsync(int productColorId, int warehouseId, int count);
 
-        IEnumerable<WarehouseProductsServiceModel> GetAllProductsInWarehouse();
+        Task<IEnumerable<WarehouseProductsServiceModel>> GetAllProductsInWarehouseAsync();
     }
 }

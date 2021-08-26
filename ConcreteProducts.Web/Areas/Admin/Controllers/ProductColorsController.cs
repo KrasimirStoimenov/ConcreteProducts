@@ -1,12 +1,13 @@
 ﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
 
     using ConcreteProducts.Services.Colors;
     using ConcreteProducts.Services.Products;
     using ConcreteProducts.Services.ProductColors;
     using ConcreteProducts.Web.Areas.Admin.Models.ProductColors;
-    using System.Threading.Tasks;
 
     public class ProductColorsController : AdminController
     {
@@ -21,11 +22,11 @@
             this.productColorsService = productColorsService;
         }
 
-        public IActionResult Add(int productId)
+        public async Task<IActionResult> Add(int productId)
             => View(new AddColorToProductFormModel
             {
                 ProductId = productId,
-                Colors = productColorsService.GetColorsNotRelatedToProduct(productId)
+                Colors = await productColorsService.GetColorsNotRelatedToProductAsync(productId)
             });
 
         [HttpPost]
@@ -41,19 +42,19 @@
                 ModelState.AddModelError(nameof(model.ColorId), $"Color does not exist.");
             }
 
-            if (productColorsService.IsColorRelatedToProduct(model.ProductId, model.ColorId))
+            if (await productColorsService.IsColorRelatedToProductAsync(model.ProductId, model.ColorId))
             {
                 ModelState.AddModelError(nameof(model.ColorId), $"Color is already related to product.");
             }
 
             if (!ModelState.IsValid)
             {
-                model.Colors = productColorsService.GetColorsNotRelatedToProduct(model.ProductId);
+                model.Colors = await productColorsService.GetColorsNotRelatedToProductAsync(model.ProductId);
 
                 return View(model);
             }
 
-            productColorsService.AddColorToProduct(model.ProductId, model.ColorId);
+            await productColorsService.AddColorToProductAsync(model.ProductId, model.ColorId);
 
             return Redirect($"/Products/Details/{model.ProductId}");
         }

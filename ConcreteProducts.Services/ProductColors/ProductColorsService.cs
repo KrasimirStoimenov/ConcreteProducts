@@ -1,10 +1,12 @@
 ﻿namespace ConcreteProducts.Services.ProductColors
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Collections.Generic;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Microsoft.EntityFrameworkCore;
 
     using ConcreteProducts.Data;
     using ConcreteProducts.Data.Models;
@@ -22,49 +24,49 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<ProductColorBaseServiceModel> GetAllProductColors()
-            => this.data.ProductColors
+        public async Task<IEnumerable<ProductColorBaseServiceModel>> GetAllProductColorsAsync()
+            => await this.data.ProductColors
                 .ProjectTo<ProductColorBaseServiceModel>(this.mapper.ConfigurationProvider)
-                .ToList();
+                .ToListAsync();
 
-        public void AddColorToProduct(int productId, int colorId)
+        public async Task AddColorToProductAsync(int productId, int colorId)
         {
-            var product = this.data.Products.Find(productId);
+            var product = await this.data.Products.FindAsync(productId);
 
             product.ProductColors.Add(new ProductColor
             {
                 ColorId = colorId
             });
 
-            this.data.SaveChanges();
+            await this.data.SaveChangesAsync();
         }
 
 
-        public IEnumerable<ColorBaseServiceModel> GetColorsNotRelatedToProduct(int productId)
+        public async Task<IEnumerable<ColorBaseServiceModel>> GetColorsNotRelatedToProductAsync(int productId)
         {
-            var productColors = this.data.ProductColors
+            var productColors = await this.data.ProductColors
                 .Where(c => c.ProductId == productId)
                 .Select(c => c.ColorId)
-                .ToList();
+                .ToListAsync();
 
-            var allColors = this.data.Colors.ToList();
+            var allColors = await this.data.Colors.ToListAsync();
 
-            var notRelatedColor = this.data.Colors
+            var notRelatedColor = await this.data.Colors
                 .Where(c => !productColors.Contains(c.Id))
                 .ProjectTo<ColorBaseServiceModel>(this.mapper.ConfigurationProvider)
-                .ToList();
+                .ToListAsync();
 
             return notRelatedColor;
 
         }
 
-        public bool IsColorRelatedToProduct(int productId, int colorId)
-            => this.data.ProductColors
+        public async Task<bool> IsColorRelatedToProductAsync(int productId, int colorId)
+            => await this.data.ProductColors
                 .Where(p => p.ProductId == productId)
-                .Any(c => c.ColorId == colorId);
+                .AnyAsync(c => c.ColorId == colorId);
 
-        public bool IsProductColorExist(int productColorId)
-            => this.data.ProductColors
-                .Any(pc => pc.ProductColorId == productColorId);
+        public async Task<bool> IsProductColorExistAsync(int productColorId)
+            => await this.data.ProductColors
+                .AnyAsync(pc => pc.ProductColorId == productColorId);
     }
 }
