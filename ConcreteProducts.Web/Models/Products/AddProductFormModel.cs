@@ -7,6 +7,7 @@
     using ConcreteProducts.Services.Colors.Models;
     using ConcreteProducts.Services.Categories.Models;
     using ConcreteProducts.Services.Warehouses.Models;
+    using ConcreteProducts.Web.Infrastructure.ValidationAttributes;
 
     using static Common.DataAttributeConstants.Product;
     using static Common.DataAttributeConstants.ErrorMessages;
@@ -63,9 +64,11 @@
         [Display(Name = "Image URL")]
         public string ImageUrl { get; init; }
 
+        [IsValidCategoryId]
         [Display(Name = "Category")]
         public int CategoryId { get; init; }
 
+        [IsValidColorId]
         [Display(Name = "Color")]
         public int ColorId { get; init; }
 

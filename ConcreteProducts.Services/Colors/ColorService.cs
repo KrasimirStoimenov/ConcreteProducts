@@ -63,6 +63,9 @@
                 .ProjectTo<ColorBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
+        public bool IsColorExist(int id)
+            => this.data.Colors.Any(c => c.Id == id);
+
         public async Task<bool> IsColorExistAsync(int id)
             => await this.data.Colors.AnyAsync(c => c.Id == id);
 

@@ -38,7 +38,8 @@
                 page = 1;
             }
 
-            var products = await this.productService.GetAllListingProductsAsync(searchTerm);
+            var products = await this.productService
+                    .GetAllListingProductsAsync(searchTerm);
 
             var productsViewModel = new ListAllProductsViewModel
             {
@@ -64,7 +65,13 @@
         [HttpPost]
         public async Task<IActionResult> Add(AddProductFormModel product)
         {
-            await this.ValidateCollections(product);
+            var hasValidNameAndDimensions = await this.productService
+                    .HasProductWithSameNameAndDimensionsAsync(product.Name, product.Dimensions);
+
+            if(hasValidNameAndDimensions)
+            {
+                this.ModelState.AddModelError(nameof(product.Name), existProductWithSameParameters);
+            }
 
             if (!ModelState.IsValid)
             {
@@ -91,7 +98,9 @@
 
         public async Task<IActionResult> Details(int id)
         {
-            if (!await this.productService.IsProductExistAsync(id))
+            var productExist = await this.productService.IsProductExistAsync(id);
+
+            if (!productExist)
             {
                 return BadRequest(notExistingProduct);
             }
@@ -104,7 +113,9 @@
         [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> Delete(int id)
         {
-            if (!await this.productService.IsProductExistAsync(id))
+            var productExist = await this.productService.IsProductExistAsync(id);
+
+            if (!productExist)
             {
                 return BadRequest(notExistingProduct);
             }
@@ -121,24 +132,6 @@
             await this.productService.DeleteProductAsync(id);
 
             return RedirectToAction(nameof(All));
-        }
-
-        private async Task ValidateCollections(AddProductFormModel product)
-        {
-            if (!await this.categoryService.IsCategoryExistAsync(product.CategoryId))
-            {
-                this.ModelState.AddModelError(nameof(product.CategoryId), $"Category does not exist.");
-            }
-
-            if (!await this.colorService.IsColorExistAsync(product.ColorId))
-            {
-                this.ModelState.AddModelError(nameof(product.ColorId), $"Color does not exist.");
-            }
-
-            if (await this.productService.HasProductWithSameNameAndDimensionsAsync(product.Name, product.Dimensions))
-            {
-                this.ModelState.AddModelError(nameof(product.Name), existProductWithSameParameters);
-            }
         }
     }
 }

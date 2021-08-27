@@ -17,6 +17,8 @@
 
         Task<ColorBaseServiceModel> GetColorDetailsAsync(int id);
 
+        bool IsColorExist(int id);
+
         Task<bool> IsColorExistAsync(int id);
 
         Task<bool> HasColorWithSameNameAsync(string name);
