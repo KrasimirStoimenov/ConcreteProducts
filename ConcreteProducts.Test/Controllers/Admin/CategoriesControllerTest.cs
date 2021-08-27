@@ -107,7 +107,7 @@
                 .Instance()
                 .WithData(data => data
                     .WithEntities(new Category { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(1, new CategoryFormModel
+                .Calling(c => c.Edit(new CategoryFormModel
                 {
                     Name = "Something"
                 }))
@@ -124,7 +124,7 @@
                 .Instance()
                 .WithData(data => data
                     .WithEntities(new Category { Id = 1, Name = "Test", Products = null }))
-                .Calling(c => c.Edit(1, new CategoryFormModel
+                .Calling(c => c.Edit(new CategoryFormModel
                 {
                     Name = "Test"
                 }))
@@ -147,7 +147,7 @@
                 .Instance()
                 .WithData(data => data
                     .WithEntities(new Category { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(2, With.Default<CategoryFormModel>()))
+                .Calling(c => c.Edit(With.Default<CategoryFormModel>()))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
                     .RestrictingForHttpMethod(HttpMethod.Post))

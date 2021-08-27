@@ -49,7 +49,7 @@
                 .ShouldMap(response => response
                     .WithPath($"/Admin/Categories/Edit/{id}")
                     .WithMethod(HttpMethod.Post))
-                .To<CategoriesController>(c => c.Edit(id, With.Any<CategoryFormModel>()));
+                .To<CategoriesController>(c => c.Edit(With.Any<CategoryFormModel>()));
 
         [Test]
         [TestCase(1)]

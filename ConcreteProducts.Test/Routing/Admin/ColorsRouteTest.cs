@@ -49,7 +49,7 @@
                 .ShouldMap(response => response
                     .WithPath($"/Admin/Colors/Edit/{id}")
                     .WithMethod(HttpMethod.Post))
-                .To<ColorsController>(c => c.Edit(id, With.Any<ColorFormModel>()));
+                .To<ColorsController>(c => c.Edit(With.Any<ColorFormModel>()));
 
         [Test]
         [TestCase(1)]

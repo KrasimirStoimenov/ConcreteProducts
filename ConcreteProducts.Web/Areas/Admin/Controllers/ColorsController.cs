@@ -77,13 +77,8 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, ColorFormModel color)
+        public async Task<IActionResult> Edit(ColorFormModel color)
         {
-            if (!await this.colorService.IsColorExistAsync(id))
-            {
-                this.ModelState.AddModelError(nameof(color.Name), notExistingColorErrorMessage);
-            }
-
             if (await this.colorService.HasColorWithSameNameAsync(color.Name))
             {
                 this.ModelState.AddModelError(nameof(color.Name), takenColorNameErrorMessage);
@@ -94,7 +89,7 @@
                 return View(color);
             }
 
-            await this.colorService.EditAsync(id, color.Name);
+            await this.colorService.EditAsync(color.Id, color.Name);
 
             return RedirectToAction(nameof(All));
         }
