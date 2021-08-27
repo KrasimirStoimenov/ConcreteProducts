@@ -1,6 +1,6 @@
-﻿namespace ConcreteProducts.Data
+﻿namespace ConcreteProducts.Common
 {
-    public class DataConstants
+    public class DataAttributeConstants
     {
         public class ErrorMessages
         {

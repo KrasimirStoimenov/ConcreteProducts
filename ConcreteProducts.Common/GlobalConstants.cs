@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web
+﻿namespace ConcreteProducts.Common
 {
     public class GlobalConstants
     {

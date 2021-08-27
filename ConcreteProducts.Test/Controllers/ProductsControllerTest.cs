@@ -10,7 +10,7 @@
     using ConcreteProducts.Data.Models.Enumerations;
     using ConcreteProducts.Services.Products.Models;
 
-    using static Web.GlobalConstants;
+    using static Common.GlobalConstants;
 
     public class ProductsControllerTest
     {

@@ -12,7 +12,7 @@
     using ConcreteProducts.Services.Products;
     using ConcreteProducts.Services.Products.Models;
 
-    using static GlobalConstants;
+    using static Common.GlobalConstants;
 
     public class HomeController : Controller
     {

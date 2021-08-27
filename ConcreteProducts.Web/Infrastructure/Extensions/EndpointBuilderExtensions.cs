@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.Infrastructure
+﻿namespace ConcreteProducts.Web.Infrastructure.Extensions
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Routing;

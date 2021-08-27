@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConcreteProducts.Test", "Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConcreteProducts.Data", "ConcreteProducts.Data\ConcreteProducts.Data.csproj", "{BF5017CC-FD86-4A8C-B625-21A27DE038EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcreteProducts.Services", "ConcreteProducts.Services\ConcreteProducts.Services.csproj", "{94CCC03D-E314-4B69-B775-D8880C252D05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConcreteProducts.Services", "ConcreteProducts.Services\ConcreteProducts.Services.csproj", "{94CCC03D-E314-4B69-B775-D8880C252D05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcreteProducts.Common", "ConcreteProducts.Common\ConcreteProducts.Common.csproj", "{312C2A24-D4F9-436E-B9F5-DD00AE5A3D87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{94CCC03D-E314-4B69-B775-D8880C252D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94CCC03D-E314-4B69-B775-D8880C252D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94CCC03D-E314-4B69-B775-D8880C252D05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{312C2A24-D4F9-436E-B9F5-DD00AE5A3D87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{312C2A24-D4F9-436E-B9F5-DD00AE5A3D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{312C2A24-D4F9-436E-B9F5-DD00AE5A3D87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{312C2A24-D4F9-436E-B9F5-DD00AE5A3D87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

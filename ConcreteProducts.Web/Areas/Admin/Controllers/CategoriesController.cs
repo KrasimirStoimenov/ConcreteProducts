@@ -6,7 +6,7 @@
     using ConcreteProducts.Services.Categories;
     using ConcreteProducts.Web.Areas.Admin.Models.Categories;
 
-    using static GlobalConstants;
+    using static Common.GlobalConstants;
 
     public class CategoriesController : AdminController
     {

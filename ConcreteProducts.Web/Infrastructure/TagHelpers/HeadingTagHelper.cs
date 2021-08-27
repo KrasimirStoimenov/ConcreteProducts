@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.TagHelpers
+﻿namespace ConcreteProducts.Web.Infrastructure.TagHelpers
 {
     using Microsoft.AspNetCore.Razor.TagHelpers;
 

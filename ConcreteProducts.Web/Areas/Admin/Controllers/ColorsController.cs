@@ -6,7 +6,7 @@
     using ConcreteProducts.Services.Colors;
     using ConcreteProducts.Web.Areas.Admin.Models.Colors;
 
-    using static GlobalConstants;
+    using static Common.GlobalConstants;
 
     public class ColorsController : AdminController
     {

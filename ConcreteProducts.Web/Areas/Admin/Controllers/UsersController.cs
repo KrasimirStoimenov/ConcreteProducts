@@ -10,7 +10,7 @@
 
     using ConcreteProducts.Web.Areas.Admin.Models.Users;
 
-    using static GlobalConstants;
+    using static Common.GlobalConstants;
 
     public class UsersController : AdminController
     {

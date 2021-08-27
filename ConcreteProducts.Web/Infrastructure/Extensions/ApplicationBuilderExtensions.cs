@@ -1,4 +1,4 @@
-﻿namespace ConcreteProducts.Web.Infrastructure
+﻿namespace ConcreteProducts.Web.Infrastructure.Extensions
 {
     using System;
     using System.Linq;
@@ -13,7 +13,7 @@
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Data.Models.Enumerations;
 
-    using static GlobalConstants;
+    using static Common.GlobalConstants;
 
     public static class ApplicationBuilderExtensions
     {

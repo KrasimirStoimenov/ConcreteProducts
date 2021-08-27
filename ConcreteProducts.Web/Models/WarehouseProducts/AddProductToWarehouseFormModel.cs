@@ -5,7 +5,7 @@
     using ConcreteProducts.Services.ProductColors.Model;
     using ConcreteProducts.Services.Warehouses.Models;
 
-    using static Data.DataConstants.WarehouseProducts;
+    using static Common.DataAttributeConstants.WarehouseProducts;
 
     public class AddProductToWarehouseFormModel
     {

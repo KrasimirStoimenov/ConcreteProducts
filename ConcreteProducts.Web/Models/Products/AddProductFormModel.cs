@@ -8,8 +8,8 @@
     using ConcreteProducts.Services.Categories.Models;
     using ConcreteProducts.Services.Warehouses.Models;
 
-    using static Data.DataConstants.Product;
-    using static Data.DataConstants.ErrorMessages;
+    using static Common.DataAttributeConstants.Product;
+    using static Common.DataAttributeConstants.ErrorMessages;
 
     public class AddProductFormModel
     {

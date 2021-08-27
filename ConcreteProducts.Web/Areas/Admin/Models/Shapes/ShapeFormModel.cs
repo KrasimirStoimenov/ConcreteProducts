@@ -5,8 +5,8 @@
 
     using ConcreteProducts.Services.Warehouses.Models;
 
-    using static Data.DataConstants.Shape;
-    using static Data.DataConstants.ErrorMessages;
+    using static Common.DataAttributeConstants.Shape;
+    using static Common.DataAttributeConstants.ErrorMessages;
 
     public class ShapeFormModel
     {

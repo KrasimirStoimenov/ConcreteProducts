@@ -9,7 +9,7 @@
     using ConcreteProducts.Services.Chats.Models;
     using ConcreteProducts.Services.Chats;
 
-    using static Data.DataConstants.ChatMessages;
+    using static Common.DataAttributeConstants.ChatMessages;
 
     public class ChatHub : Hub
     {

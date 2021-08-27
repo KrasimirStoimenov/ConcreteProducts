@@ -1,8 +1,8 @@
-﻿namespace ConcreteProducts.Web.Infrastructure
+﻿namespace ConcreteProducts.Web.Infrastructure.Extensions
 {
     using System.Security.Claims;
 
-    using static GlobalConstants;
+    using static Common.GlobalConstants;
 
     public static class ClaimsPrincipalExtensions
     {

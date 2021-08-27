@@ -3,7 +3,7 @@
     using NUnit.Framework;
     using MyTested.AspNetCore.Mvc;
 
-    using static Web.GlobalConstants;
+    using static Common.GlobalConstants;
 
     using AdminController = Web.Areas.Admin.Controllers.AdminController;
 

@@ -11,15 +11,15 @@ namespace ConcreteProducts.Web
     using Microsoft.Extensions.DependencyInjection;
 
     using ConcreteProducts.Data;
-    using ConcreteProducts.Web.Infrastructure;
-    using ConcreteProducts.Services.Categories;
+    using ConcreteProducts.Services.Chats;
     using ConcreteProducts.Services.Colors;
+    using ConcreteProducts.Services.Shapes;
     using ConcreteProducts.Services.Products;
     using ConcreteProducts.Services.Warehouses;
-    using ConcreteProducts.Services.Shapes;
+    using ConcreteProducts.Services.Categories;
     using ConcreteProducts.Services.ProductColors;
     using ConcreteProducts.Services.WarehouseProducts;
-    using ConcreteProducts.Services.Chats;
+    using ConcreteProducts.Web.Infrastructure.Extensions;
     using ConcreteProducts.Services.AutoMappingProfile;
 
     public class Startup

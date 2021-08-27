@@ -6,7 +6,7 @@
     using ConcreteProducts.Services.Warehouses;
     using ConcreteProducts.Web.Areas.Admin.Models.Warehouses;
 
-    using static GlobalConstants;
+    using static Common.GlobalConstants;
 
     public class WarehousesController : AdminController
     {

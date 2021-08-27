@@ -2,8 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Data.DataConstants.Category;
-    using static Data.DataConstants.ErrorMessages;
+    using static Common.DataAttributeConstants.Category;
+    using static Common.DataAttributeConstants.ErrorMessages;
 
     public class CategoryFormModel
     {

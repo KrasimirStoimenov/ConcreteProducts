@@ -8,7 +8,7 @@
     using ConcreteProducts.Web.Controllers;
     using ConcreteProducts.Web.Models.WarehouseProducts;
 
-    using static Web.GlobalConstants;
+    using static Common.GlobalConstants;
 
     public class WarehouseProductsControllerTest
     {

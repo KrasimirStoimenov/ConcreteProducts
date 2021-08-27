@@ -17,4 +17,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ConcreteProducts.Common\ConcreteProducts.Common.csproj" />
+  </ItemGroup>
+
 </Project>

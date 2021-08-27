@@ -11,7 +11,7 @@
     using ConcreteProducts.Services.Warehouses;
     using ConcreteProducts.Services.ProductColors;
 
-    using static GlobalConstants;
+    using static Common.GlobalConstants;
 
     public class WarehouseProductsController : Controller
     {

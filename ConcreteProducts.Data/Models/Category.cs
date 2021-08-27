@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using static DataConstants.Category;
+    using static Common.DataAttributeConstants.Category;
 
     public class Category
     {

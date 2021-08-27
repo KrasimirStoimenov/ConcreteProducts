@@ -2,8 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Data.DataConstants.Color;
-    using static Data.DataConstants.ErrorMessages;
+    using static Common.DataAttributeConstants.Color;
+    using static Common.DataAttributeConstants.ErrorMessages;
 
     public class ColorFormModel
     {

@@ -2,8 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Data.DataConstants.Warehouse;
-    using static Data.DataConstants.ErrorMessages;
+    using static Common.DataAttributeConstants.Warehouse;
+    using static Common.DataAttributeConstants.ErrorMessages;
 
     public class WarehouseFormModel
     {

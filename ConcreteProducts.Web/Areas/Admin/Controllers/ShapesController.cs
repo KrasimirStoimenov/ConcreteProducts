@@ -7,7 +7,7 @@
     using ConcreteProducts.Services.Warehouses;
     using ConcreteProducts.Web.Areas.Admin.Models.Shapes;
 
-    using static GlobalConstants;
+    using static Common.GlobalConstants;
 
     public class ShapesController : AdminController
     {

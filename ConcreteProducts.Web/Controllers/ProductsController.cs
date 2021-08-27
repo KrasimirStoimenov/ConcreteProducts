@@ -13,7 +13,7 @@
     using ConcreteProducts.Services.Categories;
     using ConcreteProducts.Services.Warehouses;
 
-    using static GlobalConstants;
+    using static Common.GlobalConstants;
 
     public class ProductsController : Controller
     {
