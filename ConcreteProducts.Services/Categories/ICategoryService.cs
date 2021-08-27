@@ -1,27 +1,28 @@
 ﻿namespace ConcreteProducts.Services.Categories
 {
+    using System.Threading.Tasks;
     using System.Collections.Generic;
 
     using ConcreteProducts.Services.Categories.Models;
 
     public interface ICategoryService
     {
-        IEnumerable<CategoryWithProducts> GetAllCategoriesWithTheirProducts();
+        Task<IEnumerable<CategoryWithProducts>> GetAllCategoriesWithTheirProductsAsync();
 
-        IEnumerable<CategoryBaseServiceModel> GetAllCategories();
+        Task<IEnumerable<CategoryBaseServiceModel>> GetAllCategoriesAsync();
 
-        CategoryWithProducts GetCategoryToDelete(int id);
+        Task<CategoryWithProducts> GetCategoryToDeleteAsync(int id);
 
-        int Create(string name);
+        Task<int> CreateAsync(string name);
 
-        void Edit(int id, string name);
+        Task EditAsync(int id, string name);
 
-        CategoryBaseServiceModel GetCategoryDetails(int id);
+        Task<CategoryBaseServiceModel> GetCategoryDetailsAsync(int id);
 
-        bool IsCategoryExist(int id);
+        Task<bool> IsCategoryExistAsync(int id);
 
-        bool HasCategoryWithSameName(string name);
+        Task<bool> HasCategoryWithSameNameAsync(string name);
 
-        void DeleteCategory(int id);
+        Task DeleteCategoryAsync(int id);
     }
 }

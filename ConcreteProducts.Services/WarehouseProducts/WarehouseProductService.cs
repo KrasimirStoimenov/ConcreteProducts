@@ -12,11 +12,8 @@
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Services.WarehouseProducts.Models;
 
-<<<<<<< Updated upstream
-=======
     using static Common.DataAttributeConstants;
 
->>>>>>> Stashed changes
     public class WarehouseProductService : IWarehouseProductService
     {
         private readonly ConcreteProductsDbContext data;

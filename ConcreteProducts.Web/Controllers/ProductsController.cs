@@ -53,11 +53,11 @@
         }
 
         [Authorize(Roles = AdministratorRoleName)]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
             => View(new AddProductFormModel
             {
-                Categories = this.categoryService.GetAllCategories(),
-                Colors = this.colorService.GetAllColors(),
+                Categories = await this.categoryService.GetAllCategoriesAsync(),
+                Colors = await this.colorService.GetAllColorsAsync(),
             });
 
         [Authorize(Roles = AdministratorRoleName)]
@@ -68,8 +68,8 @@
 
             if (!ModelState.IsValid)
             {
-                product.Categories = this.categoryService.GetAllCategories();
-                product.Colors = this.colorService.GetAllColors();
+                product.Categories = await this.categoryService.GetAllCategoriesAsync();
+                product.Colors = await this.colorService.GetAllColorsAsync();
 
                 return View(product);
             }
@@ -125,12 +125,12 @@
 
         private async Task ValidateCollections(AddProductFormModel product)
         {
-            if (!this.categoryService.IsCategoryExist(product.CategoryId))
+            if (!await this.categoryService.IsCategoryExistAsync(product.CategoryId))
             {
                 this.ModelState.AddModelError(nameof(product.CategoryId), $"Category does not exist.");
             }
 
-            if (!this.colorService.IsColorExist(product.ColorId))
+            if (!await this.colorService.IsColorExistAsync(product.ColorId))
             {
                 this.ModelState.AddModelError(nameof(product.ColorId), $"Color does not exist.");
             }

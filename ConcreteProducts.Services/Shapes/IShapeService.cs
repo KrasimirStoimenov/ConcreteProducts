@@ -1,26 +1,28 @@
 ﻿namespace ConcreteProducts.Services.Shapes
 {
+    using System.Threading.Tasks;
     using System.Collections.Generic;
+
     using ConcreteProducts.Services.Shapes.Models;
 
     public interface IShapeService
     {
-        IEnumerable<ShapeBaseServiceModel> GetAllShapes();
+        Task<IEnumerable<ShapeBaseServiceModel>> GetAllShapesAsync();
 
-        IEnumerable<ShapeAndWarehouseServiceModel> GetAllShapesWithWarehouse();
+        Task<IEnumerable<ShapeAndWarehouseServiceModel>> GetAllShapesWithWarehouseAsync();
 
-        ShapeBaseServiceModel GetShapeToDeleteById(int id);
+        Task<ShapeBaseServiceModel> GetShapeToDeleteByIdAsync(int id);
 
-        int Create(string name, string dimensions, int warehouseId);
+        Task<int> CreateAsync(string name, string dimensions, int warehouseId);
 
-        void Edit(int id, string name, string dimensions, int warehouseId);
+        Task EditAsync(int id, string name, string dimensions, int warehouseId);
 
-        ShapeDetailsServiceModel GetShapeDetails(int id);
+        Task<ShapeDetailsServiceModel> GetShapeDetailsAsync(int id);
 
-        bool IsShapeExist(int id);
+        Task<bool> IsShapeExistAsync(int id);
 
-        bool HasShapeWithSameName(string name);
+        Task<bool> HasShapeWithSameNameAsync(string name);
 
-        void DeleteShape(int id);
+        Task DeleteShapeAsync(int id);
     }
 }

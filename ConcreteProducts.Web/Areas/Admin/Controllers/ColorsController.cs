@@ -1,6 +1,8 @@
 ﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers
 {
     using System.Linq;
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
 
     using ConcreteProducts.Services.Colors;
@@ -20,9 +22,9 @@
             this.colorService = colorService;
         }
 
-        public IActionResult All(int page = 1)
+        public async Task<IActionResult> All(int page = 1)
         {
-            var colors = colorService.GetAllColors();
+            var colors = await colorService.GetAllColorsAsync();
 
             var colorsViewModel = new ListAllColorsViewModel
             {
@@ -42,9 +44,9 @@
             => View(new ColorFormModel());
 
         [HttpPost]
-        public IActionResult Add(ColorFormModel color)
+        public async Task<IActionResult> Add(ColorFormModel color)
         {
-            if (this.colorService.HasColorWithSameName(color.Name))
+            if (await this.colorService.HasColorWithSameNameAsync(color.Name))
             {
                 this.ModelState.AddModelError(nameof(color.Name), takenColorNameErrorMessage);
             }
@@ -54,19 +56,19 @@
                 return View(color);
             }
 
-            this.colorService.Create(color.Name);
+            await this.colorService.CreateAsync(color.Name);
 
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (!this.colorService.IsColorExist(id))
+            if (!await this.colorService.IsColorExistAsync(id))
             {
                 return BadRequest(notExistingColorErrorMessage);
             }
 
-            var colorDetails = this.colorService.GetColorDetails(id);
+            var colorDetails = await this.colorService.GetColorDetailsAsync(id);
 
             return View(new ColorFormModel
             {
@@ -75,14 +77,14 @@
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, ColorFormModel color)
+        public async Task<IActionResult> Edit(int id, ColorFormModel color)
         {
-            if (!this.colorService.IsColorExist(id))
+            if (!await this.colorService.IsColorExistAsync(id))
             {
                 this.ModelState.AddModelError(nameof(color.Name), notExistingColorErrorMessage);
             }
 
-            if (this.colorService.HasColorWithSameName(color.Name))
+            if (await this.colorService.HasColorWithSameNameAsync(color.Name))
             {
                 this.ModelState.AddModelError(nameof(color.Name), takenColorNameErrorMessage);
             }
@@ -92,27 +94,27 @@
                 return View(color);
             }
 
-            this.colorService.Edit(id, color.Name);
+            await this.colorService.EditAsync(id, color.Name);
 
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (!this.colorService.IsColorExist(id))
+            if (!await this.colorService.IsColorExistAsync(id))
             {
                 return BadRequest(notExistingColorErrorMessage);
             }
 
-            var color = this.colorService.GetColorToDeleteById(id);
+            var color = await this.colorService.GetColorToDeleteByIdAsync(id);
 
             return View(color);
         }
 
         [HttpPost]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            this.colorService.DeleteColor(id);
+            await this.colorService.DeleteColorAsync(id);
 
             return RedirectToAction(nameof(All));
         }

@@ -1,10 +1,12 @@
 ﻿namespace ConcreteProducts.Services.Categories
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Collections.Generic;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Microsoft.EntityFrameworkCore;
 
     using ConcreteProducts.Data;
     using ConcreteProducts.Data.Models;
@@ -21,66 +23,66 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<CategoryBaseServiceModel> GetAllCategories()
-            => this.data.Categories
+        public async Task<IEnumerable<CategoryBaseServiceModel>> GetAllCategoriesAsync()
+            => await this.data.Categories
                 .ProjectTo<CategoryBaseServiceModel>(this.mapper.ConfigurationProvider)
-                .OrderBy(c=>c.Name)
-                .ToList();
+                .OrderBy(c => c.Name)
+                .ToListAsync();
 
-        public IEnumerable<CategoryWithProducts> GetAllCategoriesWithTheirProducts()
-            => this.data.Categories
+        public async Task<IEnumerable<CategoryWithProducts>> GetAllCategoriesWithTheirProductsAsync()
+            => await this.data.Categories
                 .ProjectTo<CategoryWithProducts>(this.mapper.ConfigurationProvider)
                 .OrderBy(c => c.Id)
-                .ToList();
+                .ToListAsync();
 
-        public CategoryWithProducts GetCategoryToDelete(int id)
-            => this.data.Categories
+        public async Task<CategoryWithProducts> GetCategoryToDeleteAsync(int id)
+            => await this.data.Categories
                 .Where(c => c.Id == id)
                 .ProjectTo<CategoryWithProducts>(this.mapper.ConfigurationProvider)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
-        public int Create(string name)
+        public async Task<int> CreateAsync(string name)
         {
             var category = new Category
             {
                 Name = name
             };
 
-            this.data.Categories.Add(category);
-            this.data.SaveChanges();
+            await this.data.Categories.AddAsync(category);
+            await this.data.SaveChangesAsync();
 
             return category.Id;
         }
 
-        public void Edit(int id, string name)
+        public async Task EditAsync(int id, string name)
         {
-            var category = this.data.Categories.Find(id);
+            var category = await this.data.Categories.FindAsync(id);
 
             category.Name = name;
 
-            this.data.SaveChanges();
+            await this.data.SaveChangesAsync();
         }
 
-        public CategoryBaseServiceModel GetCategoryDetails(int id)
-            => this.data.Categories
+        public async Task<CategoryBaseServiceModel> GetCategoryDetailsAsync(int id)
+            => await this.data.Categories
                 .Where(c => c.Id == id)
                 .ProjectTo<CategoryBaseServiceModel>(this.mapper.ConfigurationProvider)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
-        public bool IsCategoryExist(int id)
-            => this.data.Categories
-                .Any(c => c.Id == id);
+        public async Task<bool> IsCategoryExistAsync(int id)
+            => await this.data.Categories
+                .AnyAsync(c => c.Id == id);
 
-        public bool HasCategoryWithSameName(string name)
-            => this.data.Categories
-                .Any(c => c.Name == name);
+        public async Task<bool> HasCategoryWithSameNameAsync(string name)
+            => await this.data.Categories
+                .AnyAsync(c => c.Name == name);
 
-        public void DeleteCategory(int id)
+        public async Task DeleteCategoryAsync(int id)
         {
-            var category = this.data.Categories.Find(id);
+            var category = await this.data.Categories.FindAsync(id);
 
             this.data.Categories.Remove(category);
-            this.data.SaveChanges();
+            await this.data.SaveChangesAsync();
         }
     }
 }

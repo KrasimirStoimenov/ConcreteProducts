@@ -1,10 +1,12 @@
 ﻿namespace ConcreteProducts.Services.Warehouses
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Collections.Generic;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Microsoft.EntityFrameworkCore;
 
     using ConcreteProducts.Data;
     using ConcreteProducts.Data.Models;
@@ -21,65 +23,66 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<WarehouseBaseServiceModel> GetAllWarehouses()
-            => this.data.Warehouses
+        public async Task<IEnumerable<WarehouseBaseServiceModel>> GetAllWarehousesAsync()
+            => await this.data.Warehouses
                 .ProjectTo<WarehouseBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .OrderBy(w => w.Id)
-                .ToList();
+                .ToListAsync();
 
-        public IEnumerable<WarehouseWithProductsAndShapesCount> GetWarehousesWithProductsAndShapesCount()
-            => this.data.Warehouses
+        public async Task<IEnumerable<WarehouseWithProductsAndShapesCount>> GetWarehousesWithProductsAndShapesCountAsync()
+            => await this.data.Warehouses
                 .ProjectTo<WarehouseWithProductsAndShapesCount>(this.mapper.ConfigurationProvider)
                 .OrderBy(w => w.Id)
-                .ToList();
+                .ToListAsync();
 
-        public WarehouseWithProductsAndShapesCount GetWarehouseToDeleteById(int id)
-            => this.data.Warehouses
+        public async Task<WarehouseWithProductsAndShapesCount> GetWarehouseToDeleteByIdAsync(int id)
+            => await this.data.Warehouses
                 .Where(w => w.Id == id)
                 .ProjectTo<WarehouseWithProductsAndShapesCount>(this.mapper.ConfigurationProvider)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
-        public int Create(string name)
+        public async Task<int> CreateAsync(string name)
         {
             var warehouse = new Warehouse
             {
                 Name = name
             };
 
-            this.data.Warehouses.Add(warehouse);
-            this.data.SaveChanges();
+            await this.data.Warehouses.AddAsync(warehouse);
+            await this.data.SaveChangesAsync();
 
             return warehouse.Id;
         }
 
-        public void Edit(int id, string name)
+        public async Task EditAsync(int id, string name)
         {
-            var warehouse = this.data.Warehouses.Find(id);
+            var warehouse = await this.data.Warehouses.FindAsync(id);
 
             warehouse.Name = name;
 
-            this.data.SaveChanges();
+            await this.data.SaveChangesAsync();
         }
 
-        public WarehouseBaseServiceModel GetWarehouseDetails(int id)
-            => this.data.Warehouses
+        public async Task<WarehouseBaseServiceModel> GetWarehouseDetailsAsync(int id)
+            => await this.data.Warehouses
                 .Where(w => w.Id == id)
                 .ProjectTo<WarehouseBaseServiceModel>(this.mapper.ConfigurationProvider)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
-        public bool IsWarehouseExist(int id)
-            => this.data.Warehouses.Any(w => w.Id == id);
+        public async Task<bool> IsWarehouseExistAsync(int id)
+            => await this.data.Warehouses
+                .AnyAsync(w => w.Id == id);
 
-        public bool HasWarehouseWithSameName(string name)
-            => this.data.Warehouses
-                .Any(w => w.Name == name);
+        public async Task<bool> HasWarehouseWithSameNameAsync(string name)
+            => await this.data.Warehouses
+                .AnyAsync(w => w.Name == name);
 
-        public void DeleteWarehouse(int id)
+        public async Task DeleteWarehouseAsync(int id)
         {
-            var warehouse = this.data.Warehouses.Find(id);
+            var warehouse = await this.data.Warehouses.FindAsync(id);
 
             this.data.Warehouses.Remove(warehouse);
-            this.data.SaveChanges();
+            await this.data.SaveChangesAsync();
         }
     }
 }

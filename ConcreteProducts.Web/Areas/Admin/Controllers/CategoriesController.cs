@@ -1,6 +1,8 @@
 ﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers
 {
     using System.Linq;
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
 
     using ConcreteProducts.Services.Categories;
@@ -20,9 +22,9 @@
             this.categoryService = categoryService;
         }
 
-        public IActionResult All(int page = 1)
+        public async Task<IActionResult> All(int page = 1)
         {
-            var categoriesWithProducts = this.categoryService.GetAllCategoriesWithTheirProducts();
+            var categoriesWithProducts = await this.categoryService.GetAllCategoriesWithTheirProductsAsync();
 
             var categoriesViewModel = new ListAllCategoriesViewModel
             {
@@ -42,9 +44,9 @@
             => View(new CategoryFormModel());
 
         [HttpPost]
-        public IActionResult Add(CategoryFormModel category)
+        public async Task<IActionResult> Add(CategoryFormModel category)
         {
-            if (this.categoryService.HasCategoryWithSameName(category.Name))
+            if (await this.categoryService.HasCategoryWithSameNameAsync(category.Name))
             {
                 this.ModelState.AddModelError(nameof(category.Name), takenCategoryNameErrorMessage);
             }
@@ -54,19 +56,19 @@
                 return View(category);
             }
 
-            this.categoryService.Create(category.Name);
+            await this.categoryService.CreateAsync(category.Name);
 
             return RedirectToAction("All");
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (!this.categoryService.IsCategoryExist(id))
+            if (!await this.categoryService.IsCategoryExistAsync(id))
             {
                 return BadRequest(notExistingCategoryErrorMessage);
             }
 
-            var categoryDetails = this.categoryService.GetCategoryDetails(id);
+            var categoryDetails = await this.categoryService.GetCategoryDetailsAsync(id);
 
             return View(new CategoryFormModel
             {
@@ -75,14 +77,14 @@
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, CategoryFormModel category)
+        public async Task<IActionResult> Edit(int id, CategoryFormModel category)
         {
-            if (!this.categoryService.IsCategoryExist(id))
+            if (!await this.categoryService.IsCategoryExistAsync(id))
             {
                 this.ModelState.AddModelError(nameof(category.Name), notExistingCategoryErrorMessage);
             }
 
-            if (this.categoryService.HasCategoryWithSameName(category.Name))
+            if (await this.categoryService.HasCategoryWithSameNameAsync(category.Name))
             {
                 this.ModelState.AddModelError(nameof(category.Name), takenCategoryNameErrorMessage);
             }
@@ -92,27 +94,27 @@
                 return View(category);
             }
 
-            this.categoryService.Edit(id, category.Name);
+            await this.categoryService.EditAsync(id, category.Name);
 
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (!this.categoryService.IsCategoryExist(id))
+            if (!await this.categoryService.IsCategoryExistAsync(id))
             {
                 return BadRequest(notExistingCategoryErrorMessage);
             }
 
-            var category = this.categoryService.GetCategoryToDelete(id);
+            var category = await this.categoryService.GetCategoryToDeleteAsync(id);
 
             return View(category);
         }
 
         [HttpPost]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            this.categoryService.DeleteCategory(id);
+            await this.categoryService.DeleteCategoryAsync(id);
 
             return RedirectToAction(nameof(All));
         }

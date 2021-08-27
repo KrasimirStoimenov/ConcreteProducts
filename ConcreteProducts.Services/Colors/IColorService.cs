@@ -1,25 +1,26 @@
 ﻿namespace ConcreteProducts.Services.Colors
 {
+    using System.Threading.Tasks;
     using System.Collections.Generic;
 
     using ConcreteProducts.Services.Colors.Models;
 
     public interface IColorService
     {
-        IEnumerable<ColorBaseServiceModel> GetAllColors();
+        Task<IEnumerable<ColorBaseServiceModel>> GetAllColorsAsync();
 
-        ColorDeleteServiceModel GetColorToDeleteById(int id);
+        Task<ColorDeleteServiceModel> GetColorToDeleteByIdAsync(int id);
 
-        int Create(string name);
+        Task<int> CreateAsync(string name);
 
-        void Edit(int id, string name);
+        Task EditAsync(int id, string name);
 
-        ColorBaseServiceModel GetColorDetails(int id);
+        Task<ColorBaseServiceModel> GetColorDetailsAsync(int id);
 
-        bool IsColorExist(int id);
+        Task<bool> IsColorExistAsync(int id);
 
-        bool HasColorWithSameName(string name);
+        Task<bool> HasColorWithSameNameAsync(string name);
 
-        void DeleteColor(int id);
+        Task DeleteColorAsync(int id);
     }
 }

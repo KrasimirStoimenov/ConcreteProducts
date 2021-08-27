@@ -1,26 +1,28 @@
 ﻿namespace ConcreteProducts.Services.Warehouses
 {
+    using System.Threading.Tasks;
     using System.Collections.Generic;
+
     using ConcreteProducts.Services.Warehouses.Models;
 
     public interface IWarehouseService
     {
-        IEnumerable<WarehouseBaseServiceModel> GetAllWarehouses();
+        Task<IEnumerable<WarehouseBaseServiceModel>> GetAllWarehousesAsync();
 
-        IEnumerable<WarehouseWithProductsAndShapesCount> GetWarehousesWithProductsAndShapesCount();
+        Task<IEnumerable<WarehouseWithProductsAndShapesCount>> GetWarehousesWithProductsAndShapesCountAsync();
 
-        WarehouseWithProductsAndShapesCount GetWarehouseToDeleteById(int id);
+        Task<WarehouseWithProductsAndShapesCount> GetWarehouseToDeleteByIdAsync(int id);
 
-        int Create(string name);
+        Task<int> CreateAsync(string name);
 
-        void Edit(int id, string name);
+        Task EditAsync(int id, string name);
 
-        WarehouseBaseServiceModel GetWarehouseDetails(int id);
+        Task<WarehouseBaseServiceModel> GetWarehouseDetailsAsync(int id);
 
-        bool IsWarehouseExist(int id);
+        Task<bool> IsWarehouseExistAsync(int id);
 
-        bool HasWarehouseWithSameName(string name);
+        Task<bool> HasWarehouseWithSameNameAsync(string name);
 
-        void DeleteWarehouse(int id);
+        Task DeleteWarehouseAsync(int id);
     }
 }

@@ -49,7 +49,7 @@
             => View(new AddProductToWarehouseFormModel
             {
                 ProductColors = await this.productColorsService.GetAllProductColorsAsync(),
-                Warehouses = this.warehouseService.GetAllWarehouses(),
+                Warehouses = await this.warehouseService.GetAllWarehousesAsync(),
             });
 
         [Authorize]
@@ -60,7 +60,7 @@
 
             if (!ModelState.IsValid)
             {
-                model.Warehouses = this.warehouseService.GetAllWarehouses();
+                model.Warehouses = await this.warehouseService.GetAllWarehousesAsync();
                 model.ProductColors = await this.productColorsService.GetAllProductColorsAsync();
 
                 return View(model);
@@ -108,7 +108,7 @@
                 this.ModelState.AddModelError(nameof(productColorId), $"Product with this color does not exist.");
             }
 
-            if (!this.warehouseService.IsWarehouseExist(warehouseId))
+            if (!await this.warehouseService.IsWarehouseExistAsync(warehouseId))
             {
                 this.ModelState.AddModelError(nameof(warehouseId), $"Warehouse does not exist.");
             }

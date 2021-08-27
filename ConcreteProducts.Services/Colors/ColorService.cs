@@ -1,10 +1,12 @@
 ﻿namespace ConcreteProducts.Services.Colors
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Collections.Generic;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Microsoft.EntityFrameworkCore;
 
     using ConcreteProducts.Data;
     using ConcreteProducts.Data.Models;
@@ -21,59 +23,59 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<ColorBaseServiceModel> GetAllColors()
-            => this.data.Colors
+        public async Task<IEnumerable<ColorBaseServiceModel>> GetAllColorsAsync()
+            => await this.data.Colors
                 .ProjectTo<ColorBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .OrderBy(c => c.Name)
-                .ToList();
+                .ToListAsync();
 
-        public ColorDeleteServiceModel GetColorToDeleteById(int id)
-            => this.data.Colors
+        public async Task<ColorDeleteServiceModel> GetColorToDeleteByIdAsync(int id)
+            => await this.data.Colors
                 .Where(c => c.Id == id)
                 .ProjectTo<ColorDeleteServiceModel>(this.mapper.ConfigurationProvider)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
-        public int Create(string name)
+        public async Task<int> CreateAsync(string name)
         {
             var color = new Color
             {
                 Name = name
             };
 
-            this.data.Colors.Add(color);
-            this.data.SaveChanges();
+            await this.data.Colors.AddAsync(color);
+            await this.data.SaveChangesAsync();
 
             return color.Id;
         }
 
-        public void Edit(int id, string name)
+        public async Task EditAsync(int id, string name)
         {
-            var color = this.data.Colors.Find(id);
+            var color = await this.data.Colors.FindAsync(id);
 
             color.Name = name;
 
-            this.data.SaveChanges();
+            await this.data.SaveChangesAsync();
         }
 
-        public ColorBaseServiceModel GetColorDetails(int id)
-            => this.data.Colors
+        public async Task<ColorBaseServiceModel> GetColorDetailsAsync(int id)
+            => await this.data.Colors
                 .Where(c => c.Id == id)
                 .ProjectTo<ColorBaseServiceModel>(this.mapper.ConfigurationProvider)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
-        public bool IsColorExist(int id)
-            => this.data.Colors.Any(c => c.Id == id);
+        public async Task<bool> IsColorExistAsync(int id)
+            => await this.data.Colors.AnyAsync(c => c.Id == id);
 
-        public bool HasColorWithSameName(string name)
-            => this.data.Colors
-                .Any(c => c.Name == name);
+        public async Task<bool> HasColorWithSameNameAsync(string name)
+            => await this.data.Colors
+                .AnyAsync(c => c.Name == name);
 
-        public void DeleteColor(int id)
+        public async Task DeleteColorAsync(int id)
         {
-            var color = this.data.Colors.Find(id);
+            var color = await this.data.Colors.FindAsync(id);
 
             this.data.Colors.Remove(color);
-            this.data.SaveChanges();
+            await this.data.SaveChangesAsync();
         }
     }
 }

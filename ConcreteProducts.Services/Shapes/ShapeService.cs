@@ -1,10 +1,12 @@
 ﻿namespace ConcreteProducts.Services.Shapes
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Collections.Generic;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Microsoft.EntityFrameworkCore;
 
     using ConcreteProducts.Data;
     using ConcreteProducts.Data.Models;
@@ -21,24 +23,25 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<ShapeBaseServiceModel> GetAllShapes()
-            => this.data.Shapes
-                .ProjectTo<ShapeBaseServiceModel>(this.mapper.ConfigurationProvider)
-                .OrderBy(s => s.Id)
-                .ToList();
+        public async Task<IEnumerable<ShapeBaseServiceModel>> GetAllShapesAsync()
+                => await this.data.Shapes
+                    .ProjectTo<ShapeBaseServiceModel>(this.mapper.ConfigurationProvider)
+                    .OrderBy(s => s.Id)
+                    .ToListAsync();
 
-        public IEnumerable<ShapeAndWarehouseServiceModel> GetAllShapesWithWarehouse()
-            => this.data.Shapes
+        public async Task<IEnumerable<ShapeAndWarehouseServiceModel>> GetAllShapesWithWarehouseAsync()
+            => await this.data.Shapes
                 .ProjectTo<ShapeAndWarehouseServiceModel>(this.mapper.ConfigurationProvider)
                 .OrderBy(s => s.Id)
-                .ToList();
+                .ToListAsync();
 
-        public ShapeBaseServiceModel GetShapeToDeleteById(int id)
-            => this.data.Shapes
+        public async Task<ShapeBaseServiceModel> GetShapeToDeleteByIdAsync(int id)
+            => await this.data.Shapes
                 .Where(s => s.Id == id)
                 .ProjectTo<ShapeBaseServiceModel>(this.mapper.ConfigurationProvider)
-                .FirstOrDefault();
-        public int Create(string name, string dimensions, int warehouseId)
+                .FirstOrDefaultAsync();
+
+        public async Task<int> CreateAsync(string name, string dimensions, int warehouseId)
         {
             var shape = new Shape
             {
@@ -47,42 +50,42 @@
                 WarehouseId = warehouseId
             };
 
-            this.data.Shapes.Add(shape);
-            this.data.SaveChanges();
+            await this.data.Shapes.AddAsync(shape);
+            await this.data.SaveChangesAsync();
 
             return shape.Id;
         }
 
-        public void Edit(int id, string name, string dimensions, int warehouseId)
+        public async Task EditAsync(int id, string name, string dimensions, int warehouseId)
         {
-            var shape = this.data.Shapes.Find(id);
+            var shape = await this.data.Shapes.FindAsync(id);
 
             shape.Name = name;
             shape.Dimensions = dimensions;
             shape.WarehouseId = warehouseId;
 
-            this.data.SaveChanges();
+            await this.data.SaveChangesAsync();
         }
 
-        public ShapeDetailsServiceModel GetShapeDetails(int id)
-            => this.data.Shapes
-                .Where(s => s.Id == id)
-                .ProjectTo<ShapeDetailsServiceModel>(this.mapper.ConfigurationProvider)
-                .FirstOrDefault();
+        public async Task<ShapeDetailsServiceModel> GetShapeDetailsAsync(int id)
+                => await this.data.Shapes
+                    .Where(s => s.Id == id)
+                    .ProjectTo<ShapeDetailsServiceModel>(this.mapper.ConfigurationProvider)
+                    .FirstOrDefaultAsync();
 
-        public bool IsShapeExist(int id)
-            => this.data.Shapes.Any(s => s.Id == id);
+        public async Task<bool> IsShapeExistAsync(int id)
+            => await this.data.Shapes.AnyAsync(s => s.Id == id);
 
-        public bool HasShapeWithSameName(string name)
-            => this.data.Shapes
-                .Any(s => s.Name == name);
+        public async Task<bool> HasShapeWithSameNameAsync(string name)
+            => await this.data.Shapes
+                .AnyAsync(s => s.Name == name);
 
-        public void DeleteShape(int id)
+        public async Task DeleteShapeAsync(int id)
         {
-            var shape = this.data.Shapes.Find(id);
+            var shape = await this.data.Shapes.FindAsync(id);
 
             this.data.Shapes.Remove(shape);
-            this.data.SaveChanges();
+            await this.data.SaveChangesAsync();
         }
     }
 }

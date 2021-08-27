@@ -1,6 +1,8 @@
 ﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers
 {
     using System.Linq;
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
 
     using ConcreteProducts.Services.Warehouses;
@@ -19,9 +21,9 @@
             this.warehouseService = warehouseService;
         }
 
-        public IActionResult All(int page = 1)
+        public async Task<IActionResult> All(int page = 1)
         {
-            var warehouses = this.warehouseService.GetWarehousesWithProductsAndShapesCount();
+            var warehouses = await this.warehouseService.GetWarehousesWithProductsAndShapesCountAsync();
 
             var warehousesViewModel = new ListAllWarehouseViewModel
             {
@@ -41,9 +43,9 @@
             => View(new WarehouseFormModel());
 
         [HttpPost]
-        public IActionResult Add(WarehouseFormModel warehouse)
+        public async Task<IActionResult> Add(WarehouseFormModel warehouse)
         {
-            if (this.warehouseService.HasWarehouseWithSameName(warehouse.Name))
+            if (await this.warehouseService.HasWarehouseWithSameNameAsync(warehouse.Name))
             {
                 this.ModelState.AddModelError(nameof(warehouse.Name), takenWarehouseNameErrorMessage);
             }
@@ -53,19 +55,19 @@
                 return View(warehouse);
             }
 
-            this.warehouseService.Create(warehouse.Name);
+            await this.warehouseService.CreateAsync(warehouse.Name);
 
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (!this.warehouseService.IsWarehouseExist(id))
+            if (!await this.warehouseService.IsWarehouseExistAsync(id))
             {
                 return BadRequest(notExistingWarehouseErrorMessage);
             }
 
-            var warehouseDetails = this.warehouseService.GetWarehouseDetails(id);
+            var warehouseDetails = await this.warehouseService.GetWarehouseDetailsAsync(id);
 
             return View(new WarehouseFormModel
             {
@@ -74,14 +76,14 @@
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, WarehouseFormModel warehouse)
+        public async Task<IActionResult> Edit(int id, WarehouseFormModel warehouse)
         {
-            if (!this.warehouseService.IsWarehouseExist(id))
+            if (!await this.warehouseService.IsWarehouseExistAsync(id))
             {
                 this.ModelState.AddModelError(nameof(warehouse.Name), notExistingWarehouseErrorMessage);
             }
 
-            if (this.warehouseService.HasWarehouseWithSameName(warehouse.Name))
+            if (await this.warehouseService.HasWarehouseWithSameNameAsync(warehouse.Name))
             {
                 this.ModelState.AddModelError(nameof(warehouse.Name), takenWarehouseNameErrorMessage);
             }
@@ -91,27 +93,27 @@
                 return View(warehouse);
             }
 
-            this.warehouseService.Edit(id, warehouse.Name);
+            await this.warehouseService.EditAsync(id, warehouse.Name);
 
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (!this.warehouseService.IsWarehouseExist(id))
+            if (!await this.warehouseService.IsWarehouseExistAsync(id))
             {
                 return BadRequest(notExistingWarehouseErrorMessage);
             }
 
-            var warehouse = this.warehouseService.GetWarehouseToDeleteById(id);
+            var warehouse = await this.warehouseService.GetWarehouseToDeleteByIdAsync(id);
 
             return View(warehouse);
         }
 
         [HttpPost]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            this.warehouseService.DeleteWarehouse(id);
+            await this.warehouseService.DeleteWarehouseAsync(id);
 
             return RedirectToAction(nameof(All));
         }

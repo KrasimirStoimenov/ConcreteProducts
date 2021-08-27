@@ -1,6 +1,8 @@
 ﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers
 {
     using System.Linq;
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
 
     using ConcreteProducts.Services.Shapes;
@@ -24,9 +26,9 @@
             this.warehouseService = warehouseService;
         }
 
-        public IActionResult All(int page = 1)
+        public async Task<IActionResult> All(int page = 1)
         {
-            var shapes = this.shapeService.GetAllShapesWithWarehouse();
+            var shapes = await this.shapeService.GetAllShapesWithWarehouseAsync();
 
             var shapesViewModel = new ListAllShapesViewModel
             {
@@ -42,46 +44,46 @@
             return View(shapesViewModel);
         }
 
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
             => View(new ShapeFormModel
             {
-                Warehouses = this.warehouseService.GetAllWarehouses()
+                Warehouses = await this.warehouseService.GetAllWarehousesAsync()
             });
 
         [HttpPost]
-        public IActionResult Add(ShapeFormModel shape)
+        public async Task<IActionResult> Add(ShapeFormModel shape)
         {
-            if (!this.warehouseService.IsWarehouseExist(shape.WarehouseId))
+            if (!await this.warehouseService.IsWarehouseExistAsync(shape.WarehouseId))
             {
                 this.ModelState.AddModelError(nameof(shape.WarehouseId), notExistingWarehouseErrorMessage);
             }
 
-            if (this.shapeService.HasShapeWithSameName(shape.Name))
+            if (await this.shapeService.HasShapeWithSameNameAsync(shape.Name))
             {
                 this.ModelState.AddModelError(nameof(shape.Name), takenShapeNameErrorMessage);
             }
 
             if (!this.ModelState.IsValid)
             {
-                shape.Warehouses = this.warehouseService.GetAllWarehouses();
+                shape.Warehouses = await this.warehouseService.GetAllWarehousesAsync();
 
                 return View(shape);
             }
 
-            this.shapeService.Create(shape.Name, shape.Dimensions, shape.WarehouseId);
+            await this.shapeService.CreateAsync(shape.Name, shape.Dimensions, shape.WarehouseId);
 
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (!this.shapeService.IsShapeExist(id))
+            if (!await this.shapeService.IsShapeExistAsync(id))
             {
                 return BadRequest(notExistingShapeErrorMessage);
             }
 
-            var shapeDetails = this.shapeService.GetShapeDetails(id);
-            var warehouses = this.warehouseService.GetAllWarehouses();
+            var shapeDetails = await this.shapeService.GetShapeDetailsAsync(id);
+            var warehouses = await this.warehouseService.GetAllWarehousesAsync();
 
             return View(new ShapeFormModel
             {
@@ -93,41 +95,41 @@
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, ShapeFormModel shape)
+        public async Task<IActionResult> Edit(int id, ShapeFormModel shape)
         {
-            if (!this.shapeService.IsShapeExist(id))
+            if (!await this.shapeService.IsShapeExistAsync(id))
             {
                 this.ModelState.AddModelError(nameof(shape.Name), notExistingShapeErrorMessage);
             }
 
             if (!ModelState.IsValid)
             {
-                shape.Warehouses = this.warehouseService.GetAllWarehouses();
+                shape.Warehouses = await this.warehouseService.GetAllWarehousesAsync();
 
                 return View(shape);
             }
 
-            this.shapeService.Edit(id, shape.Name, shape.Dimensions, shape.WarehouseId);
+            await this.shapeService.EditAsync(id, shape.Name, shape.Dimensions, shape.WarehouseId);
 
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (!this.shapeService.IsShapeExist(id))
+            if (!await this.shapeService.IsShapeExistAsync(id))
             {
                 return BadRequest(notExistingShapeErrorMessage);
             }
 
-            var shape = this.shapeService.GetShapeToDeleteById(id);
+            var shape = await this.shapeService.GetShapeToDeleteByIdAsync(id);
 
             return View(shape);
         }
 
         [HttpPost]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            this.shapeService.DeleteShape(id);
+            await this.shapeService.DeleteShapeAsync(id);
 
             return RedirectToAction(nameof(All));
         }
