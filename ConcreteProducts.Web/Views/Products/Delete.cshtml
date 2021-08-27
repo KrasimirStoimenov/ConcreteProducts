@@ -11,6 +11,7 @@
 
 <div>
     <form asp-action="DeleteConfirmed">
+        <div class="text-danger" asp-validation-summary="All"></div>
         <input type="hidden" asp-for="@Model.Id" />
         <input type="submit" asp-action="DeleteConfirmed" value="Delete" class="btn btn-danger" /> |
         <a class="btn btn-info" asp-action="All">Back to List</a>

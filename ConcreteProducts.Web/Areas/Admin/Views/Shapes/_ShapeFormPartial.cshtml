@@ -5,6 +5,7 @@
         <div class="offset-md-3 col-md-6">
             <h2 heading-tag>@ViewBag.Title</h2>
             <form method="post">
+                <div class="text-danger" asp-validation-summary="All"></div>
                 <div class="form-group">
                     <label asp-for="Name"></label>
                     <input asp-for="Name" class="form-control" placeholder="Brick, Tile etc.">
