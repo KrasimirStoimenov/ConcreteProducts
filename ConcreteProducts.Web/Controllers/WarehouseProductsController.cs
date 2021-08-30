@@ -56,8 +56,6 @@
         [HttpPost]
         public async Task<IActionResult> Add(AddProductToWarehouseFormModel model)
         {
-            await this.Validator(model.ProductColorId, model.WarehouseId);
-
             if (!ModelState.IsValid)
             {
                 model.Warehouses = await this.warehouseService.GetAllWarehousesAsync();
@@ -82,8 +80,6 @@
         [HttpPost]
         public async Task<IActionResult> DecreaseQuantity(DecreaseQuantityViewModel model)
         {
-            await this.Validator(model.ProductColorId, model.WarehouseId);
-
             var availableQuantity = await this.warehouseProductService.AvailableQuantityAsync(model.ProductColorId, model.WarehouseId);
 
             if (model.Count > availableQuantity)
@@ -99,19 +95,6 @@
             await this.warehouseProductService.DecreaseQuantityFromProductsInWarehouseAsync(model.ProductColorId, model.WarehouseId, model.Count);
 
             return RedirectToAction(nameof(All));
-        }
-
-        private async Task Validator(int productColorId, int warehouseId)
-        {
-            if (!await this.productColorsService.IsProductColorExistAsync(productColorId))
-            {
-                this.ModelState.AddModelError(nameof(productColorId), $"Product with this color does not exist.");
-            }
-
-            if (!await this.warehouseService.IsWarehouseExistAsync(warehouseId))
-            {
-                this.ModelState.AddModelError(nameof(warehouseId), $"Warehouse does not exist.");
-            }
         }
     }
 }

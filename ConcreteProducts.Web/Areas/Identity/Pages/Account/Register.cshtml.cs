@@ -62,7 +62,10 @@
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            ReturnUrl = returnUrl;
+            await Task.Run(() =>
+            {
+                ReturnUrl = returnUrl;
+            });
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

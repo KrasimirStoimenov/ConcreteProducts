@@ -53,11 +53,6 @@
         [HttpPost]
         public async Task<IActionResult> Add(ShapeFormModel shape)
         {
-            if (!await this.warehouseService.IsWarehouseExistAsync(shape.WarehouseId))
-            {
-                this.ModelState.AddModelError(nameof(shape.WarehouseId), notExistingWarehouseErrorMessage);
-            }
-
             if (await this.shapeService.HasShapeWithSameNameAsync(shape.Name))
             {
                 this.ModelState.AddModelError(nameof(shape.Name), takenShapeNameErrorMessage);

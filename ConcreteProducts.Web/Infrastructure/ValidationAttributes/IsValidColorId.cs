@@ -1,6 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Infrastructure.ValidationAttributes
 {
     using System.ComponentModel.DataAnnotations;
+
     using ConcreteProducts.Services.Colors;
 
     public class IsValidColorId : ValidationAttribute
@@ -9,7 +10,7 @@
         {
             var service = validationContext.GetService(typeof(IColorService)) as IColorService;
 
-            if (!service.IsColorExist((int)value))
+            if (!service.IsColorExistAsync((int)value).GetAwaiter().GetResult())
             {
                 return new ValidationResult("Color does not exist.");
             }

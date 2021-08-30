@@ -1,6 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Infrastructure.ValidationAttributes
 {
     using System.ComponentModel.DataAnnotations;
+
     using ConcreteProducts.Services.Categories;
 
     public class IsValidCategoryId : ValidationAttribute
@@ -9,7 +10,7 @@
         {
             var service = validationContext.GetService(typeof(ICategoryService)) as ICategoryService;
 
-            if (!service.IsCategoryExist((int)value))
+            if (!service.IsCategoryExistAsync((int)value).GetAwaiter().GetResult())
             {
                 return new ValidationResult("Category does not exist.");
             }

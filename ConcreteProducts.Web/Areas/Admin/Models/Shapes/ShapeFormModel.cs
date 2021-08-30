@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using ConcreteProducts.Services.Warehouses.Models;
+    using ConcreteProducts.Web.Infrastructure.ValidationAttributes;
 
     using static Common.DataAttributeConstants.Shape;
     using static Common.DataAttributeConstants.ErrorMessages;
@@ -26,6 +27,7 @@
         public string Dimensions { get; init; }
 
         [Display(Name = "Warehouse")]
+        [IsValidWarehouseId]
         public int WarehouseId { get; init; }
 
         public IEnumerable<WarehouseBaseServiceModel> Warehouses { get; set; }

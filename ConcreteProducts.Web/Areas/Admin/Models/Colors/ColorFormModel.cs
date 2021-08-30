@@ -8,7 +8,6 @@
 
     public class ColorFormModel
     {
-        [IsValidColorId]
         public int Id { get; init; }
 
         [Required]

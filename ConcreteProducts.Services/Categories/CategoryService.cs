@@ -69,10 +69,6 @@
                 .ProjectTo<CategoryBaseServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
-        public bool IsCategoryExist(int id)
-            => this.data.Categories
-                .Any(c => c.Id == id);
-
         public async Task<bool> IsCategoryExistAsync(int id)
             => await this.data.Categories
                 .AnyAsync(c => c.Id == id);

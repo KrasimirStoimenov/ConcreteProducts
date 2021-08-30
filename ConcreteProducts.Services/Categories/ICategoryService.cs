@@ -19,8 +19,6 @@
 
         Task<CategoryBaseServiceModel> GetCategoryDetailsAsync(int id);
 
-        bool IsCategoryExist(int id);
-
         Task<bool> IsCategoryExistAsync(int id);
 
         Task<bool> HasCategoryWithSameNameAsync(string name);

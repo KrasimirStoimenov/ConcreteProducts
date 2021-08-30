@@ -24,7 +24,7 @@
         private readonly IColorService colorService;
         private readonly ICategoryService categoryService;
 
-        public ProductsController(IProductService productService, ConcreteProductsDbContext data, IColorService colorService, ICategoryService categoryService, IWarehouseService warehouseService)
+        public ProductsController(IProductService productService, IColorService colorService, ICategoryService categoryService, IWarehouseService warehouseService)
         {
             this.productService = productService;
             this.colorService = colorService;

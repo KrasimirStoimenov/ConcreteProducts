@@ -8,7 +8,6 @@
 
     public class CategoryFormModel
     {
-        [IsValidCategoryId]
         public int Id { get; init; }
 
         [Required]

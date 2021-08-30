@@ -37,11 +37,6 @@
                 ModelState.AddModelError(nameof(model.ProductId), $"Product does not exist.");
             }
 
-            if (!await colorService.IsColorExistAsync(model.ColorId))
-            {
-                ModelState.AddModelError(nameof(model.ColorId), $"Color does not exist.");
-            }
-
             if (await productColorsService.IsColorRelatedToProductAsync(model.ProductId, model.ColorId))
             {
                 ModelState.AddModelError(nameof(model.ColorId), $"Color is already related to product.");
