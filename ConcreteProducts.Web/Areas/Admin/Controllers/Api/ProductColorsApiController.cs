@@ -1,11 +1,13 @@
-﻿using ConcreteProducts.Services.ProductColors;
-using ConcreteProducts.Services.ProductColors.Model;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace ConcreteProducts.Web.Areas.Admin.Controllers.Api
+﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers.Api
 {
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
+
+    using Microsoft.AspNetCore.Mvc;
+
+    using ConcreteProducts.Services.ProductColors;
+    using ConcreteProducts.Services.ProductColors.Model;
+
     [Route("/api/productColors")]
     [ApiController]
     public class ProductColorsApiController : ControllerBase
