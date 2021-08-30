@@ -8,7 +8,7 @@
     using ConcreteProducts.Services.Products;
     using ConcreteProducts.Services.Products.Models;
 
-    [Route("api/products")]
+    [Route("/api/products")]
     [ApiController]
     public class ProductsApiController : ControllerBase
     {

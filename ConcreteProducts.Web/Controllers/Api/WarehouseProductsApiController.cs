@@ -10,7 +10,7 @@
 
     [Route("/api/warehouseProducts")]
     [ApiController]
-    public class WarehouseProductsApiController
+    public class WarehouseProductsApiController:ControllerBase
     {
         private readonly IWarehouseProductService warehouseProductService;
 
