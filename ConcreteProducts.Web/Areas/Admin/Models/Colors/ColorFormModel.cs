@@ -8,8 +8,6 @@
 
     public class ColorFormModel
     {
-        public int Id { get; init; }
-
         [Required]
         [StringLength(
             NameMaxLength,

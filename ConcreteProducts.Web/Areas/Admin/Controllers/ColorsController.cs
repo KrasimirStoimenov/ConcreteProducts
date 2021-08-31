@@ -77,7 +77,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(ColorFormModel color)
+        public async Task<IActionResult> Edit(int id,ColorFormModel color)
         {
             if (await this.colorService.HasColorWithSameNameAsync(color.Name))
             {
@@ -89,7 +89,7 @@
                 return View(color);
             }
 
-            await this.colorService.EditAsync(color.Id, color.Name);
+            await this.colorService.EditAsync(id, color.Name);
 
             return RedirectToAction(nameof(All));
         }

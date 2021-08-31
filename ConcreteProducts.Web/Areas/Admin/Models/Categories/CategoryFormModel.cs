@@ -8,8 +8,6 @@
 
     public class CategoryFormModel
     {
-        public int Id { get; init; }
-
         [Required]
         [StringLength(
             NameMaxLength,

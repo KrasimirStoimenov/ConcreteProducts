@@ -77,7 +77,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(CategoryFormModel category)
+        public async Task<IActionResult> Edit(int id,CategoryFormModel category)
         {
             if (await this.categoryService.HasCategoryWithSameNameAsync(category.Name))
             {
@@ -89,7 +89,7 @@
                 return View(category);
             }
 
-            await this.categoryService.EditAsync(category.Id, category.Name);
+            await this.categoryService.EditAsync(id, category.Name);
 
             return RedirectToAction(nameof(All));
         }
