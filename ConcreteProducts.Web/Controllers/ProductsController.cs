@@ -8,7 +8,6 @@
     using CloudinaryDotNet.Actions;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Authorization;
 
     using ConcreteProducts.Web.Models.Products;
@@ -27,15 +26,13 @@
         private readonly IProductService productService;
         private readonly IColorService colorService;
         private readonly ICategoryService categoryService;
-        private readonly IWebHostEnvironment hostingEnvironment;
         private readonly Cloudinary cloudinary;
 
-        public ProductsController(IProductService productService, IColorService colorService, ICategoryService categoryService, IWarehouseService warehouseService, IWebHostEnvironment hostingEnvironment, Cloudinary cloudinary)
+        public ProductsController(IProductService productService, IColorService colorService, ICategoryService categoryService, IWarehouseService warehouseService, Cloudinary cloudinary)
         {
             this.productService = productService;
             this.colorService = colorService;
             this.categoryService = categoryService;
-            this.hostingEnvironment = hostingEnvironment;
             this.cloudinary = cloudinary;
         }
 
