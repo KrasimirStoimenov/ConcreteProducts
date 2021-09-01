@@ -107,7 +107,7 @@
                 .Instance()
                 .WithData(data => data
                     .WithEntities(new Color { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(new ColorFormModel
+                .Calling(c => c.Edit(1,new ColorFormModel
                 {
                     Name = "Something"
                 }))
@@ -124,7 +124,7 @@
                 .Instance()
                 .WithData(data => data
                     .WithEntities(new Color { Id = 1, Name = "Test", ProductColors = null }))
-                .Calling(c => c.Edit(new ColorFormModel
+                .Calling(c => c.Edit(1,new ColorFormModel
                 {
                     Name = "Test"
                 }))
@@ -143,7 +143,7 @@
                 .Instance()
                 .WithData(data => data
                     .WithEntities(new Color { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(With.Default<ColorFormModel>()))
+                .Calling(c => c.Edit(1,With.Default<ColorFormModel>()))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
                     .RestrictingForHttpMethod(HttpMethod.Post))

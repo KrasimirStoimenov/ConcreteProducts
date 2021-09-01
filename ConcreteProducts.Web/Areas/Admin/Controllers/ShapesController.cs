@@ -15,7 +15,6 @@
     {
         private readonly string notExistingShapeErrorMessage = "Shape does not exist.";
         private readonly string takenShapeNameErrorMessage = "Shape name already taken.";
-        private readonly string notExistingWarehouseErrorMessage = "Warehouse does not exist.";
 
         private readonly IShapeService shapeService;
         private readonly IWarehouseService warehouseService;

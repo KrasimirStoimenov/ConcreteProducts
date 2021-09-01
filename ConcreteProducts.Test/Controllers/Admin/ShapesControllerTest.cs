@@ -111,11 +111,13 @@
             => MyController<ShapeController>
                 .Instance()
                 .WithData(data => data
+                    .WithEntities(new Warehouse { Id = 1, Name = "Test" })
                     .WithEntities(new Shape { Id = 1, Name = "Test" }))
                 .Calling(c => c.Edit(1, new ShapeFormModel
                 {
                     Name = "Something",
-                    Dimensions = "Test"
+                    Dimensions = "Test",
+                    WarehouseId = 1
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
