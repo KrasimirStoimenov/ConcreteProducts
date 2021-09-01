@@ -1,5 +1,6 @@
 namespace ConcreteProducts.Web
 {
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Hosting;
@@ -71,6 +72,14 @@ namespace ConcreteProducts.Web
             services.AddMemoryCache();
             services.AddSignalR();
 
+            Account account = new Account(
+              this.Configuration["Cloud:CloudName"],
+              this.Configuration["Cloud:APIKey"],
+              this.Configuration["Cloud:APISecret"]);
+
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            services.AddSingleton(cloudinary);
             services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IShapeService, ShapeService>();
             services.AddTransient<IColorService, ColorService>();

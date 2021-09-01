@@ -70,7 +70,6 @@
                     QuantityInPalletInPieces = 15,
                     QuantityInPalletInUnitOfMeasurement = 15,
                     Weight = 15,
-                    ImageUrl = "https://chilli.codes/wp-content/uploads/2020/10/git.jpg",
                     UnitOfMeasurement = UnitOfMeasurement.Meters
 
                 }))

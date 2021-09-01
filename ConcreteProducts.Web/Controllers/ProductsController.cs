@@ -1,12 +1,16 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Authorization;
 
-    using ConcreteProducts.Data;
     using ConcreteProducts.Web.Models.Products;
     using ConcreteProducts.Services.Products;
     using ConcreteProducts.Services.Colors;
@@ -23,12 +27,16 @@
         private readonly IProductService productService;
         private readonly IColorService colorService;
         private readonly ICategoryService categoryService;
+        private readonly IWebHostEnvironment hostingEnvironment;
+        private readonly Cloudinary cloudinary;
 
-        public ProductsController(IProductService productService, IColorService colorService, ICategoryService categoryService, IWarehouseService warehouseService)
+        public ProductsController(IProductService productService, IColorService colorService, ICategoryService categoryService, IWarehouseService warehouseService, IWebHostEnvironment hostingEnvironment, Cloudinary cloudinary)
         {
             this.productService = productService;
             this.colorService = colorService;
             this.categoryService = categoryService;
+            this.hostingEnvironment = hostingEnvironment;
+            this.cloudinary = cloudinary;
         }
 
         public async Task<IActionResult> All(string searchTerm, int page = 1)
@@ -68,7 +76,7 @@
             var hasValidNameAndDimensions = await this.productService
                     .HasProductWithSameNameAndDimensionsAsync(product.Name, product.Dimensions);
 
-            if(hasValidNameAndDimensions)
+            if (hasValidNameAndDimensions)
             {
                 this.ModelState.AddModelError(nameof(product.Name), existProductWithSameParameters);
             }
@@ -81,6 +89,8 @@
                 return View(product);
             }
 
+            var cloudinaryUrl = await UploadFileToCloudinary(product.Image);
+
             await this.productService.CreateAsync(
                 product.Name,
                 product.Dimensions,
@@ -89,7 +99,7 @@
                 product.CountInUnitOfMeasurement,
                 product.UnitOfMeasurement,
                 product.Weight,
-                product.ImageUrl,
+                cloudinaryUrl,
                 product.CategoryId,
                 product.ColorId);
 
@@ -132,6 +142,24 @@
             await this.productService.DeleteProductAsync(id);
 
             return RedirectToAction(nameof(All));
+        }
+
+        private async Task<string> UploadFileToCloudinary(IFormFile image)
+        {
+            using var memoryStream = new MemoryStream();
+
+            await image.CopyToAsync(memoryStream);
+
+            using var newStream = new MemoryStream(memoryStream.ToArray());
+
+            var uploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription(image.FileName, newStream)
+            };
+
+            var uploadResult = cloudinary.Upload(uploadParams);
+
+            return uploadResult.Url.AbsoluteUri;
         }
     }
 }
