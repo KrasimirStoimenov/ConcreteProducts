@@ -1,10 +1,9 @@
 ﻿namespace ConcreteProducts.Test.Routing.Admin
 {
-    using NUnit.Framework;
-    using MyTested.AspNetCore.Mvc;
-
     using ConcreteProducts.Web.Areas.Admin.Controllers;
     using ConcreteProducts.Web.Areas.Admin.Models.Categories;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
     public class CategoriesRouteTest
     {
@@ -49,7 +48,7 @@
                 .ShouldMap(response => response
                     .WithPath($"/Admin/Categories/Edit/{id}")
                     .WithMethod(HttpMethod.Post))
-                .To<CategoriesController>(c => c.Edit(id,With.Any<CategoryFormModel>()));
+                .To<CategoriesController>(c => c.Edit(id, With.Any<CategoryFormModel>()));
 
         [Test]
         [TestCase(1)]

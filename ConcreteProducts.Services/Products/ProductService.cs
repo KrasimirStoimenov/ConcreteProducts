@@ -1,18 +1,16 @@
 ﻿namespace ConcreteProducts.Services.Products
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Collections.Generic;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-
-    using Microsoft.EntityFrameworkCore;
-
     using ConcreteProducts.Data;
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Data.Models.Enumerations;
     using ConcreteProducts.Services.Products.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class ProductService : IProductService
     {
@@ -88,9 +86,8 @@
 
             product.ProductColors.Add(new ProductColor
             {
-                ColorId = colorId
+                ColorId = colorId,
             });
-
 
             await this.data.Products.AddAsync(product);
             await this.data.SaveChangesAsync();
@@ -120,12 +117,10 @@
                 .Where(c => colorsRelatedToProduct.Contains(c.ProductColorId))
                 .ToListAsync();
 
-
             this.data.WarehouseProductColors.RemoveRange(warehouseProductColors);
             this.data.ProductColors.RemoveRange(product.ProductColors);
             this.data.Products.Remove(product);
             await this.data.SaveChangesAsync();
         }
-
     }
 }

@@ -1,15 +1,15 @@
 ﻿namespace ConcreteProducts.Data.ModelConfiguration
 {
+    using ConcreteProducts.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using ConcreteProducts.Data.Models;
 
     public class ProductColorConfiguration : IEntityTypeConfiguration<ProductColor>
     {
         public void Configure(EntityTypeBuilder<ProductColor> builder)
         {
             builder
-                .HasKey(c=>c.ProductColorId);
+                .HasKey(c => c.ProductColorId);
 
             builder
                 .HasOne(c => c.Color)

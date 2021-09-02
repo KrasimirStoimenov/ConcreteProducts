@@ -1,10 +1,9 @@
 ﻿namespace ConcreteProducts.Test.Routing
 {
-    using NUnit.Framework;
-    using MyTested.AspNetCore.Mvc;
-
     using ConcreteProducts.Web.Controllers;
     using ConcreteProducts.Web.Models.WarehouseProducts;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
     public class WarehouseProductsRouteTest
     {

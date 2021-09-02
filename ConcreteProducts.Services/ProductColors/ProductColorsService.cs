@@ -1,17 +1,16 @@
 ﻿namespace ConcreteProducts.Services.ProductColors
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Collections.Generic;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
-
     using ConcreteProducts.Data;
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Services.Colors.Models;
     using ConcreteProducts.Services.ProductColors.Model;
+    using Microsoft.EntityFrameworkCore;
 
     public class ProductColorsService : IProductColorsService
     {
@@ -35,12 +34,11 @@
 
             product.ProductColors.Add(new ProductColor
             {
-                ColorId = colorId
+                ColorId = colorId,
             });
 
             await this.data.SaveChangesAsync();
         }
-
 
         public async Task<IEnumerable<ColorBaseServiceModel>> GetColorsNotRelatedToProductAsync(int productId)
         {
@@ -57,7 +55,6 @@
                 .ToListAsync();
 
             return notRelatedColor;
-
         }
 
         public async Task<bool> IsColorRelatedToProductAsync(int productId, int colorId)

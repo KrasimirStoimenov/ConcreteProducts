@@ -1,14 +1,13 @@
 ﻿namespace ConcreteProducts.Test.Controllers.Admin
 {
-    using NUnit.Framework;
-    using FluentAssertions;
-    using MyTested.AspNetCore.Mvc;
-
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Services.Categories.Models;
     using ConcreteProducts.Web.Areas.Admin.Models.Categories;
+    using FluentAssertions;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
-    using CategoriesController = Web.Areas.Admin.Controllers.CategoriesController;
+    using CategoriesController = ConcreteProducts.Web.Areas.Admin.Controllers.CategoriesController;
 
     public class CategoriesControllerTest
     {
@@ -39,7 +38,7 @@
                 .Instance()
                 .Calling(c => c.Add(new CategoryFormModel
                 {
-                    Name = "Test"
+                    Name = "Test",
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -109,7 +108,7 @@
                     .WithEntities(new Category { Id = 1, Name = "Test" }))
                 .Calling(c => c.Edit(1, new CategoryFormModel
                 {
-                    Name = "Something"
+                    Name = "Something",
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -124,9 +123,9 @@
                 .Instance()
                 .WithData(data => data
                     .WithEntities(new Category { Id = 1, Name = "Test", Products = null }))
-                .Calling(c => c.Edit(1,new CategoryFormModel
+                .Calling(c => c.Edit(1, new CategoryFormModel
                 {
-                    Name = "Test"
+                    Name = "Test",
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -147,7 +146,7 @@
                 .Instance()
                 .WithData(data => data
                     .WithEntities(new Category { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(1,With.Default<CategoryFormModel>()))
+                .Calling(c => c.Edit(1, With.Default<CategoryFormModel>()))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
                     .RestrictingForHttpMethod(HttpMethod.Post))
@@ -173,7 +172,6 @@
                         model.Id.Should().BeGreaterOrEqualTo(id);
                         model.ProductsCount.Should().Be(0);
                     }));
-
 
         [Test]
         [TestCase(5)]

@@ -2,10 +2,9 @@
 {
     using System.Threading.Tasks;
 
+    using ConcreteProducts.Services.Chats;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
-    using ConcreteProducts.Services.Chats;
 
     [Authorize]
     public class ChatController : Controller
@@ -16,6 +15,6 @@
             => this.chatService = chatService;
 
         public async Task<IActionResult> Chat()
-            => View(await this.chatService.GetAllMessagesAsync());
+            => this.View(await this.chatService.GetAllMessagesAsync());
     }
 }

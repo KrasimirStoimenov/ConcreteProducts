@@ -1,9 +1,8 @@
 ﻿namespace ConcreteProducts.Test.Controllers.Admin
 {
-    using NUnit.Framework;
-    using MyTested.AspNetCore.Mvc;
-
     using ConcreteProducts.Web.Areas.Admin.Controllers;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
     public class HomeControllerTest
     {

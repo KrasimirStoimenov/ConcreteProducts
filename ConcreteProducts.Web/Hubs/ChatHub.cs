@@ -3,13 +3,12 @@
     using System;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.SignalR;
-    using Microsoft.AspNetCore.Identity;
-
-    using ConcreteProducts.Services.Chats.Models;
     using ConcreteProducts.Services.Chats;
+    using ConcreteProducts.Services.Chats.Models;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.SignalR;
 
-    using static Common.DataAttributeConstants.ChatMessages;
+    using static ConcreteProducts.Common.DataAttributeConstants.ChatMessages;
 
     public class ChatHub : Hub
     {
@@ -25,7 +24,9 @@
         public async Task Send(string message)
         {
             if (!this.IsValidMessageLength(message))
+            {
                 return;
+            }
 
             var user = await this.userManager.GetUserAsync(this.Context.User);
 

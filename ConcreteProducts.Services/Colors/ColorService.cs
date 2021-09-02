@@ -1,16 +1,15 @@
 ﻿namespace ConcreteProducts.Services.Colors
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Collections.Generic;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
-
     using ConcreteProducts.Data;
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Services.Colors.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class ColorService : IColorService
     {
@@ -39,7 +38,7 @@
         {
             var color = new Color
             {
-                Name = name
+                Name = name,
             };
 
             await this.data.Colors.AddAsync(color);

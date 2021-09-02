@@ -1,11 +1,11 @@
 ﻿namespace ConcreteProducts.Test.Controllers.Admin
 {
-    using NUnit.Framework;
     using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
     using static Common.GlobalConstants;
 
-    using AdminController = Web.Areas.Admin.Controllers.AdminController;
+    using AdminController = ConcreteProducts.Web.Areas.Admin.Controllers.AdminController;
 
     public class AdminControllerTest
     {

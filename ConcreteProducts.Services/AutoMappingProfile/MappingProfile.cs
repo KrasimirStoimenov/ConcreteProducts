@@ -4,16 +4,15 @@
     using System.Linq;
 
     using AutoMapper;
-
     using ConcreteProducts.Data.Models;
-    using ConcreteProducts.Services.Colors.Models;
-    using ConcreteProducts.Services.Shapes.Models;
-    using ConcreteProducts.Services.Products.Models;
     using ConcreteProducts.Services.Categories.Models;
-    using ConcreteProducts.Services.Warehouses.Models;
-    using ConcreteProducts.Services.ProductColors.Model;
-    using ConcreteProducts.Services.WarehouseProducts.Models;
     using ConcreteProducts.Services.Chats.Models;
+    using ConcreteProducts.Services.Colors.Models;
+    using ConcreteProducts.Services.ProductColors.Model;
+    using ConcreteProducts.Services.Products.Models;
+    using ConcreteProducts.Services.Shapes.Models;
+    using ConcreteProducts.Services.WarehouseProducts.Models;
+    using ConcreteProducts.Services.Warehouses.Models;
 
     public class MappingProfile : Profile
     {

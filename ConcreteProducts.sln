@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConcreteProducts.Data", "Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConcreteProducts.Services", "ConcreteProducts.Services\ConcreteProducts.Services.csproj", "{94CCC03D-E314-4B69-B775-D8880C252D05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcreteProducts.Common", "ConcreteProducts.Common\ConcreteProducts.Common.csproj", "{312C2A24-D4F9-436E-B9F5-DD00AE5A3D87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConcreteProducts.Common", "ConcreteProducts.Common\ConcreteProducts.Common.csproj", "{312C2A24-D4F9-436E-B9F5-DD00AE5A3D87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5F2CEEB1-4AB4-4F67-BAF9-AC2994701291}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

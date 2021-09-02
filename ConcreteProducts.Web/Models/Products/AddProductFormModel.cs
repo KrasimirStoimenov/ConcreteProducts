@@ -3,15 +3,14 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using ConcreteProducts.Data.Models.Enumerations;
+    using ConcreteProducts.Services.Categories.Models;
+    using ConcreteProducts.Services.Colors.Models;
+    using ConcreteProducts.Web.Infrastructure.ValidationAttributes;
     using Microsoft.AspNetCore.Http;
 
-    using ConcreteProducts.Data.Models.Enumerations;
-    using ConcreteProducts.Services.Colors.Models;
-    using ConcreteProducts.Services.Categories.Models;
-    using ConcreteProducts.Web.Infrastructure.ValidationAttributes;
-
-    using static Common.DataAttributeConstants.Product;
-    using static Common.DataAttributeConstants.ErrorMessages;
+    using static ConcreteProducts.Common.DataAttributeConstants.ErrorMessages;
+    using static ConcreteProducts.Common.DataAttributeConstants.Product;
 
     public class AddProductFormModel
     {

@@ -1,12 +1,11 @@
 ﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers.Api
 {
-    using System.Threading.Tasks;
     using System.Collections.Generic;
-
-    using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
 
     using ConcreteProducts.Services.Warehouses;
     using ConcreteProducts.Services.Warehouses.Models;
+    using Microsoft.AspNetCore.Mvc;
 
     [Route("/api/warehouses")]
     [ApiController]

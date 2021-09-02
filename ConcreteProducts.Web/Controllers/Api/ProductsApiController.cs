@@ -1,12 +1,11 @@
 ﻿namespace ConcreteProducts.Web.Controllers.Api
 {
-    using System.Threading.Tasks;
     using System.Collections.Generic;
-
-    using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
 
     using ConcreteProducts.Services.Products;
     using ConcreteProducts.Services.Products.Models;
+    using Microsoft.AspNetCore.Mvc;
 
     [Route("/api/products")]
     [ApiController]
@@ -28,7 +27,7 @@
 
             if (product == null)
             {
-                return NotFound();
+                return this.NotFound();
             }
 
             return product;

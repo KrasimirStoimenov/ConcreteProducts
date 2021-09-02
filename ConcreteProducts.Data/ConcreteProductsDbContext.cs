@@ -1,10 +1,9 @@
 ﻿namespace ConcreteProducts.Data
 {
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
     using ConcreteProducts.Data.ModelConfiguration;
     using ConcreteProducts.Data.Models;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
 
     public class ConcreteProductsDbContext : IdentityDbContext
     {
@@ -14,12 +13,19 @@
         }
 
         public DbSet<Product> Products { get; init; }
+
         public DbSet<Color> Colors { get; init; }
+
         public DbSet<Category> Categories { get; init; }
+
         public DbSet<ProductColor> ProductColors { get; init; }
+
         public DbSet<Shape> Shapes { get; init; }
+
         public DbSet<Warehouse> Warehouses { get; init; }
+
         public DbSet<WarehouseProductColors> WarehouseProductColors { get; init; }
+
         public DbSet<ChatMessage> ChatMessages { get; init; }
 
         protected override void OnModelCreating(ModelBuilder builder)

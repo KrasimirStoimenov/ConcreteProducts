@@ -2,11 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using NUnit.Framework;
-    using MyTested.AspNetCore.Mvc;
 
-    using ConcreteProducts.Web.Controllers;
     using ConcreteProducts.Services.Products.Models;
+    using ConcreteProducts.Web.Controllers;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
     using static Common.GlobalConstants;
 

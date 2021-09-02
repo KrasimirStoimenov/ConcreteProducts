@@ -1,12 +1,11 @@
 ﻿namespace ConcreteProducts.Test.Controllers
 {
-    using NUnit.Framework;
-    using FluentAssertions;
-    using MyTested.AspNetCore.Mvc;
-
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Web.Controllers;
     using ConcreteProducts.Web.Models.WarehouseProducts;
+    using FluentAssertions;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
     using static Common.GlobalConstants;
 
@@ -105,13 +104,13 @@
                         ProductColorId = 1,
                         Warehouse = new Warehouse(),
                         WarehouseId = 1,
-                        Count = 15
+                        Count = 15,
                     }))
                 .Calling(c => c.DecreaseQuantity(new DecreaseQuantityViewModel
                 {
                     ProductColorId = 1,
                     WarehouseId = 1,
-                    Count = 10
+                    Count = 10,
                 }))
                 .ShouldHave()
                 .ActionAttributes(a => a
@@ -125,12 +124,12 @@
             => MyController<WarehouseProductsController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new WarehouseProductColors {ProductColor=new ProductColor(), ProductColorId = 1,Warehouse=new Warehouse(), WarehouseId = 1, Count = 15 }))
+                    .WithEntities(new WarehouseProductColors { ProductColor = new ProductColor(), ProductColorId = 1, Warehouse = new Warehouse(), WarehouseId = 1, Count = 15 }))
                 .Calling(c => c.DecreaseQuantity(new DecreaseQuantityViewModel
                 {
                     ProductColorId = 1,
                     WarehouseId = 1,
-                    Count = 20
+                    Count = 20,
                 }))
                 .ShouldHave()
                 .ActionAttributes(a => a
@@ -158,7 +157,7 @@
                 {
                     ProductColorId = 1,
                     WarehouseId = 1,
-                    Count = 20
+                    Count = 20,
                 }))
                 .ShouldHave()
                 .ActionAttributes(a => a
@@ -172,7 +171,6 @@
                         model.Count.Should().Be(20);
                         model.ProductColorId.Should().Be(1);
                         model.WarehouseId.Should().Be(1);
-
                     }));
     }
 }

@@ -1,16 +1,15 @@
 ﻿namespace ConcreteProducts.Services.Warehouses
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Collections.Generic;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
-
     using ConcreteProducts.Data;
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Services.Warehouses.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class WarehouseService : IWarehouseService
     {
@@ -45,7 +44,7 @@
         {
             var warehouse = new Warehouse
             {
-                Name = name
+                Name = name,
             };
 
             await this.data.Warehouses.AddAsync(warehouse);

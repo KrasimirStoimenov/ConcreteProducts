@@ -1,32 +1,31 @@
 namespace ConcreteProducts.Web
 {
     using CloudinaryDotNet;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.Extensions.Hosting;
+    using ConcreteProducts.Data;
+    using ConcreteProducts.Services.AutoMappingProfile;
+    using ConcreteProducts.Services.Categories;
+    using ConcreteProducts.Services.Chats;
+    using ConcreteProducts.Services.Colors;
+    using ConcreteProducts.Services.ProductColors;
+    using ConcreteProducts.Services.Products;
+    using ConcreteProducts.Services.Shapes;
+    using ConcreteProducts.Services.WarehouseProducts;
+    using ConcreteProducts.Services.Warehouses;
+    using ConcreteProducts.Web.Infrastructure.Extensions;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-
-    using ConcreteProducts.Data;
-    using ConcreteProducts.Services.Chats;
-    using ConcreteProducts.Services.Colors;
-    using ConcreteProducts.Services.Shapes;
-    using ConcreteProducts.Services.Products;
-    using ConcreteProducts.Services.Warehouses;
-    using ConcreteProducts.Services.Categories;
-    using ConcreteProducts.Services.ProductColors;
-    using ConcreteProducts.Services.WarehouseProducts;
-    using ConcreteProducts.Web.Infrastructure.Extensions;
-    using ConcreteProducts.Services.AutoMappingProfile;
+    using Microsoft.Extensions.Hosting;
 
     public class Startup
     {
         public Startup(IConfiguration configuration)
-            => Configuration = configuration;
+            => this.Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
@@ -34,7 +33,7 @@ namespace ConcreteProducts.Web
         {
             services
                 .AddDbContext<ConcreteProductsDbContext>(options => options
-                    .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                    .UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
             services
                 .AddDatabaseDeveloperPageExceptionFilter();

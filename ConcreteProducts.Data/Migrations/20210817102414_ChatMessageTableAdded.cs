@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ConcreteProducts.Data.Migrations
@@ -16,7 +17,7 @@ namespace ConcreteProducts.Data.Migrations
                     Text = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PublishedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    PublishedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                 },
                 constraints: table =>
                 {

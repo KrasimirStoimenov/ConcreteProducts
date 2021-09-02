@@ -1,14 +1,13 @@
 ﻿namespace ConcreteProducts.Test.Controllers
 {
-    using NUnit.Framework;
-    using FluentAssertions;
-    using MyTested.AspNetCore.Mvc;
-
-    using ConcreteProducts.Web.Controllers;
     using ConcreteProducts.Data.Models;
-    using ConcreteProducts.Web.Models.Products;
     using ConcreteProducts.Data.Models.Enumerations;
     using ConcreteProducts.Services.Products.Models;
+    using ConcreteProducts.Web.Controllers;
+    using ConcreteProducts.Web.Models.Products;
+    using FluentAssertions;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
     using static Common.GlobalConstants;
 
@@ -33,6 +32,7 @@
                         model.NextPageNumber.Should().Be(2);
                         model.PreviousPageNumber.Should().Be(0);
                     }));
+
         [Test]
         public void GetAddShouldReturnView()
             => MyController<ProductsController>
@@ -70,8 +70,7 @@
                     QuantityInPalletInPieces = 15,
                     QuantityInPalletInUnitOfMeasurement = 15,
                     Weight = 15,
-                    UnitOfMeasurement = UnitOfMeasurement.Meters
-
+                    UnitOfMeasurement = UnitOfMeasurement.Meters,
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -113,7 +112,7 @@
                     Name = "Test",
                     Dimensions = "Test",
                     CategoryId = 1,
-                    ColorId = 1
+                    ColorId = 1,
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -152,7 +151,7 @@
                         Weight = 15,
                         ImageUrl = "https://chilli.codes/wp-content/uploads/2020/10/git.jpg",
                         UnitOfMeasurement = UnitOfMeasurement.Meters,
-                        Category = new Category { Id = 1, Name = "Test" }
+                        Category = new Category { Id = 1, Name = "Test" },
                     }))
                 .Calling(c => c.Details(id))
                 .ShouldReturn()
@@ -169,7 +168,6 @@
                         model.QuantityInPalletInPieces.Should().Be(15);
                         model.QuantityInPalletInUnitOfMeasurement.Should().Be(15);
                     }));
-
 
         [Test]
         [TestCase(5)]

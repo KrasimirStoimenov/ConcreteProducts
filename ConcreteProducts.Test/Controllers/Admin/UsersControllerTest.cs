@@ -1,11 +1,10 @@
 ﻿namespace ConcreteProducts.Test.Controllers.Admin
 {
-    using NUnit.Framework;
-    using MyTested.AspNetCore.Mvc;
-
     using Microsoft.AspNetCore.Identity;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
-    using UserController = Web.Areas.Admin.Controllers.UsersController;
+    using UserController = ConcreteProducts.Web.Areas.Admin.Controllers.UsersController;
 
     public class UsersControllerTest
     {
@@ -18,6 +17,7 @@
                 .Calling(c => c.Promote("test1"))
                 .ShouldReturn()
                 .RedirectToAction("All");
+
         [Test]
         public void DemoteShouldWorkAsExpected()
             => MyController<UserController>
@@ -28,13 +28,12 @@
                 .ShouldReturn()
                 .RedirectToAction("All");
 
-
         private static IdentityRole GetRole(string name)
         {
             return new IdentityRole
             {
                 Name = name,
-                NormalizedName = name.ToUpper()
+                NormalizedName = name.ToUpper(),
             };
         }
     }

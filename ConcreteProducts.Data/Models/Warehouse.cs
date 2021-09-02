@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using static Common.DataAttributeConstants.Warehouse;
+    using static ConcreteProducts.Common.DataAttributeConstants.Warehouse;
 
     public class Warehouse
     {

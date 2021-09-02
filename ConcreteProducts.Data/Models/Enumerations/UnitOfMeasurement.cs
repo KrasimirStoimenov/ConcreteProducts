@@ -3,6 +3,6 @@
     public enum UnitOfMeasurement
     {
         SquareMeters = 1,
-        Meters = 2
+        Meters = 2,
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace ConcreteProducts.Services.WarehouseProducts
 {
-    using System.Threading.Tasks;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     using ConcreteProducts.Services.WarehouseProducts.Models;
 

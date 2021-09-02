@@ -1,15 +1,15 @@
 ﻿namespace ConcreteProducts.Web.Areas.Identity.Pages.Account
 {
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.ComponentModel.DataAnnotations;
 
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
-    using static Common.DataAttributeConstants.User;
+    using static ConcreteProducts.Common.DataAttributeConstants.User;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
@@ -60,47 +60,49 @@
             public string ConfirmPassword { get; set; }
         }
 
+#pragma warning disable SA1201 // Elements should appear in the correct order
         public async Task OnGetAsync(string returnUrl = null)
+#pragma warning restore SA1201 // Elements should appear in the correct order
         {
             await Task.Run(() =>
             {
-                ReturnUrl = returnUrl;
+                this.ReturnUrl = returnUrl;
             });
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= this.Url.Content("~/");
 
-            if (this.userManager.Users.Any(u => u.Email == Input.Email))
+            if (this.userManager.Users.Any(u => u.Email == this.Input.Email))
             {
-                ModelState.AddModelError(string.Empty, "Email is already used.");
+                this.ModelState.AddModelError(string.Empty, "Email is already used.");
             }
 
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
                 var user = new IdentityUser
                 {
-                    UserName = Input.UserName,
-                    Email = Input.Email
+                    UserName = this.Input.UserName,
+                    Email = this.Input.Email,
                 };
 
-                var result = await this.userManager.CreateAsync(user, Input.Password);
+                var result = await this.userManager.CreateAsync(user, this.Input.Password);
 
                 if (result.Succeeded)
                 {
                     await this.userManager.AddToRoleAsync(user, "Basic");
                     await this.signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    return this.LocalRedirect(returnUrl);
                 }
 
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    this.ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 
-            return Page();
+            return this.Page();
         }
     }
 }

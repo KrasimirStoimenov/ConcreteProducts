@@ -1,16 +1,15 @@
 ﻿namespace ConcreteProducts.Services.Categories
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Collections.Generic;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
-
     using ConcreteProducts.Data;
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Services.Categories.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class CategoryService : ICategoryService
     {
@@ -45,7 +44,7 @@
         {
             var category = new Category
             {
-                Name = name
+                Name = name,
             };
 
             await this.data.Categories.AddAsync(category);
@@ -84,6 +83,5 @@
             this.data.Categories.Remove(category);
             await this.data.SaveChangesAsync();
         }
-
     }
 }

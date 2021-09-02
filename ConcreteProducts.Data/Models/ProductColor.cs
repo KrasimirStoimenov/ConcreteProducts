@@ -7,9 +7,11 @@
         public int ProductColorId { get; init; }
 
         public int ProductId { get; set; }
+
         public Product Product { get; init; }
 
         public int ColorId { get; set; }
+
         public Color Color { get; init; }
 
         public IEnumerable<WarehouseProductColors> Warehouses { get; init; } = new HashSet<WarehouseProductColors>();

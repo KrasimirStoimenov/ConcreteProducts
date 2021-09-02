@@ -1,10 +1,9 @@
 ﻿namespace ConcreteProducts.Test.Routing.Admin
 {
-    using NUnit.Framework;
-    using MyTested.AspNetCore.Mvc;
-
     using ConcreteProducts.Web.Areas.Admin.Controllers;
     using ConcreteProducts.Web.Areas.Admin.Models.Shapes;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
     public class ShapesRouteTest
     {

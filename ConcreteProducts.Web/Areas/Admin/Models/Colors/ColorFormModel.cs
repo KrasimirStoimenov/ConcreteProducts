@@ -1,10 +1,11 @@
 ﻿namespace ConcreteProducts.Web.Areas.Admin.Models.Colors
 {
     using System.ComponentModel.DataAnnotations;
+
     using ConcreteProducts.Web.Infrastructure.ValidationAttributes;
 
-    using static Common.DataAttributeConstants.Color;
-    using static Common.DataAttributeConstants.ErrorMessages;
+    using static ConcreteProducts.Common.DataAttributeConstants.Color;
+    using static ConcreteProducts.Common.DataAttributeConstants.ErrorMessages;
 
     public class ColorFormModel
     {

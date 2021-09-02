@@ -1,16 +1,15 @@
 ﻿namespace ConcreteProducts.Web.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Threading.Tasks;
-    using System.Collections.Generic;
 
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Caching.Memory;
-
-    using ConcreteProducts.Web.Models;
     using ConcreteProducts.Services.Products;
     using ConcreteProducts.Services.Products.Models;
+    using ConcreteProducts.Web.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Memory;
 
     using static Common.GlobalConstants;
 
@@ -24,11 +23,12 @@
             this.productService = productService;
             this.cache = cache;
         }
+
         public async Task<IActionResult> Index()
         {
             if (this.User.IsInRole(AdministratorRoleName))
             {
-                return RedirectToAction("Index", "Admin");
+                return this.RedirectToAction("Index", "Admin");
             }
 
             var latestConcreteProductsKey = "LatestConcreteProductsCacheKey";
@@ -45,10 +45,9 @@
                 this.cache.Set(latestConcreteProductsKey, latestProducts, cacheOptions);
             }
 
-
-            return View(latestProducts);
+            return this.View(latestProducts);
         }
-        
+
         public IActionResult Privacy()
         {
             return this.View();
@@ -56,13 +55,13 @@
 
         public IActionResult StatusCodeErrorPage(int errorCode)
         {
-            return View();
+            return this.View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Models.Products
 {
     using System.Collections.Generic;
+
     using ConcreteProducts.Services.Products.Models;
 
     public class ListAllProductsViewModel : PagingViewModel

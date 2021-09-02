@@ -1,12 +1,11 @@
 ﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers.Api
 {
-    using System.Threading.Tasks;
     using System.Collections.Generic;
-
-    using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
 
     using ConcreteProducts.Services.ProductColors;
     using ConcreteProducts.Services.ProductColors.Model;
+    using Microsoft.AspNetCore.Mvc;
 
     [Route("/api/productColors")]
     [ApiController]
@@ -14,7 +13,7 @@
     {
         private readonly IProductColorsService productColorsService;
 
-        public ProductColorsApiController(IProductColorsService productColorsService) 
+        public ProductColorsApiController(IProductColorsService productColorsService)
             => this.productColorsService = productColorsService;
 
         public async Task<IEnumerable<ProductColorBaseServiceModel>> GetAllProductColors()

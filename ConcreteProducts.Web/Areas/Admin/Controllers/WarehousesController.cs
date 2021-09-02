@@ -3,10 +3,9 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Mvc;
-
     using ConcreteProducts.Services.Warehouses;
     using ConcreteProducts.Web.Areas.Admin.Models.Warehouses;
+    using Microsoft.AspNetCore.Mvc;
 
     using static Common.GlobalConstants;
 
@@ -33,45 +32,45 @@
                     .Take(ItemsPerPage),
                 PageNumber = page,
                 Count = warehouses.Count(),
-                ItemsPerPage = ItemsPerPage
+                ItemsPerPage = ItemsPerPage,
             };
 
-            return View(warehousesViewModel);
+            return this.View(warehousesViewModel);
         }
 
         public IActionResult Add()
-            => View(new WarehouseFormModel());
+            => this.View(new WarehouseFormModel());
 
         [HttpPost]
         public async Task<IActionResult> Add(WarehouseFormModel warehouse)
         {
             if (await this.warehouseService.HasWarehouseWithSameNameAsync(warehouse.Name))
             {
-                this.ModelState.AddModelError(nameof(warehouse.Name), takenWarehouseNameErrorMessage);
+                this.ModelState.AddModelError(nameof(warehouse.Name), this.takenWarehouseNameErrorMessage);
             }
 
             if (!this.ModelState.IsValid)
             {
-                return View(warehouse);
+                return this.View(warehouse);
             }
 
             await this.warehouseService.CreateAsync(warehouse.Name);
 
-            return RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> Edit(int id)
         {
             if (!await this.warehouseService.IsWarehouseExistAsync(id))
             {
-                return BadRequest(notExistingWarehouseErrorMessage);
+                return this.BadRequest(this.notExistingWarehouseErrorMessage);
             }
 
             var warehouseDetails = await this.warehouseService.GetWarehouseDetailsAsync(id);
 
-            return View(new WarehouseFormModel
+            return this.View(new WarehouseFormModel
             {
-                Name = warehouseDetails.Name
+                Name = warehouseDetails.Name,
             });
         }
 
@@ -80,34 +79,34 @@
         {
             if (!await this.warehouseService.IsWarehouseExistAsync(id))
             {
-                this.ModelState.AddModelError(nameof(warehouse.Name), notExistingWarehouseErrorMessage);
+                this.ModelState.AddModelError(nameof(warehouse.Name), this.notExistingWarehouseErrorMessage);
             }
 
             if (await this.warehouseService.HasWarehouseWithSameNameAsync(warehouse.Name))
             {
-                this.ModelState.AddModelError(nameof(warehouse.Name), takenWarehouseNameErrorMessage);
+                this.ModelState.AddModelError(nameof(warehouse.Name), this.takenWarehouseNameErrorMessage);
             }
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View(warehouse);
+                return this.View(warehouse);
             }
 
             await this.warehouseService.EditAsync(id, warehouse.Name);
 
-            return RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> Delete(int id)
         {
             if (!await this.warehouseService.IsWarehouseExistAsync(id))
             {
-                return BadRequest(notExistingWarehouseErrorMessage);
+                return this.BadRequest(this.notExistingWarehouseErrorMessage);
             }
 
             var warehouse = await this.warehouseService.GetWarehouseToDeleteByIdAsync(id);
 
-            return View(warehouse);
+            return this.View(warehouse);
         }
 
         [HttpPost]
@@ -115,7 +114,7 @@
         {
             await this.warehouseService.DeleteWarehouseAsync(id);
 
-            return RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

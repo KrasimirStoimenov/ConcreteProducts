@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    using static Common.DataAttributeConstants.ChatMessages;
+    using static ConcreteProducts.Common.DataAttributeConstants.ChatMessages;
 
     public class ChatMessage
     {

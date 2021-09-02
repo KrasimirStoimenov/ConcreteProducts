@@ -1,16 +1,15 @@
 ﻿namespace ConcreteProducts.Services.Chats
 {
     using System;
-    using System.Threading.Tasks;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
-
     using ConcreteProducts.Data;
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Services.Chats.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class ChatService : IChatService
     {

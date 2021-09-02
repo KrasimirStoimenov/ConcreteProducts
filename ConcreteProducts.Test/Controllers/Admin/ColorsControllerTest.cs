@@ -1,14 +1,13 @@
 ﻿namespace ConcreteProducts.Test.Controllers.Admin
 {
-    using NUnit.Framework;
-    using FluentAssertions;
-    using MyTested.AspNetCore.Mvc;
-
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Services.Colors.Models;
     using ConcreteProducts.Web.Areas.Admin.Models.Colors;
+    using FluentAssertions;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
-    using ColorController = Web.Areas.Admin.Controllers.ColorsController;
+    using ColorController = ConcreteProducts.Web.Areas.Admin.Controllers.ColorsController;
 
     public class ColorsControllerTest
     {
@@ -39,7 +38,7 @@
                 .Instance()
                 .Calling(c => c.Add(new ColorFormModel
                 {
-                    Name = "Test"
+                    Name = "Test",
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -107,9 +106,9 @@
                 .Instance()
                 .WithData(data => data
                     .WithEntities(new Color { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(1,new ColorFormModel
+                .Calling(c => c.Edit(1, new ColorFormModel
                 {
-                    Name = "Something"
+                    Name = "Something",
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -124,9 +123,9 @@
                 .Instance()
                 .WithData(data => data
                     .WithEntities(new Color { Id = 1, Name = "Test", ProductColors = null }))
-                .Calling(c => c.Edit(1,new ColorFormModel
+                .Calling(c => c.Edit(1, new ColorFormModel
                 {
-                    Name = "Test"
+                    Name = "Test",
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -143,7 +142,7 @@
                 .Instance()
                 .WithData(data => data
                     .WithEntities(new Color { Id = 1, Name = "Test" }))
-                .Calling(c => c.Edit(1,With.Default<ColorFormModel>()))
+                .Calling(c => c.Edit(1, With.Default<ColorFormModel>()))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
                     .RestrictingForHttpMethod(HttpMethod.Post))

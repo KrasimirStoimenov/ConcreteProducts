@@ -1,16 +1,15 @@
 ﻿namespace ConcreteProducts.Services.Shapes
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Collections.Generic;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
-
     using ConcreteProducts.Data;
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Services.Shapes.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class ShapeService : IShapeService
     {
@@ -47,7 +46,7 @@
             {
                 Name = name,
                 Dimensions = dimensions,
-                WarehouseId = warehouseId
+                WarehouseId = warehouseId,
             };
 
             await this.data.Shapes.AddAsync(shape);

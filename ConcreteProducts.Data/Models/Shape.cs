@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Common.DataAttributeConstants.Shape;
+    using static ConcreteProducts.Common.DataAttributeConstants.Shape;
 
     public class Shape
     {

@@ -1,9 +1,8 @@
 ﻿namespace ConcreteProducts.Web.Infrastructure.Extensions
 {
+    using ConcreteProducts.Web.Hubs;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Routing;
-
-    using ConcreteProducts.Web.Hubs;
 
     public static class EndpointBuilderExtensions
     {

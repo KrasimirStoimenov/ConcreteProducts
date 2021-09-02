@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
     using ConcreteProducts.Data.Models.Enumerations;
     using ConcreteProducts.Services.Products.Models;
 
@@ -15,7 +16,8 @@
 
         Task<ProductBaseServiceModel> GetProductToDeleteByIdAsync(int id);
 
-        Task<int> CreateAsync(string name,
+        Task<int> CreateAsync(
+            string name,
             string dimensions,
             double quantityInPalletInUnitOfMeasurement,
             double quantityInPalletInPieces,

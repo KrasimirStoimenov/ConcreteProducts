@@ -7,7 +7,7 @@
     using ConcreteProducts.Services.Warehouses.Models;
     using ConcreteProducts.Web.Infrastructure.ValidationAttributes;
 
-    using static Common.DataAttributeConstants.WarehouseProducts;
+    using static ConcreteProducts.Common.DataAttributeConstants.WarehouseProducts;
 
     public class AddProductToWarehouseFormModel
     {

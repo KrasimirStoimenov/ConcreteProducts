@@ -1,16 +1,15 @@
 ﻿namespace ConcreteProducts.Services.WarehouseProducts
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Collections.Generic;
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
-
     using ConcreteProducts.Data;
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Services.WarehouseProducts.Models;
+    using Microsoft.EntityFrameworkCore;
 
     using static Common.DataAttributeConstants;
 
@@ -33,7 +32,7 @@
                 {
                     ProductColorId = productColorId,
                     WarehouseId = warehouseId,
-                    Count = count
+                    Count = count,
                 };
 
                 await this.data.WarehouseProductColors.AddAsync(warehouseProduct);

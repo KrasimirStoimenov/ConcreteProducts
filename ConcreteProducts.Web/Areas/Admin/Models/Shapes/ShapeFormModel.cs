@@ -6,8 +6,8 @@
     using ConcreteProducts.Services.Warehouses.Models;
     using ConcreteProducts.Web.Infrastructure.ValidationAttributes;
 
-    using static Common.DataAttributeConstants.Shape;
-    using static Common.DataAttributeConstants.ErrorMessages;
+    using static ConcreteProducts.Common.DataAttributeConstants.ErrorMessages;
+    using static ConcreteProducts.Common.DataAttributeConstants.Shape;
 
     public class ShapeFormModel
     {

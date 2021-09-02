@@ -1,7 +1,7 @@
 ﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
     using static Common.GlobalConstants;
 

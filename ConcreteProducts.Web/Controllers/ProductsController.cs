@@ -6,15 +6,14 @@
 
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Authorization;
-
-    using ConcreteProducts.Web.Models.Products;
-    using ConcreteProducts.Services.Products;
-    using ConcreteProducts.Services.Colors;
     using ConcreteProducts.Services.Categories;
+    using ConcreteProducts.Services.Colors;
+    using ConcreteProducts.Services.Products;
     using ConcreteProducts.Services.Warehouses;
+    using ConcreteProducts.Web.Models.Products;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
 
     using static Common.GlobalConstants;
 
@@ -53,14 +52,14 @@
                     .Take(ItemsPerPage),
                 PageNumber = page,
                 Count = products.Count(),
-                ItemsPerPage = ItemsPerPage
+                ItemsPerPage = ItemsPerPage,
             };
-            return View(productsViewModel);
+            return this.View(productsViewModel);
         }
 
         [Authorize(Roles = AdministratorRoleName)]
         public async Task<IActionResult> Add()
-            => View(new AddProductFormModel
+            => this.View(new AddProductFormModel
             {
                 Categories = await this.categoryService.GetAllCategoriesAsync(),
                 Colors = await this.colorService.GetAllColorsAsync(),
@@ -78,15 +77,15 @@
                 this.ModelState.AddModelError(nameof(product.Name), existProductWithSameParameters);
             }
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 product.Categories = await this.categoryService.GetAllCategoriesAsync();
                 product.Colors = await this.colorService.GetAllColorsAsync();
 
-                return View(product);
+                return this.View(product);
             }
 
-            var cloudinaryUrl = await UploadFileToCloudinary(product.Image);
+            var cloudinaryUrl = await this.UploadFileToCloudinary(product.Image);
 
             await this.productService.CreateAsync(
                 product.Name,
@@ -100,7 +99,7 @@
                 product.CategoryId,
                 product.ColorId);
 
-            return RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> Details(int id)
@@ -109,12 +108,12 @@
 
             if (!productExist)
             {
-                return BadRequest(notExistingProduct);
+                return this.BadRequest(notExistingProduct);
             }
 
             var productDetails = await this.productService.GetProductDetailsAsync(id);
 
-            return View(productDetails);
+            return this.View(productDetails);
         }
 
         [Authorize(Roles = AdministratorRoleName)]
@@ -124,12 +123,12 @@
 
             if (!productExist)
             {
-                return BadRequest(notExistingProduct);
+                return this.BadRequest(notExistingProduct);
             }
 
             var product = await this.productService.GetProductToDeleteByIdAsync(id);
 
-            return View(product);
+            return this.View(product);
         }
 
         [Authorize(Roles = AdministratorRoleName)]
@@ -138,7 +137,7 @@
         {
             await this.productService.DeleteProductAsync(id);
 
-            return RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(this.All));
         }
 
         private async Task<string> UploadFileToCloudinary(IFormFile image)
@@ -151,10 +150,10 @@
 
             var uploadParams = new ImageUploadParams()
             {
-                File = new FileDescription(image.FileName, newStream)
+                File = new FileDescription(image.FileName, newStream),
             };
 
-            var uploadResult = cloudinary.Upload(uploadParams);
+            var uploadResult = this.cloudinary.Upload(uploadParams);
 
             return uploadResult.Url.AbsoluteUri;
         }

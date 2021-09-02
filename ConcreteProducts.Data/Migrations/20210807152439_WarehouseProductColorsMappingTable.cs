@@ -41,7 +41,7 @@
                 {
                     WarehouseId = table.Column<int>(type: "int", nullable: false),
                     ProductColorId = table.Column<int>(type: "int", nullable: false),
-                    Count = table.Column<int>(type: "int", nullable: false)
+                    Count = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {

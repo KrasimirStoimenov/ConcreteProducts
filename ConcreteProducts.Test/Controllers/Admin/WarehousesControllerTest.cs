@@ -1,14 +1,13 @@
 ﻿namespace ConcreteProducts.Test.Controllers.Admin
 {
-    using NUnit.Framework;
-    using FluentAssertions;
-    using MyTested.AspNetCore.Mvc;
-
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Services.Warehouses.Models;
     using ConcreteProducts.Web.Areas.Admin.Models.Warehouses;
+    using FluentAssertions;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
-    using WarehouseController = Web.Areas.Admin.Controllers.WarehousesController;
+    using WarehouseController = ConcreteProducts.Web.Areas.Admin.Controllers.WarehousesController;
 
     public class WarehousesControllerTest
     {
@@ -39,7 +38,7 @@
                 .Instance()
                 .Calling(c => c.Add(new WarehouseFormModel
                 {
-                    Name = "Test"
+                    Name = "Test",
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -94,6 +93,7 @@
                     {
                         model.Name.Should().BeSameAs(name);
                     }));
+
         [Test]
         public void GetEditShouldReturnBadRequestIfInvalidIdIsPassed()
                     => MyController<WarehouseController>
@@ -110,7 +110,7 @@
                     .WithEntities(new Warehouse { Id = 1, Name = "Test" }))
                 .Calling(c => c.Edit(1, new WarehouseFormModel
                 {
-                    Name = "Something"
+                    Name = "Something",
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -118,6 +118,7 @@
                 .AndAlso()
                 .ShouldReturn()
                 .RedirectToAction("All");
+
         [Test]
         public void PostEditShouldReturnViewIfHasWarehouseWithSameName()
                     => MyController<WarehouseController>
@@ -126,7 +127,7 @@
                             .WithEntities(new Warehouse { Id = 1, Name = "Test", Shapes = null }))
                         .Calling(c => c.Edit(1, new WarehouseFormModel
                         {
-                            Name = "Test"
+                            Name = "Test",
                         }))
                         .ShouldHave()
                         .ActionAttributes(attribute => attribute

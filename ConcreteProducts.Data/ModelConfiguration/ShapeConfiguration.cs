@@ -1,8 +1,8 @@
 ﻿namespace ConcreteProducts.Data.ModelConfiguration
 {
+    using ConcreteProducts.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using ConcreteProducts.Data.Models;
 
     public class ShapeConfiguration : IEntityTypeConfiguration<Shape>
     {

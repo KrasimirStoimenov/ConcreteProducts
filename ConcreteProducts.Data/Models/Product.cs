@@ -5,7 +5,7 @@
 
     using ConcreteProducts.Data.Models.Enumerations;
 
-    using static Common.DataAttributeConstants.Product;
+    using static ConcreteProducts.Common.DataAttributeConstants.Product;
 
     public class Product
     {

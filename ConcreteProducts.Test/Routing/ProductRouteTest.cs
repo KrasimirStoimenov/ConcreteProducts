@@ -1,10 +1,9 @@
 ﻿namespace ConcreteProducts.Test.Routing
 {
-    using NUnit.Framework;
-    using MyTested.AspNetCore.Mvc;
-
     using ConcreteProducts.Web.Controllers;
     using ConcreteProducts.Web.Models.Products;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
     public class ProductRouteTest
     {
@@ -68,6 +67,5 @@
                     .WithPath($"/Products/DeleteConfirmed/{id}")
                     .WithMethod(HttpMethod.Post))
                 .To<ProductsController>(c => c.DeleteConfirmed(id));
-
     }
 }

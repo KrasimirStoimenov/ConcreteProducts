@@ -4,14 +4,13 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using ConcreteProducts.Data;
+    using ConcreteProducts.Data.Models;
+    using ConcreteProducts.Data.Models.Enumerations;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
-
-    using ConcreteProducts.Data;
-    using ConcreteProducts.Data.Models;
-    using ConcreteProducts.Data.Models.Enumerations;
 
     using static Common.GlobalConstants;
 
@@ -86,7 +85,7 @@
 
             data.Warehouses.AddRange(new[]
             {
-                new Warehouse {Name = "Basic"}
+                new Warehouse {Name = "Basic"},
             });
 
             data.SaveChanges();
@@ -243,7 +242,7 @@
                     Weight = 25.00,
                     ImageUrl = "https://davitekbetonstroy.com/wp-content/uploads/2020/04/3-split-bez-jleb.jpg",
                     CategoryId = data.Categories.Where(c=>c.Name == "Brick").Select(c=>c.Id).FirstOrDefault(),
-                    }
+                    },
             });
 
             data.SaveChanges();
@@ -322,7 +321,7 @@
                     Name = "Brick",
                     Dimensions = "40/20/20",
                     WarehouseId = data.Warehouses.Where(c=>c.Name == "Basic").Select(c=>c.Id).FirstOrDefault(),
-                    }
+                    },
             });
 
             data.SaveChanges();
@@ -370,7 +369,7 @@
                     var user = new IdentityUser
                     {
                         UserName = adminUsername,
-                        Email = adminEmail
+                        Email = adminEmail,
                     };
 
                     await userManager.CreateAsync(user, adminPassword);
@@ -380,6 +379,5 @@
                 .GetAwaiter()
                 .GetResult();
         }
-
     }
 }

@@ -3,13 +3,12 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
-
-    using ConcreteProducts.Web.Models.WarehouseProducts;
+    using ConcreteProducts.Services.ProductColors;
     using ConcreteProducts.Services.WarehouseProducts;
     using ConcreteProducts.Services.Warehouses;
-    using ConcreteProducts.Services.ProductColors;
+    using ConcreteProducts.Web.Models.WarehouseProducts;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
     using static Common.GlobalConstants;
 
@@ -38,15 +37,15 @@
                     .Take(ItemsPerPage),
                 PageNumber = page,
                 Count = products.Count(),
-                ItemsPerPage = ItemsPerPage
+                ItemsPerPage = ItemsPerPage,
             };
 
-            return View(listingProducts);
+            return this.View(listingProducts);
         }
 
         [Authorize]
         public async Task<IActionResult> Add()
-            => View(new AddProductToWarehouseFormModel
+            => this.View(new AddProductToWarehouseFormModel
             {
                 ProductColors = await this.productColorsService.GetAllProductColorsAsync(),
                 Warehouses = await this.warehouseService.GetAllWarehousesAsync(),
@@ -56,24 +55,24 @@
         [HttpPost]
         public async Task<IActionResult> Add(AddProductToWarehouseFormModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 model.Warehouses = await this.warehouseService.GetAllWarehousesAsync();
                 model.ProductColors = await this.productColorsService.GetAllProductColorsAsync();
 
-                return View(model);
+                return this.View(model);
             }
 
             await this.warehouseProductService.AddProductToWarehouseAsync(model.ProductColorId, model.WarehouseId, model.Count);
 
-            return RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(this.All));
         }
 
         [Authorize(Roles = AdministratorRoleName)]
         public IActionResult DecreaseQuantity(string productName)
-            => View(new DecreaseQuantityViewModel
+            => this.View(new DecreaseQuantityViewModel
             {
-                ProductName = productName
+                ProductName = productName,
             });
 
         [Authorize(Roles = AdministratorRoleName)]
@@ -84,17 +83,17 @@
 
             if (model.Count > availableQuantity)
             {
-                ModelState.AddModelError(nameof(model.Count), $"Unavailable quantity. Has only {availableQuantity} in stock.");
+                this.ModelState.AddModelError(nameof(model.Count), $"Unavailable quantity. Has only {availableQuantity} in stock.");
             }
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View(model);
+                return this.View(model);
             }
 
             await this.warehouseProductService.DecreaseQuantityFromProductsInWarehouseAsync(model.ProductColorId, model.WarehouseId, model.Count);
 
-            return RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

@@ -1,13 +1,12 @@
 ﻿namespace ConcreteProducts.Test.Controllers.Admin
 {
-    using NUnit.Framework;
-    using FluentAssertions;
-    using MyTested.AspNetCore.Mvc;
-
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Web.Areas.Admin.Models.ProductColors;
+    using FluentAssertions;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
-    using ProductColorsController = Web.Areas.Admin.Controllers.ProductColorsController;
+    using ProductColorsController = ConcreteProducts.Web.Areas.Admin.Controllers.ProductColorsController;
 
     public class ProductColorsControllerTest
     {
@@ -52,11 +51,11 @@
             => MyController<ProductColorsController>
                 .Instance()
                 .WithData(data => data
-                    .WithEntities(new ProductColor { ProductColorId = 1,Color=new Color(), ColorId = 1, Product = new Product(),ProductId = 1 }))
+                    .WithEntities(new ProductColor { ProductColorId = 1, Color = new Color(), ColorId = 1, Product = new Product(), ProductId = 1 }))
                 .Calling(c => c.Add(new AddColorToProductFormModel
                 {
                     ColorId = 1,
-                    ProductId = 1
+                    ProductId = 1,
                 }))
                 .ShouldReturn()
                 .View(view => view

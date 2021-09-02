@@ -3,10 +3,9 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Mvc;
-
     using ConcreteProducts.Services.Colors;
     using ConcreteProducts.Web.Areas.Admin.Models.Colors;
+    using Microsoft.AspNetCore.Mvc;
 
     using static Common.GlobalConstants;
 
@@ -24,7 +23,7 @@
 
         public async Task<IActionResult> All(int page = 1)
         {
-            var colors = await colorService.GetAllColorsAsync();
+            var colors = await this.colorService.GetAllColorsAsync();
 
             var colorsViewModel = new ListAllColorsViewModel
             {
@@ -34,76 +33,76 @@
                     .Take(ItemsPerPage),
                 PageNumber = page,
                 Count = colors.Count(),
-                ItemsPerPage = ItemsPerPage
+                ItemsPerPage = ItemsPerPage,
             };
 
-            return View(colorsViewModel);
+            return this.View(colorsViewModel);
         }
 
         public IActionResult Add()
-            => View(new ColorFormModel());
+            => this.View(new ColorFormModel());
 
         [HttpPost]
         public async Task<IActionResult> Add(ColorFormModel color)
         {
             if (await this.colorService.HasColorWithSameNameAsync(color.Name))
             {
-                this.ModelState.AddModelError(nameof(color.Name), takenColorNameErrorMessage);
+                this.ModelState.AddModelError(nameof(color.Name), this.takenColorNameErrorMessage);
             }
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View(color);
+                return this.View(color);
             }
 
             await this.colorService.CreateAsync(color.Name);
 
-            return RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> Edit(int id)
         {
             if (!await this.colorService.IsColorExistAsync(id))
             {
-                return BadRequest(notExistingColorErrorMessage);
+                return this.BadRequest(this.notExistingColorErrorMessage);
             }
 
             var colorDetails = await this.colorService.GetColorDetailsAsync(id);
 
-            return View(new ColorFormModel
+            return this.View(new ColorFormModel
             {
-                Name = colorDetails.Name
+                Name = colorDetails.Name,
             });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id,ColorFormModel color)
+        public async Task<IActionResult> Edit(int id, ColorFormModel color)
         {
             if (await this.colorService.HasColorWithSameNameAsync(color.Name))
             {
-                this.ModelState.AddModelError(nameof(color.Name), takenColorNameErrorMessage);
+                this.ModelState.AddModelError(nameof(color.Name), this.takenColorNameErrorMessage);
             }
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View(color);
+                return this.View(color);
             }
 
             await this.colorService.EditAsync(id, color.Name);
 
-            return RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> Delete(int id)
         {
             if (!await this.colorService.IsColorExistAsync(id))
             {
-                return BadRequest(notExistingColorErrorMessage);
+                return this.BadRequest(this.notExistingColorErrorMessage);
             }
 
             var color = await this.colorService.GetColorToDeleteByIdAsync(id);
 
-            return View(color);
+            return this.View(color);
         }
 
         [HttpPost]
@@ -111,7 +110,7 @@
         {
             await this.colorService.DeleteColorAsync(id);
 
-            return RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

@@ -1,10 +1,9 @@
 ﻿namespace ConcreteProducts.Test.Routing.Admin
 {
-    using NUnit.Framework;
-    using MyTested.AspNetCore.Mvc;
-
     using ConcreteProducts.Web.Areas.Admin.Controllers;
     using ConcreteProducts.Web.Areas.Admin.Models.Colors;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
     public class ColorsRouteTest
     {
@@ -49,7 +48,7 @@
                 .ShouldMap(response => response
                     .WithPath($"/Admin/Colors/Edit/{id}")
                     .WithMethod(HttpMethod.Post))
-                .To<ColorsController>(c => c.Edit(id,With.Any<ColorFormModel>()));
+                .To<ColorsController>(c => c.Edit(id, With.Any<ColorFormModel>()));
 
         [Test]
         [TestCase(1)]

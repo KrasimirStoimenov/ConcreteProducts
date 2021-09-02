@@ -1,14 +1,13 @@
 ﻿namespace ConcreteProducts.Web.Areas.Admin.Controllers
 {
-    using System.Linq;
-    using System.Data;
     using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
     using System.Threading.Tasks;
 
+    using ConcreteProducts.Web.Areas.Admin.Models.Users;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-
-    using ConcreteProducts.Web.Areas.Admin.Models.Users;
 
     using static Common.GlobalConstants;
 
@@ -28,7 +27,7 @@
         public async Task<IActionResult> All()
         {
             var usersViewMode = new List<UserViewModel>();
-            var loggedInUser = await this.userManager.GetUserAsync(HttpContext.User);
+            var loggedInUser = await this.userManager.GetUserAsync(this.HttpContext.User);
             var allOtherUsers = this.userManager.Users
                     .Where(u => u.Id != loggedInUser.Id)
                     .ToList();
@@ -41,13 +40,13 @@
                     Id = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
-                    Role = role.FirstOrDefault()
+                    Role = role.FirstOrDefault(),
                 };
 
                 usersViewMode.Add(currentUser);
             }
 
-            return View(usersViewMode);
+            return this.View(usersViewMode);
         }
 
         public async Task<IActionResult> Promote(string id)
@@ -58,7 +57,7 @@
             await this.userManager.RemoveFromRolesAsync(user, role);
             await this.userManager.AddToRoleAsync(user, EmployeeRoleName);
 
-            return RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> Demote(string id)
@@ -69,7 +68,7 @@
             await this.userManager.RemoveFromRolesAsync(user, role);
             await this.userManager.AddToRoleAsync(user, "Basic");
 
-            return RedirectToAction(nameof(All));
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

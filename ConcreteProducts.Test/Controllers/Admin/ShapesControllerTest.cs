@@ -1,14 +1,13 @@
 ﻿namespace ConcreteProducts.Test.Controllers.Admin
 {
-    using NUnit.Framework;
-    using FluentAssertions;
-    using MyTested.AspNetCore.Mvc;
-
     using ConcreteProducts.Data.Models;
     using ConcreteProducts.Services.Shapes.Models;
     using ConcreteProducts.Web.Areas.Admin.Models.Shapes;
+    using FluentAssertions;
+    using MyTested.AspNetCore.Mvc;
+    using NUnit.Framework;
 
-    using ShapeController = Web.Areas.Admin.Controllers.ShapesController;
+    using ShapeController = ConcreteProducts.Web.Areas.Admin.Controllers.ShapesController;
 
     public class ShapesControllerTest
     {
@@ -117,7 +116,7 @@
                 {
                     Name = "Something",
                     Dimensions = "Test",
-                    WarehouseId = 1
+                    WarehouseId = 1,
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute
@@ -134,7 +133,7 @@
                     .WithEntities(new Shape { Id = 1, Name = "Test" }))
                 .Calling(c => c.Edit(1, new ShapeFormModel
                 {
-                    Name = "Test"
+                    Name = "Test",
                 }))
                 .ShouldHave()
                 .ActionAttributes(attribute => attribute

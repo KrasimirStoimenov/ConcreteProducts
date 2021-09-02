@@ -2,12 +2,11 @@
 {
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Mvc;
-
     using ConcreteProducts.Services.Colors;
-    using ConcreteProducts.Services.Products;
     using ConcreteProducts.Services.ProductColors;
+    using ConcreteProducts.Services.Products;
     using ConcreteProducts.Web.Areas.Admin.Models.ProductColors;
+    using Microsoft.AspNetCore.Mvc;
 
     public class ProductColorsController : AdminController
     {
@@ -23,35 +22,35 @@
         }
 
         public async Task<IActionResult> Add(int productId)
-            => View(new AddColorToProductFormModel
+            => this.View(new AddColorToProductFormModel
             {
                 ProductId = productId,
-                Colors = await productColorsService.GetColorsNotRelatedToProductAsync(productId)
+                Colors = await this.productColorsService.GetColorsNotRelatedToProductAsync(productId),
             });
 
         [HttpPost]
         public async Task<IActionResult> Add(AddColorToProductFormModel model)
         {
-            if (!await productService.IsProductExistAsync(model.ProductId))
+            if (!await this.productService.IsProductExistAsync(model.ProductId))
             {
-                ModelState.AddModelError(nameof(model.ProductId), $"Product does not exist.");
+                this.ModelState.AddModelError(nameof(model.ProductId), $"Product does not exist.");
             }
 
-            if (await productColorsService.IsColorRelatedToProductAsync(model.ProductId, model.ColorId))
+            if (await this.productColorsService.IsColorRelatedToProductAsync(model.ProductId, model.ColorId))
             {
-                ModelState.AddModelError(nameof(model.ColorId), $"Color is already related to product.");
+                this.ModelState.AddModelError(nameof(model.ColorId), $"Color is already related to product.");
             }
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                model.Colors = await productColorsService.GetColorsNotRelatedToProductAsync(model.ProductId);
+                model.Colors = await this.productColorsService.GetColorsNotRelatedToProductAsync(model.ProductId);
 
-                return View(model);
+                return this.View(model);
             }
 
-            await productColorsService.AddColorToProductAsync(model.ProductId, model.ColorId);
+            await this.productColorsService.AddColorToProductAsync(model.ProductId, model.ColorId);
 
-            return Redirect($"/Products/Details/{model.ProductId}");
+            return this.Redirect($"/Products/Details/{model.ProductId}");
         }
     }
 }

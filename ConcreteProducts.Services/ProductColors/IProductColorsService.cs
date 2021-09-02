@@ -1,7 +1,7 @@
 ﻿namespace ConcreteProducts.Services.ProductColors
 {
-    using System.Threading.Tasks;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     using ConcreteProducts.Services.Colors.Models;
     using ConcreteProducts.Services.ProductColors.Model;
