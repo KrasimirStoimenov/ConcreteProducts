@@ -22,8 +22,6 @@
 
         public DbSet<Shape> Shapes { get; init; }
 
-        public DbSet<ShapeHistory> ShapeHistories { get; init; }
-
         public DbSet<Warehouse> Warehouses { get; init; }
 
         public DbSet<WarehouseProductColors> WarehouseProductColors { get; init; }

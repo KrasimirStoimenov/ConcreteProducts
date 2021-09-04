@@ -19,8 +19,8 @@
 
     public class ProductsController : Controller
     {
-        private const string notExistingProduct = "Product does not exist.";
-        private const string existProductWithSameParameters = "Product already exist.";
+        private const string NotExistingProduct = "Product does not exist.";
+        private const string ExistProductWithSameParameters = "Product already exist.";
 
         private readonly IProductService productService;
         private readonly IColorService colorService;
@@ -74,7 +74,7 @@
 
             if (hasValidNameAndDimensions)
             {
-                this.ModelState.AddModelError(nameof(product.Name), existProductWithSameParameters);
+                this.ModelState.AddModelError(nameof(product.Name), ExistProductWithSameParameters);
             }
 
             if (!this.ModelState.IsValid)
@@ -108,7 +108,7 @@
 
             if (!productExist)
             {
-                return this.BadRequest(notExistingProduct);
+                return this.BadRequest(NotExistingProduct);
             }
 
             var productDetails = await this.productService.GetProductDetailsAsync(id);
@@ -123,7 +123,7 @@
 
             if (!productExist)
             {
-                return this.BadRequest(notExistingProduct);
+                return this.BadRequest(NotExistingProduct);
             }
 
             var product = await this.productService.GetProductToDeleteByIdAsync(id);

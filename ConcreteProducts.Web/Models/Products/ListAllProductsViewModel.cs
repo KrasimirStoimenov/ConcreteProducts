@@ -6,12 +6,11 @@
 
     public class ListAllProductsViewModel : PagingViewModel
     {
-        ////TODO: Sort by category
+        // TODO: Sort by category
 
-        ////public string Category { get; init; }
+        // public string Category { get; init; }
 
-        ////public IEnumerable<CategoryServiceModel> Categories { get; init; }
-
+        // public IEnumerable<CategoryServiceModel> Categories { get; init; }
         public string SearchTerm { get; init; }
 
         public IEnumerable<ProductListingServiceModel> AllProducts { get; init; }

@@ -13,12 +13,6 @@
                 .WithMany(s => s.Shapes)
                 .HasForeignKey(w => w.WarehouseId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            builder
-                .HasMany(h => h.Histories)
-                .WithOne(s => s.Shape)
-                .HasForeignKey(s => s.ShapeId)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -39,7 +39,9 @@
             public bool RememberMe { get; set; }
         }
 
+#pragma warning disable SA1201 // Elements should appear in the correct order
         public async Task OnGetAsync(string returnUrl = null)
+#pragma warning restore SA1201 // Elements should appear in the correct order
         {
             if (!string.IsNullOrEmpty(this.ErrorMessage))
             {
@@ -64,6 +66,7 @@
                 {
                     return this.LocalRedirect(returnUrl);
                 }
+
                 if (result.IsLockedOut)
                 {
                     return this.RedirectToPage("./Lockout");

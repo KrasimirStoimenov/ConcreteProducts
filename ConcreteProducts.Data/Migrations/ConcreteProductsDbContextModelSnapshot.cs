@@ -176,32 +176,6 @@ namespace ConcreteProducts.Data.Migrations
                     b.ToTable("Shapes");
                 });
 
-            modelBuilder.Entity("ConcreteProducts.Data.Models.ShapeHistory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("DaysUsed")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PutOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("PutOut")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ShapeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShapeId");
-
-                    b.ToTable("ShapeHistories");
-                });
-
             modelBuilder.Entity("ConcreteProducts.Data.Models.Warehouse", b =>
                 {
                     b.Property<int>("Id")
@@ -478,17 +452,6 @@ namespace ConcreteProducts.Data.Migrations
                     b.Navigation("Warehouse");
                 });
 
-            modelBuilder.Entity("ConcreteProducts.Data.Models.ShapeHistory", b =>
-                {
-                    b.HasOne("ConcreteProducts.Data.Models.Shape", "Shape")
-                        .WithMany("Histories")
-                        .HasForeignKey("ShapeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Shape");
-                });
-
             modelBuilder.Entity("ConcreteProducts.Data.Models.WarehouseProductColors", b =>
                 {
                     b.HasOne("ConcreteProducts.Data.Models.ProductColor", "ProductColor")
@@ -577,11 +540,6 @@ namespace ConcreteProducts.Data.Migrations
             modelBuilder.Entity("ConcreteProducts.Data.Models.ProductColor", b =>
                 {
                     b.Navigation("Warehouses");
-                });
-
-            modelBuilder.Entity("ConcreteProducts.Data.Models.Shape", b =>
-                {
-                    b.Navigation("Histories");
                 });
 
             modelBuilder.Entity("ConcreteProducts.Data.Models.Warehouse", b =>

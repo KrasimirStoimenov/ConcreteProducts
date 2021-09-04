@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace ConcreteProducts.Web.Models
+﻿namespace ConcreteProducts.Web.Models
 {
+    using System;
+
     public abstract class PagingViewModel
     {
         public int PageNumber { get; set; }

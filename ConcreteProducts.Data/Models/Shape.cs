@@ -1,6 +1,5 @@
 ﻿namespace ConcreteProducts.Data.Models
 {
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using static ConcreteProducts.Common.DataAttributeConstants.Shape;
@@ -20,7 +19,5 @@
         public int WarehouseId { get; set; }
 
         public Warehouse Warehouse { get; init; }
-
-        public IEnumerable<ShapeHistory> Histories { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace ConcreteProducts.Web.Infrastructure.ValidationAttributes
 {
-    using ConcreteProducts.Services.Warehouses;
-
     using System.ComponentModel.DataAnnotations;
+
+    using ConcreteProducts.Services.Warehouses;
 
     public class IsValidWarehouseId : ValidationAttribute
     {
